@@ -31,7 +31,7 @@ source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 Restart your terminal or run `exec zsh`
 
-## Prompt Shell
+## Shell Prompt
 
 **Starship**. A minimal, blazing-fast, and infinitely customizable prompt for any shell. [Documentation](https://starship.rs)
 
@@ -42,7 +42,7 @@ brew install starship
 Add this line to your `~/.zshrc` file:
 
 ```sh
-# Starship. Terminal Prompt Shell
+# Starship. Terminal Shell Prompt
 eval "$(starship init zsh)"
 ```
 
