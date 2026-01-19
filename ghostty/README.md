@@ -47,3 +47,11 @@ eval "$(starship init zsh)"
 ```
 
 Restart your terminal or run `exec zsh`
+
+### Preset
+
+Configure **Tokyo Night** preset
+
+```sh
+starship preset tokyo-night -o ~/.config/starship.toml
+```
