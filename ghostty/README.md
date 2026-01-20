@@ -4,7 +4,7 @@ Configuration and notes on [Ghostty](https://ghostty.org/) terminal.
 
 ## General Configuration
 
-Paste the content of `config` on this folder into Ghostty settings.
+Paste the content of `config` in this folder into Ghostty settings.
 
 ## Font
 
