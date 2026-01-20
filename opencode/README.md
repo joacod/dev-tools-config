@@ -8,4 +8,4 @@ Paste the content of `opencode.json` into `/Users/[your-username]/.config/openco
 
 This file includes:
 
-- Settings needed to run local models using [LM Studio](https://lmstudio.ai)
+- Settings needed to use local models through [LM Studio](https://lmstudio.ai), official [documentation](https://opencode.ai/docs/providers/#lm-studio)
