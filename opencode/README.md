@@ -4,8 +4,7 @@
 
 ## Configuration
 
-Paste the content of `opencode.json` in this folder into
-`/Users/[your-username]/.config/opencode/`
+Paste the content of `opencode.json` into `/Users/[your-username]/.config/opencode/`
 
 This file includes:
 
