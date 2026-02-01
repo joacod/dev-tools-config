@@ -28,9 +28,10 @@ Push the current branch to origin with these safety checks:
    - Existing branch: `git push origin <current-branch>`
    - If rejected due to remote changes, suggest `git pull --rebase` first.
 
-6. **Report result:**
+6. **Report result and offer PR creation:**
    - Confirm successful push.
-   - Show the remote URL. If it's GitHub/GitLab, suggest creating a PR/MR.
+   - Show the remote URL. If it's GitHub/GitLab, ask whether to create a PR/MR now.
+   - If yes and it's GitHub, create it with `gh pr create`.
 
 $ARGUMENTS
 
