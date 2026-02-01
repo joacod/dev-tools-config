@@ -3,5 +3,5 @@
 My setup and notes on developers tools.
 
 - Terminal: [Ghostty](https://github.com/joacod/dev-tools-config/tree/main/ghostty)
+- GitHub CLI: [GitHub CLI](https://github.com/joacod/dev-tools-config/tree/main/github-cli)
 - AI coding agent : [OpenCode](https://github.com/joacod/dev-tools-config/tree/main/opencode)
-- GitHub CLI: [GitHub](https://github.com/joacod/dev-tools-config/tree/main/github)
