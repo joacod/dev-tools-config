@@ -9,7 +9,10 @@
       },
       "models": {
         "zai-org/glm-4.7-flash": {
-          "name": "GLM 4.7 Flash 30b (local mac)"
+          "name": "GLM 4.7 Flash 30b"
+        },
+        "qwen/qwen3.5-9b": {
+          "name": "Qwen 3.5 9b"
         }
       }
     }
