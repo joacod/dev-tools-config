@@ -2,6 +2,19 @@
 
 Basic VPS configuration and security recommendations for Ubuntu servers.
 
+## What This Setup Does
+
+This guide walks you through a simple baseline hardening setup for a public Ubuntu VPS.
+
+- **SSH is locked down:** no root login, no password authentication, only your key
+- **A dedicated non-root user is used:** admin tasks happen through `sudo` instead of logging in as `root`
+- **The firewall limits exposure:** only the ports you actually need are left open
+- **Fail2ban blocks abuse:** repeated failed SSH login attempts get banned automatically
+- **Automatic updates are enabled:** security patches keep getting applied over time
+- **Local SSH config keeps login simple:** `ssh myvps` uses the right key without conflicting with other SSH setups
+
+**Result:** a safer default VPS setup with less unnecessary exposure and a simpler SSH workflow from your local machine.
+
 ## Before You Start
 
 First connect to the VPS as `root` from your local machine terminal.
@@ -46,21 +59,45 @@ Copy the public key to your server.
 ssh-copy-id -i /Users/[username]/.ssh/vps_server.pub youruser@YOUR_VPS_IP
 ```
 
+## Add Local SSH Config
+
+**Run as:** your user on your `local machine`
+
+Add a **host alias** so your local machine uses the dedicated key for this VPS.
+
+**Important**: If `~/.ssh/config` already exists and has other hosts in it, do not replace the file contents. Add this as a new block alongside your existing SSH config.
+
+```sh
+nano ~/.ssh/config
+```
+
+Add the following config.
+
+```sshconfig
+Host myvps
+  HostName YOUR_VPS_IP
+  User youruser
+  IdentityFile ~/.ssh/vps_server
+  IdentitiesOnly yes
+```
+
+Save and exit with `CTRL + O`, `ENTER`, then `CTRL + X`.
+
 ## Login
 
 **Run as:** your user on your `local machine`
 
-Connect using the new key, then verify normal login works.
+Connect using the new key through the host alias, then verify normal login works.
 
 ```sh
-ssh -i /Users/[username]/.ssh/vps_server youruser@YOUR_VPS_IP
+ssh myvps
 ```
 
-Then log out and verify normal login works without passing the key path:
+Then log out and verify it still works:
 
 ```sh
 logout
-ssh youruser@YOUR_VPS_IP
+ssh myvps
 ```
 
 ## Harden SSH
