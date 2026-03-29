@@ -6,4 +6,4 @@ My setup and notes on developers tools.
 - GitHub CLI: [GitHub CLI](./github-cli)
 - AI coding agent : [OpenCode](./opencode)
 - AI coding agent: [Claude Code](./claude-code)
-- VPS Security: [VPS Security](./vps-security)
+- VPS: [VPS Security](./vps-security)
