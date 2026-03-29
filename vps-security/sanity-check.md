@@ -150,16 +150,6 @@ If all checks pass, you have verified:
 - `youruser` has the expected permissions
 - Only expected ports are open
 
-## Why This Setup Is Solid
-
-- **SSH is locked down:** no root access, no passwords, only your key
-- **The firewall limits exposure:** only required ports are open
-- **Fail2ban blocks abuse:** repeated attackers get automatically banned
-- **Automatic updates are enabled:** security patches are applied continuously
-- **Non-root usage:** reduces the impact of mistakes or exploits
-
-**Result:** your VPS is minimally exposed, hardened against common attacks, and safe to run real applications.
-
 ## Final Verdict
 
 If all checks pass, you are already way more secure than most VPS setups.

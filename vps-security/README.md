@@ -2,6 +2,19 @@
 
 Basic VPS configuration and security recommendations for Ubuntu servers.
 
+## What This Setup Does
+
+This guide walks you through a simple baseline hardening setup for a public Ubuntu VPS.
+
+- **SSH is locked down:** no root login, no password authentication, only your key
+- **A dedicated non-root user is used:** admin tasks happen through `sudo` instead of logging in as `root`
+- **The firewall limits exposure:** only the ports you actually need are left open
+- **Fail2ban blocks abuse:** repeated failed SSH login attempts get banned automatically
+- **Automatic updates are enabled:** security patches keep getting applied over time
+- **Local SSH config keeps login simple:** `ssh myvps` uses the right key without conflicting with other SSH setups
+
+**Result:** a safer default VPS setup with less unnecessary exposure and a simpler SSH workflow from your local machine.
+
 ## Before You Start
 
 First connect to the VPS as `root` from your local machine terminal.
