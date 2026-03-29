@@ -26,7 +26,7 @@ id youruser
 
 ## Generate SSH Key
 
-**Run as:** `[username]` on your local machine
+**Run as:** your user on your `local machine`
 
 Generate a dedicated SSH key on your local machine.
 
@@ -38,7 +38,7 @@ When prompted for the file path, use `/Users/[username]/.ssh/vps_server`.
 
 ## Copy Key To VPS
 
-**Run as:** `[username]` on your local machine
+**Run as:** your user on your `local machine`
 
 Copy the public key to your server.
 
@@ -48,7 +48,7 @@ ssh-copy-id -i /Users/[username]/.ssh/vps_server.pub youruser@YOUR_VPS_IP
 
 ## Login
 
-**Run as:** `[username]` on your local machine
+**Run as:** your user on your `local machine`
 
 Connect using the new key, then verify normal login works.
 
@@ -196,3 +196,7 @@ Expected checks:
 - Current failed attempts
 - Current banned IPs
 - Your configured SSH jail active
+
+## Final Step
+
+Run the [sanity check](./sanity-check.md) to verify the VPS is configured correctly.
