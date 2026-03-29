@@ -46,21 +46,45 @@ Copy the public key to your server.
 ssh-copy-id -i /Users/[username]/.ssh/vps_server.pub youruser@YOUR_VPS_IP
 ```
 
+## Add Local SSH Config
+
+**Run as:** your user on your `local machine`
+
+Add a **host alias** so your local machine uses the dedicated key for this VPS.
+
+**Important**: If `~/.ssh/config` already exists and has other hosts in it, do not replace the file contents. Add this as a new block alongside your existing SSH config.
+
+```sh
+nano ~/.ssh/config
+```
+
+Add the following config.
+
+```sshconfig
+Host myvps
+  HostName YOUR_VPS_IP
+  User youruser
+  IdentityFile ~/.ssh/vps_server
+  IdentitiesOnly yes
+```
+
+Save and exit with `CTRL + O`, `ENTER`, then `CTRL + X`.
+
 ## Login
 
 **Run as:** your user on your `local machine`
 
-Connect using the new key, then verify normal login works.
+Connect using the new key through the host alias, then verify normal login works.
 
 ```sh
-ssh -i /Users/[username]/.ssh/vps_server youruser@YOUR_VPS_IP
+ssh myvps
 ```
 
-Then log out and verify normal login works without passing the key path:
+Then log out and verify it still works:
 
 ```sh
 logout
-ssh youruser@YOUR_VPS_IP
+ssh myvps
 ```
 
 ## Harden SSH
