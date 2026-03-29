@@ -2,11 +2,19 @@
 
 Basic VPS configuration and security recommendations for Ubuntu servers.
 
-Use the first server-side step while logged in as `root`. After that, use `youruser` unless a section says otherwise.
+## Before You Start
+
+First connect to the VPS as `root` from your local machine terminal.
+
+```sh
+ssh root@YOUR_VPS_IP
+```
+
+Use the first server-side step while connected to the VPS as `root`. After that, use `youruser` unless a section says otherwise.
 
 ## Add User
 
-Run on the VPS while logged in as `root`.
+**Run as:** `root` on the VPS after logging in from your local machine
 
 Create a non-root user and give it sudo access.
 
@@ -18,7 +26,7 @@ id youruser
 
 ## Generate SSH Key
 
-Run on your `local machine`.
+**Run as:** `[username]` on your local machine
 
 Generate a dedicated SSH key on your local machine.
 
@@ -26,15 +34,11 @@ Generate a dedicated SSH key on your local machine.
 ssh-keygen -t ed25519 -C "vps-server"
 ```
 
-When prompted for the file path, use:
-
-```sh
-/Users/[username]/.ssh/vps_server
-```
+When prompted for the file path, use `/Users/[username]/.ssh/vps_server`.
 
 ## Copy Key To VPS
 
-Run on your `local machine`.
+**Run as:** `[username]` on your local machine
 
 Copy the public key to your server.
 
@@ -44,19 +48,24 @@ ssh-copy-id -i /Users/[username]/.ssh/vps_server.pub youruser@YOUR_VPS_IP
 
 ## Login
 
-Run on your `local machine`.
+**Run as:** `[username]` on your local machine
 
 Connect using the new key, then verify normal login works.
 
 ```sh
 ssh -i /Users/[username]/.ssh/vps_server youruser@YOUR_VPS_IP
+```
+
+Then log out and verify normal login works without passing the key path:
+
+```sh
 logout
 ssh youruser@YOUR_VPS_IP
 ```
 
 ## Harden SSH
 
-Run on the VPS while logged in as `youruser`.
+**Run as:** `youruser` on the VPS
 
 Set a safe terminal value first, then create an SSH hardening config file.
 
@@ -65,7 +74,7 @@ export TERM=xterm
 sudo nano /etc/ssh/sshd_config.d/99-hardening.conf
 ```
 
-Paste this:
+Paste the following config.
 
 ```sh
 PermitRootLogin no
@@ -76,11 +85,7 @@ ChallengeResponseAuthentication no
 UsePAM yes
 ```
 
-Save and exit:
-
-- `CTRL + O` to save
-- `ENTER` to confirm
-- `CTRL + X` to exit
+Save and exit with `CTRL + O`, `ENTER`, then `CTRL + X`.
 
 Validate the SSH config before continuing:
 
@@ -88,13 +93,13 @@ Validate the SSH config before continuing:
 sudo sshd -t
 ```
 
-If you see no output, the config is valid.
+**No output:** the config is valid.
 
-If you see errors, stop and fix them before continuing.
+**Any error output:** stop and fix it before continuing.
 
 ## Enable The Firewall
 
-Run on the VPS while logged in as `youruser`.
+**Run as:** `youruser` on the VPS
 
 Install and configure `ufw`.
 
@@ -113,7 +118,7 @@ sudo ufw status verbose
 
 ## Update The System
 
-Run on the VPS while logged in as `youruser`.
+**Run as:** `youruser` on the VPS
 
 Upgrade installed packages.
 
@@ -123,7 +128,7 @@ sudo apt update && sudo apt upgrade -y
 
 ## Automatic Security Updates
 
-Run on the VPS while logged in as `youruser`.
+**Run as:** `youruser` on the VPS
 
 Enable unattended security updates.
 
@@ -134,11 +139,11 @@ sudo dpkg-reconfigure unattended-upgrades
 
 ## Fail2ban
 
-Run on the VPS while logged in as `youruser`.
+**Run as:** `youruser` on the VPS
 
 Fail2ban is recommended basic protection for SSH.
 
-It:
+What it does:
 
 - Watches system logs
 - Detects repeated failed login attempts
@@ -146,19 +151,19 @@ It:
 
 If someone fails login too many times, they get blocked automatically.
 
-Install the package:
+Install the package.
 
 ```sh
 sudo apt install fail2ban -y
 ```
 
-Create a minimal jail configuration:
+Create a minimal jail configuration.
 
 ```sh
 sudo nano /etc/fail2ban/jail.local
 ```
 
-Paste this:
+Paste the following config.
 
 ```sh
 [sshd]
@@ -169,11 +174,7 @@ findtime = 10m
 bantime = 1h
 ```
 
-Save and exit:
-
-- `CTRL + O` to save
-- `ENTER` to confirm
-- `CTRL + X` to exit
+Save and exit with `CTRL + O`, `ENTER`, then `CTRL + X`.
 
 Restart the service and check its status:
 
@@ -189,7 +190,7 @@ sudo fail2ban-client status
 sudo fail2ban-client status sshd
 ```
 
-You should see:
+Expected checks:
 
 - A jail list that includes `sshd`
 - Current failed attempts
