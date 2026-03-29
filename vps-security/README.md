@@ -2,7 +2,11 @@
 
 Basic VPS configuration and security recommendations for Ubuntu servers.
 
+Use the first server-side step while logged in as `root`. After that, use `youruser` unless a section says otherwise.
+
 ## Add User
+
+Run on the VPS while logged in as `root`.
 
 Create a non-root user and give it sudo access.
 
@@ -13,6 +17,8 @@ id youruser
 ```
 
 ## Generate SSH Key
+
+Run on your `local machine`.
 
 Generate a dedicated SSH key on your local machine.
 
@@ -28,6 +34,8 @@ When prompted for the file path, use:
 
 ## Copy Key To VPS
 
+Run on your `local machine`.
+
 Copy the public key to your server.
 
 ```sh
@@ -35,6 +43,8 @@ ssh-copy-id -i /Users/[username]/.ssh/vps_server.pub youruser@YOUR_VPS_IP
 ```
 
 ## Login
+
+Run on your `local machine`.
 
 Connect using the new key, then verify normal login works.
 
@@ -45,6 +55,8 @@ ssh youruser@YOUR_VPS_IP
 ```
 
 ## Harden SSH
+
+Run on the VPS while logged in as `youruser`.
 
 Set a safe terminal value first, then create an SSH hardening config file.
 
@@ -82,6 +94,8 @@ If you see errors, stop and fix them before continuing.
 
 ## Enable The Firewall
 
+Run on the VPS while logged in as `youruser`.
+
 Install and configure `ufw`.
 
 ```sh
@@ -99,6 +113,8 @@ sudo ufw status verbose
 
 ## Update The System
 
+Run on the VPS while logged in as `youruser`.
+
 Upgrade installed packages.
 
 ```sh
@@ -106,6 +122,8 @@ sudo apt update && sudo apt upgrade -y
 ```
 
 ## Automatic Security Updates
+
+Run on the VPS while logged in as `youruser`.
 
 Enable unattended security updates.
 
@@ -115,6 +133,8 @@ sudo dpkg-reconfigure unattended-upgrades
 ```
 
 ## Fail2ban
+
+Run on the VPS while logged in as `youruser`.
 
 Fail2ban is recommended basic protection for SSH.
 
