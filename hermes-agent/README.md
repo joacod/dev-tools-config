@@ -140,17 +140,15 @@ curl -fsSL https://raw.githubusercontent.com/NousResearch/hermes-agent/main/scri
 
 During the installer:
 
-- if prompted to install optional `ripgrep` and `ffmpeg`, answer `n`
-- if prompted to install optional build tools, answer `n`
+- if prompted to install `ripgrep` and `ffmpeg`, answer `n`
+- if prompted to install build tools, answer `n`
 - if Playwright tries to switch to root and asks for a `sudo` password, stop there with `CTRL + C`
 
-Why this guide skips those extras during the main install:
+Why this guide installs those packages after the main install:
 
-- `ripgrep` improves Hermes file and code search, but it is not required for the base install
-- `ffmpeg` is only needed for voice and TTS-related features
-- build tools are not required for the default setup
-- Playwright browser system dependencies are only needed for browser automation
-- those packages require `sudo`, but this guide keeps `hermes` as a non-sudo user
+- `ripgrep`, `ffmpeg`, build tools, and Playwright system dependencies may require `sudo`
+- this guide keeps `hermes` as a non-sudo user
+- installing them in separate steps keeps the permissions clear and avoids mixing admin tasks into the Hermes user session
 
 Reload your shell so the new `hermes` command is available in the current session.
 
@@ -204,11 +202,11 @@ ln -sf ~/.hermes/hermes-agent/venv/bin/hermes ~/.local/bin/hermes
 
 Then rerun `hermes version`.
 
-## Optional: Install Extra System Packages
+## Install Extra System Packages
 
-**Run as:** your admin user on the VPS
+**Run as:** your admin user on the VPS for `apt` and Playwright system dependencies, then `hermes` on the VPS for Playwright browsers
 
-If you want optional system packages like `ripgrep` and `ffmpeg`, install them separately from your admin account.
+Install the extra system packages Hermes can use separately from your admin account.
 
 These packages are installed system-wide, so once your admin user installs them, the `hermes` user can use them too.
 
@@ -216,13 +214,37 @@ These packages are installed system-wide, so once your admin user installs them,
 sudo apt update
 ```
 
-Then install the optional packages Hermes can use.
+Then install the packages Hermes can use.
+
+### ripgrep & ffmpeg
 
 ```sh
 sudo apt install ripgrep ffmpeg -y
 ```
 
-When that is done, switch back to `hermes` and continue.
+### Playwright
+
+Playwright also needs Linux browser dependencies that require `sudo`.
+
+If your admin user installed Node.js with `nvm`, `sudo` will usually not see `node` or `npx` automatically. Run the next two commands exactly as written. The first command automatically captures the current Node.js binary directory for your admin user, and the second passes that directory into `sudo`.
+
+```sh
+NODE_BIN_DIR="$(dirname "$(command -v node)")"
+```
+
+```sh
+sudo env "PATH=$NODE_BIN_DIR:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin" bash -lc 'cd /home/hermes/.hermes/hermes-agent && npx playwright install-deps'
+```
+
+Then switch back to `hermes` and install the Playwright browser binaries under the `hermes` user.
+
+Before running the command below, make sure `hermes` also has its own `nvm` and Node.js installation. Your admin user's `nvm` setup is separate and is not shared with `hermes`.
+
+```sh
+npx playwright install
+```
+
+When that is done, continue to the next section.
 
 ## Install Docker Backend
 
