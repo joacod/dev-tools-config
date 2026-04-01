@@ -319,16 +319,9 @@ Run the model selector and complete login or API key setup.
 hermes model
 ```
 
-Then verify the environment.
-
-```sh
-hermes doctor
-hermes status
-```
-
 ## Set Up Telegram Gateway
 
-**Run as:** `hermes` on the VPS for Telegram setup, and your admin user for service installation
+**Run as:** `hermes` on the VPS for Telegram setup, and your admin user on the VPS for service installation
 
 If you skipped Telegram during `hermes setup`, configure it now.
 
@@ -338,18 +331,39 @@ If you skipped Telegram during `hermes setup`, configure it now.
 hermes gateway setup
 ```
 
-After that, install the gateway as a boot-time system service from your admin user. This is the part that keeps the Telegram bot running in the background and starts it again after a reboot.
+After that, install the gateway as a user service while logged in as `hermes`.
 
 ```sh
-sudo -u hermes -H hermes gateway install --system
-sudo hermes gateway start --system
-sudo hermes gateway status --system
+hermes gateway install
+hermes gateway start
+hermes gateway status
 ```
 
-If you change gateway settings later, restart the service.
+Then, from your admin user's shell on the VPS, enable systemd linger for the `hermes` user.
+
+This is what keeps the `hermes` user service running after logout and allows it to start again after a VPS reboot.
 
 ```sh
-sudo hermes gateway restart --system
+sudo loginctl enable-linger hermes
+loginctl show-user hermes
+```
+
+Expected result:
+
+- `hermes gateway status` shows the service as running
+- `loginctl show-user hermes` includes `Linger=yes`
+- the gateway stays available after logout and starts again automatically after a VPS reboot
+
+If you change gateway settings later, restart the gateway service as `hermes`.
+
+```sh
+hermes gateway restart
+```
+
+If you need to watch the gateway logs while logged in as `hermes`:
+
+```sh
+journalctl --user -u hermes-gateway -f
 ```
 
 Official gateway docs:
@@ -369,10 +383,14 @@ hermes doctor
 hermes status
 ```
 
-If you installed the gateway as a system service, also verify it is running.
+If you installed the gateway service, also verify that systemd linger is enabled and the gateway is running.
 
 ```sh
-sudo hermes gateway status --system
+hermes gateway status
+```
+
+```sh
+loginctl show-user hermes
 ```
 
 Start an interactive session when setup is complete.

@@ -98,19 +98,22 @@ Expected output:
 
 ## Check Gateway Service
 
-**Run as:** your admin user on the VPS
+**Run as:** `hermes` on the VPS for gateway status, and your admin user on the VPS for the linger check
 
-Only run this section if you installed the messaging gateway as a system service.
+Only run this section if you installed the messaging gateway.
 
 ```sh
-sudo hermes gateway status --system
-sudo journalctl -u hermes-gateway -f
+hermes gateway status
+```
+
+```sh
+loginctl show-user hermes
 ```
 
 Expected result:
 
 - the service shows as running
-- logs do not show repeated startup failures
+- `loginctl show-user hermes` includes `Linger=yes`
 
 ## What This Verifies
 
