@@ -1,5 +1,7 @@
 # Hermes Agent Sanity Check
 
+Use this checklist after finishing the main setup in [README.md](./README.md).
+
 Final verification steps for the Hermes Agent VPS setup.
 
 ## Check SSH Alias Works
