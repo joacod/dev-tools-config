@@ -356,6 +356,12 @@ Expected result:
 
 If you change gateway settings later, restart the gateway service as `hermes`.
 
+### Later Maintenance
+
+You do not need these commands for the first setup.
+
+Use them later if you change gateway settings or need to troubleshoot the running service.
+
 ```sh
 hermes gateway restart
 ```
