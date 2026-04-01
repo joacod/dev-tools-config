@@ -130,12 +130,6 @@ ssh hermes
 
 ## Install Hermes Agent
 
-Official install docs:
-
-- [Installation](https://hermes-agent.nousresearch.com/docs/getting-started/installation)
-- [Quickstart](https://hermes-agent.nousresearch.com/docs/getting-started/quickstart)
-
-
 **Run as:** `hermes` on the VPS
 
 Download and run the official install script.
@@ -150,14 +144,13 @@ During the installer:
 - if prompted to install optional build tools, answer `n`
 - if Playwright tries to switch to root and asks for a `sudo` password, stop there with `CTRL + C`
 
-Why:
+Why this guide skips those extras during the main install:
 
-- `ripgrep` improves Hermes file and code search
-- `ffmpeg` is needed for voice and TTS-related features
+- `ripgrep` improves Hermes file and code search, but it is not required for the base install
+- `ffmpeg` is only needed for voice and TTS-related features
 - build tools are not required for the default setup
 - Playwright browser system dependencies are only needed for browser automation
-- those packages are optional and require `sudo`, but this guide keeps `hermes` as a non-sudo user
-- the `PATH` warning is usually not fatal during install, but you should still fix it for future shell sessions
+- those packages require `sudo`, but this guide keeps `hermes` as a non-sudo user
 
 Reload your shell so the new `hermes` command is available in the current session.
 
@@ -171,24 +164,31 @@ Check whether the command is available.
 hermes version
 ```
 
-If that command works, your `PATH` is already correct and you can continue.
+If `hermes version` works, continue to the next section.
 
-## Troubleshooting
+Official install docs:
 
-If you get `hermes: command not found`, add `~/.local/bin` to your `PATH` and reload again.
+- [Installation](https://hermes-agent.nousresearch.com/docs/getting-started/installation)
+- [Quickstart](https://hermes-agent.nousresearch.com/docs/getting-started/quickstart)
+
+## Fix PATH If Hermes Is Not Found
+
+**Run as:** `hermes` on the VPS
+
+If `hermes version` returns `command not found`, add `~/.local/bin` to your `PATH` and reload your shell.
 
 ```sh
 echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
 source ~/.bashrc
 ```
 
-Then test again.
+Then rerun:
 
 ```sh
 hermes version
 ```
 
-If `hermes` is still not found, the installer may have completed the core install but skipped creating the final command symlink.
+If Hermes is still not found, the installer may have completed the core install but skipped creating the final command symlink.
 
 First verify the Hermes binary exists inside the installation directory.
 
@@ -202,21 +202,15 @@ If that file exists, create the missing symlink manually.
 ln -sf ~/.hermes/hermes-agent/venv/bin/hermes ~/.local/bin/hermes
 ```
 
-Then verify again.
+Then rerun `hermes version`.
 
-```sh
-hermes version
-```
-
-## Optional System Packages
+## Optional: Install Extra System Packages
 
 **Run as:** your admin user on the VPS
 
 If you want optional system packages like `ripgrep` and `ffmpeg`, install them separately from your admin account.
 
 These packages are installed system-wide, so once your admin user installs them, the `hermes` user can use them too.
-
-First refresh Ubuntu's package list.
 
 ```sh
 sudo apt update
@@ -228,19 +222,15 @@ Then install the optional packages Hermes can use.
 sudo apt install ripgrep ffmpeg -y
 ```
 
-Then switch back to `hermes` and continue with the Hermes setup.
+When that is done, switch back to `hermes` and continue.
 
-## Install Docker For The Docker Backend
+## Install Docker Backend
 
 **Run as:** your admin user on the VPS
 
 If you want Hermes to execute commands inside Docker instead of directly on the host, install Docker from Docker's official Ubuntu repository.
 
-This looks longer than a normal `apt install`, but it is the standard secure setup:
-
-- Ubuntu's default packages may lag behind Docker's current release
-- Docker's repository packages are signed, so `apt` can verify what it installs
-- once Docker is installed, you still need to allow the `hermes` user to run it without `sudo`
+This is the recommended path for stronger isolation.
 
 ### 1. Install Docker repository prerequisites
 
@@ -273,29 +263,26 @@ sudo usermod -aG docker hermes
 
 This change does not apply to existing `hermes` shell sessions. Log out completely, then log back in as `hermes` before testing Docker.
 
-### 5. Log back in as `hermes` and verify Docker works
+### 5. Verify Docker as `hermes`
+
+**Run as:** `hermes` on the VPS after reconnecting
 
 If you skip the logout/login step, Docker commands may fail with `permission denied while trying to connect to the docker API`.
-
-After reconnecting as `hermes`, run:
 
 ```sh
 docker --version
 docker run hello-world
 ```
 
-After Docker is working for `hermes`, continue to the Hermes setup step below.
-
-Relevant docs:
+Docker reference:
 
 - [Docker Install](https://docs.docker.com/engine/install/ubuntu/)
-- [Hermes Security](https://hermes-agent.nousresearch.com/docs/user-guide/security)
 
 ## Run Hermes Setup
 
 **Run as:** `hermes` on the VPS
 
-After Docker is installed and working, run the setup wizard.
+Once the CLI is working, run the setup wizard.
 
 ```sh
 hermes setup
@@ -332,15 +319,15 @@ If you added API keys to `~/.hermes/.env`, restrict the file so only the `hermes
 chmod 600 ~/.hermes/.env
 ```
 
-What this does:
+Why this matters:
 
 - `600` means only the file owner can read and write the file
 - your API keys stay private to the `hermes` account instead of being readable by other users on the VPS
-- this is especially important on a multi-user server or any VPS where the gateway is exposed through Telegram
+- this matters even more if you expose Hermes through Telegram
 
-## Set Up Telegram Gateway
+## Optional: Set Up Telegram Gateway
 
-**Run as:** `hermes` on the VPS for Telegram setup, and your admin user on the VPS for service installation
+**Run as:** `hermes` on the VPS for gateway setup, and your admin user on the VPS for the linger step
 
 If you skipped Telegram during `hermes setup`, configure it now.
 
@@ -350,7 +337,7 @@ If you skipped Telegram during `hermes setup`, configure it now.
 hermes gateway setup
 ```
 
-After that, install the gateway as a user service while logged in as `hermes`.
+Install and start the gateway service while logged in as `hermes`.
 
 ```sh
 hermes gateway install
@@ -373,8 +360,6 @@ Expected result:
 - `loginctl show-user hermes` includes `Linger=yes`
 - the gateway stays available after logout and starts again automatically after a VPS reboot
 
-If you change gateway settings later, restart the gateway service as `hermes`.
-
 ### Later Maintenance
 
 You do not need these commands for the first setup.
@@ -391,53 +376,32 @@ If you need to watch the gateway logs while logged in as `hermes`:
 journalctl --user -u hermes-gateway -f
 ```
 
-Official gateway docs:
+Gateway reference:
 
 - [Messaging Gateway](https://hermes-agent.nousresearch.com/docs/user-guide/messaging/)
 
-If you only plan to use Hermes over SSH and the CLI, you can skip this section.
 
-## Final Verification
+## Security Notes
 
-**Run as:** `hermes` on the VPS unless a command includes `sudo`
+These production basics fit this VPS setup well:
 
-Verify the final configuration.
+- keep Hermes running as the dedicated `hermes` user with no `sudo` by default
+- keep API keys in `~/.hermes/.env` and make sure that file is only readable by `hermes`
+- keep Telegram restricted to your bot token and your approved Telegram user IDs, instead of leaving the bot open to anyone who can find it
+- keep the terminal backend set to Docker if you want stronger isolation
 
-```sh
-hermes doctor
-hermes status
-```
+Security reference:
 
-If you installed the gateway service, also verify that systemd linger is enabled and the gateway is running.
+- [Security](https://hermes-agent.nousresearch.com/docs/user-guide/security)
 
-```sh
-hermes gateway status
-```
+## Final Step
 
-```sh
-loginctl show-user hermes
-```
+Run the [sanity check](./sanity-check.md) to verify the SSH alias, user separation, Hermes install, and any optional services are working correctly.
+
+### That's it
 
 Start an interactive session when setup is complete.
 
 ```sh
 hermes
 ```
-
-## Security Notes
-
-Hermes' official docs recommend a few production basics that fit this VPS setup well:
-
-- keep Hermes running as the dedicated `hermes` user with no `sudo` by default
-- keep API keys in `~/.hermes/.env` and make sure that file is only readable by `hermes`
-- keep Telegram restricted to your bot token and your approved Telegram user IDs, instead of leaving the bot open to anyone who can find it
-- keep the terminal backend set to Docker for stronger isolation
-
-Relevant official docs:
-
-- [Security](https://hermes-agent.nousresearch.com/docs/user-guide/security)
-- [Messaging Gateway](https://hermes-agent.nousresearch.com/docs/user-guide/messaging/)
-
-## Final Step
-
-Run the [sanity check](./sanity-check.md) to verify the SSH alias, user separation, and Hermes install are working correctly.
