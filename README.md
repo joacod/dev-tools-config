@@ -7,3 +7,4 @@ My setup and notes on developers tools.
 - AI coding agent : [OpenCode](./opencode)
 - AI coding agent: [Claude Code](./claude-code)
 - VPS: [VPS Security](./vps-security)
+- AI agent on VPS: [Hermes Agent](./hermes-agent)
