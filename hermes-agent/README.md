@@ -230,40 +230,115 @@ sudo apt install ripgrep ffmpeg -y
 
 Then switch back to `hermes` and continue with the Hermes setup.
 
-## Configure Hermes
+## Install Docker For The Docker Backend
+
+**Run as:** your admin user on the VPS
+
+If you want Hermes to execute commands inside Docker instead of directly on the host, install Docker from Docker's official Ubuntu repository.
+
+This looks longer than a normal `apt install`, but it is the standard secure setup:
+
+- Ubuntu's default packages may lag behind Docker's current release
+- Docker's repository packages are signed, so `apt` can verify what it installs
+- once Docker is installed, you still need to allow the `hermes` user to run it without `sudo`
+
+### 1. Install Docker repository prerequisites
+
+```sh
+sudo apt update
+sudo apt install ca-certificates curl -y
+```
+
+### 2. Add Docker's signing key and repository
+
+```sh
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+sudo sh -c 'echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo $VERSION_CODENAME) stable" > /etc/apt/sources.list.d/docker.list'
+```
+
+### 3. Install Docker
+
+```sh
+sudo apt update
+sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+```
+
+### 4. Allow the `hermes` user to use Docker
+
+```sh
+sudo usermod -aG docker hermes
+```
+
+This change does not apply to existing `hermes` shell sessions. Log out completely, then log back in as `hermes` before testing Docker.
+
+### 5. Log back in as `hermes` and verify Docker works
+
+If you skip the logout/login step, Docker commands may fail with `permission denied while trying to connect to the docker API`.
+
+After reconnecting as `hermes`, run:
+
+```sh
+docker --version
+docker run hello-world
+```
+
+After Docker is working for `hermes`, continue to the Hermes setup step below.
+
+Relevant docs:
+
+- [Docker Install](https://docs.docker.com/engine/install/ubuntu/)
+- [Hermes Security](https://hermes-agent.nousresearch.com/docs/user-guide/security)
+
+## Run Hermes Setup
 
 **Run as:** `hermes` on the VPS
 
-Use the official setup commands.
+After Docker is installed and working, run the setup wizard.
 
 ```sh
 hermes setup
+```
+
+For this guide's VPS setup:
+
+- choose `Docker` as the terminal backend
+- choose whether you want a persistent filesystem
+- if you want Telegram access, you can configure it during `hermes setup` or later with `hermes gateway setup`
+
+## Configure A Model Provider
+
+**Run as:** `hermes` on the VPS
+
+Hermes needs a provider before it can chat normally.
+
+Run the model selector and complete login or API key setup.
+
+```sh
 hermes model
+```
+
+Then verify the environment.
+
+```sh
 hermes doctor
 hermes status
 ```
 
-Start an interactive session when setup is complete.
+## Set Up Telegram Gateway
 
-```sh
-hermes
-```
+**Run as:** `hermes` on the VPS for Telegram setup, and your admin user for service installation
 
-Official command reference:
+If you skipped Telegram during `hermes setup`, configure it now.
 
-- [CLI Commands](https://hermes-agent.nousresearch.com/docs/reference/cli-commands)
-
-## Optional Gateway Setup
-
-**Run as:** `hermes` on the VPS for setup, and your admin user for service installation
-
-If you want Hermes available through Telegram, Discord, Slack, WhatsApp, or other messaging platforms, use the official gateway setup flow.
+`hermes gateway setup` is the interactive configuration step. It does not keep the bot running in the background by itself.
 
 ```sh
 hermes gateway setup
 ```
 
-If you want a boot-time system service, switch back to your regular admin user and run:
+After that, install the gateway as a boot-time system service from your admin user. This is the part that keeps the Telegram bot running in the background and starts it again after a reboot.
 
 ```sh
 sudo -u hermes -H hermes gateway install --system
@@ -271,9 +346,40 @@ sudo hermes gateway start --system
 sudo hermes gateway status --system
 ```
 
+If you change gateway settings later, restart the service.
+
+```sh
+sudo hermes gateway restart --system
+```
+
 Official gateway docs:
 
 - [Messaging Gateway](https://hermes-agent.nousresearch.com/docs/user-guide/messaging/)
+
+If you only plan to use Hermes over SSH and the CLI, you can skip this section.
+
+## Final Verification
+
+**Run as:** `hermes` on the VPS unless a command includes `sudo`
+
+Verify the final configuration.
+
+```sh
+hermes doctor
+hermes status
+```
+
+If you installed the gateway as a system service, also verify it is running.
+
+```sh
+sudo hermes gateway status --system
+```
+
+Start an interactive session when setup is complete.
+
+```sh
+hermes
+```
 
 ## Security Notes
 

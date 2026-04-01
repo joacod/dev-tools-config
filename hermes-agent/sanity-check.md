@@ -51,6 +51,37 @@ Expected result:
 - `hermes doctor` completes without blocking install issues
 - `hermes status` shows your configured environment
 
+## Check Docker Backend
+
+**Run as:** `hermes` on the VPS
+
+Only run this section if you chose Docker as the Hermes terminal backend.
+
+```sh
+docker --version
+docker run hello-world
+```
+
+Expected result:
+
+- Docker is installed and available to the `hermes` user
+- `hello-world` runs successfully
+
+## Check Provider Configuration
+
+**Run as:** `hermes` on the VPS
+
+Verify Hermes has a usable model provider configured.
+
+```sh
+hermes status
+```
+
+Expected result:
+
+- at least one provider is configured with working authentication or an API key
+- the selected model is usable for normal chat sessions
+
 ## Check Hermes Home Permissions
 
 **Run as:** `hermes` on the VPS
@@ -88,6 +119,8 @@ If all checks pass, you have verified:
 - the local `ssh hermes` alias works
 - Hermes is isolated under its own Ubuntu user
 - the Hermes CLI is installed and available
+- Docker is ready if you chose the Docker backend
+- a model provider is configured for normal Hermes use
 - the main secrets file has restrictive permissions
 - the gateway service is running correctly if enabled
 
