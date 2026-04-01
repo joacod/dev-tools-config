@@ -307,6 +307,13 @@ For this guide's VPS setup:
 - choose whether you want a persistent filesystem
 - if you want Telegram access, you can configure it during `hermes setup` or later with `hermes gateway setup`
 
+### Telegram Settings
+
+**Important**, during Telegram setup, make sure you provide:
+
+- your Telegram bot token from BotFather
+- your own Telegram user ID in the allowed users list
+
 ## Configure A Model Provider
 
 **Run as:** `hermes` on the VPS
@@ -318,6 +325,18 @@ Run the model selector and complete login or API key setup.
 ```sh
 hermes model
 ```
+
+If you added API keys to `~/.hermes/.env`, restrict the file so only the `hermes` user can read and edit it.
+
+```sh
+chmod 600 ~/.hermes/.env
+```
+
+What this does:
+
+- `600` means only the file owner can read and write the file
+- your API keys stay private to the `hermes` account instead of being readable by other users on the VPS
+- this is especially important on a multi-user server or any VPS where the gateway is exposed through Telegram
 
 ## Set Up Telegram Gateway
 
@@ -409,40 +428,15 @@ hermes
 
 Hermes' official docs recommend a few production basics that fit this VPS setup well:
 
-- run Hermes as a non-root user
-- keep API keys in `~/.hermes/.env`
-- lock down the file permissions on that file
-- use explicit allowlists for messaging users
-- consider a container backend for production use
-- do not give the `hermes` user `sudo` unless you have a specific operational need
-
-Useful commands:
-
-```sh
-chmod 600 ~/.hermes/.env
-```
+- keep Hermes running as the dedicated `hermes` user with no `sudo` by default
+- keep API keys in `~/.hermes/.env` and make sure that file is only readable by `hermes`
+- keep Telegram restricted to your bot token and your approved Telegram user IDs, instead of leaving the bot open to anyone who can find it
+- keep the terminal backend set to Docker for stronger isolation
 
 Relevant official docs:
 
 - [Security](https://hermes-agent.nousresearch.com/docs/user-guide/security)
-
-## Recommended Production Notes
-
-If you expose Hermes through the messaging gateway on a VPS:
-
-- do not use `GATEWAY_ALLOW_ALL_USERS=true`
-- prefer platform-specific allowlists or pairing
-- keep Hermes running as `hermes`, not `root`
-- keep `hermes` as a regular user with no `sudo` by default
-- consider setting the terminal backend to Docker for stronger isolation
-
-Example follow-up command:
-
-```sh
-hermes config set terminal.backend docker
-```
-
-See the official security and messaging docs before enabling public-facing access.
+- [Messaging Gateway](https://hermes-agent.nousresearch.com/docs/user-guide/messaging/)
 
 ## Final Step
 
