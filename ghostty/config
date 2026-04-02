@@ -8,3 +8,4 @@ mouse-scroll-multiplier = 2
 adjust-cell-height=15%
 copy-on-select = clipboard
 window-colorspace = "display-p3"
+shell-integration-features = ssh-terminfo,ssh-env
