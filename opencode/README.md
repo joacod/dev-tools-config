@@ -8,7 +8,12 @@ Paste the content of `opencode.json` into `/Users/[your-username]/.config/openco
 
 This file includes:
 
-- Settings needed to use local models through [LM Studio](https://lmstudio.ai), official [documentation](https://opencode.ai/docs/providers/#lm-studio)
+- Settings for using local models through [llama.cpp](https://github.com/ggml-org/llama.cpp) and [LM Studio](https://lmstudio.ai)
+
+Official documentation:
+
+- [llama.cpp provider docs](https://opencode.ai/docs/providers/#llamacpp)
+- [LM Studio provider docs](https://opencode.ai/docs/providers/#lm-studio)
 
 ## Commands
 
