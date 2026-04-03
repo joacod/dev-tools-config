@@ -56,6 +56,7 @@ llama-cli -hf ggml-org/gemma-3-1b-it-GGUF -p "Explain recursion in simple terms.
 | Base model | A raw model, usually not tuned for assistant-style chat. |
 | Instruct / IT / Chat | A model tuned for prompts, chat, Q&A, and coding help. |
 | Context window | How much text the model can keep in working memory for the current request. |
+| KV cache | Temporary memory the model uses to keep long prompts and chats fast. Larger contexts use more KV cache memory. |
 
 For most local assistant use, start with an `Instruct`, `it`, or `Chat` model instead of a base model.
 
@@ -118,6 +119,8 @@ llama-cli -hf ggml-org/gemma-4-31B-it-GGUF:Q4_K_M -c 4096
 ```
 
 `-c 4096` means the model can keep about 4096 tokens of prompt and conversation history in working memory.
+
+That working memory relies heavily on the KV cache, which is why longer contexts usually need more RAM or unified memory.
 
 - Smaller context: less memory usage
 - Larger context: more room for longer chats, larger prompts, and coding tools
