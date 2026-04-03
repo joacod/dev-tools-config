@@ -17,32 +17,10 @@ gh auth status
 
 ## Common Commands
 
-Clone a repo:
-
-```sh
-gh repo clone OWNER/REPO
-```
-
-Create a pull request:
-
-```sh
-gh pr create
-```
-
-View a pull request:
-
-```sh
-gh pr view --web
-```
-
-List issues:
-
-```sh
-gh issue list
-```
-
-Create a release:
-
-```sh
-gh release create v1.0.0
-```
+| Task | Command |
+| --- | --- |
+| Clone a repo | `gh repo clone OWNER/REPO` |
+| Create a pull request | `gh pr create` |
+| View a pull request | `gh pr view --web` |
+| List issues | `gh issue list` |
+| Create a release | `gh release create v1.0.0` |

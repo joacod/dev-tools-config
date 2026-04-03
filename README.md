@@ -1,12 +1,14 @@
-# Developers Tools
+# Developer Tools
 
-My setup and notes on developers tools.
+My setup and notes for development tools, AI agents, and server utilities.
 
-- Terminal: [Ghostty](./ghostty)
-- Node.js: [NVM and Node.js](./nvm-node)
-- GitHub CLI: [GitHub CLI](./github-cli)
-- Local LLM runtime: [llama.cpp](./llama-cpp)
-- AI coding agent : [OpenCode](./opencode)
-- AI coding agent: [Claude Code](./claude-code)
-- VPS: [VPS Security](./vps-security)
-- AI agent on VPS: [Hermes Agent](./hermes-agent)
+| Name | Category | Path | Description |
+| --- | --- | --- | --- |
+| Ghostty | Terminal | [`./ghostty`](./ghostty) | Terminal setup and configuration. |
+| NVM and Node.js | Runtime | [`./nvm-node`](./nvm-node) | Node.js version management and setup notes. |
+| GitHub CLI | CLI | [`./github-cli`](./github-cli) | GitHub command-line workflow and usage. |
+| llama.cpp | Local AI | [`./llama-cpp`](./llama-cpp) | Local LLM runtime setup and usage. |
+| OpenCode | AI Agent | [`./opencode`](./opencode) | AI coding agent setup and configuration. |
+| Claude Code | AI Agent | [`./claude-code`](./claude-code) | AI coding agent setup and configuration. |
+| VPS Security | Infrastructure | [`./vps-security`](./vps-security) | VPS security and hardening notes. |
+| Hermes Agent | Infrastructure / AI | [`./hermes-agent`](./hermes-agent) | AI agent setup for a VPS environment. |

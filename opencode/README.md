@@ -1,6 +1,6 @@
 # OpenCode
 
-[OpenCode](https://opencode.ai) the open source AI coding agent
+[OpenCode](https://opencode.ai) is an open source AI coding agent.
 
 ## Configuration
 
@@ -21,8 +21,10 @@ Copy the `commands` folder to `/Users/[your-username]/.config/opencode/commands/
 
 Available commands:
 
-- `/git-commit`: Stage and commit changes with safety checks and a generated message.
-- `/git-push`: Push the current branch with safety checks and optionally create a PR.
+| Command | Path | Description |
+| --- | --- | --- |
+| `/git-commit` | [`commands/git-commit.md`](./commands/git-commit.md) | Stage and commit changes with safety checks and a generated message. |
+| `/git-push` | [`commands/git-push.md`](./commands/git-push.md) | Push the current branch with safety checks and optionally create a PR. |
 
 ## Custom agents/modes
 
@@ -32,6 +34,8 @@ This makes the custom mode available only for that project.
 
 Copy the `.opencode` folder into your project to try it.
 
-- Example: `[your-project]/.opencode/agent/funmode.md`
+| Name | Scope | Path | Description |
+| --- | --- | --- | --- |
+| `FunMode` | Project-specific | [`.opencode/agent/funmode.md`](./.opencode/agent/funmode.md) | Example custom mode with a playful, high-personality response style. |
 
 Once copied, init OpenCode and press Tab to switch modes, you should see a new `FunMode` available.
