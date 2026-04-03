@@ -2,6 +2,13 @@
 
 Install Hermes Agent on an already-configured Ubuntu VPS using a dedicated `hermes` user and a dedicated SSH key.
 
+| Item | Value |
+| --- | --- |
+| OS | Ubuntu |
+| Run from | Local machine and VPS |
+| Prerequisites | Completed [`VPS Security`](../vps-security/README.md) setup |
+| Outcome | Hermes installed under its own user with optional Docker and Telegram setup |
+
 ## What This Setup Does
 
 This guide assumes you already completed the base server setup in [VPS Security](../vps-security).

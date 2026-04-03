@@ -2,6 +2,13 @@
 
 Basic VPS configuration and security recommendations for Ubuntu servers.
 
+| Item | Value |
+| --- | --- |
+| OS | Ubuntu |
+| Run from | Local machine and VPS |
+| Prerequisites | Root access to the VPS |
+| Outcome | Hardened VPS with SSH, firewall, updates, and Fail2ban configured |
+
 ## What This Setup Does
 
 This guide walks you through a simple baseline hardening setup for a public Ubuntu VPS.

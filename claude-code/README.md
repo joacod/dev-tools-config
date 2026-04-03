@@ -1,6 +1,6 @@
 # Claude Code
 
-[Claude Code](https://claude.com/product/claude-code) is an agentic coding tool by Anthropic that lives in your terminal. 
+[Claude Code](https://claude.com/product/claude-code) is an agentic coding tool by Anthropic that lives in your terminal.
 
 ## Subagents
 
@@ -27,4 +27,6 @@ cp agents/senior-code-reviewer.md .claude/agents/
 
 ## Available Agents
 
-- [Senior Code Reviewer](agents/senior-code-reviewer.md) — Reviews code for quality, reuse, and efficiency.
+| Name | Path | Description |
+| --- | --- | --- |
+| Senior Code Reviewer | [`agents/senior-code-reviewer.md`](./agents/senior-code-reviewer.md) | Reviews code for quality, reuse, and efficiency. |
