@@ -15,6 +15,14 @@ Official documentation:
 - [llama.cpp provider docs](https://opencode.ai/docs/providers/#llamacpp)
 - [LM Studio provider docs](https://opencode.ai/docs/providers/#lm-studio)
 
+## Local llama.cpp Note
+
+If you want to use OpenCode with local models, start with the guide in [`../llama-cpp`](../llama-cpp).
+
+For coding-agent use, OpenCode should connect to a running `llama-server` instance.
+
+Coding tools usually need more prompt space than normal chat, so context size can matter more here than it does for casual terminal use.
+
 ## Commands
 
 Copy the `commands` folder to `/Users/[your-username]/.config/opencode/commands/`
