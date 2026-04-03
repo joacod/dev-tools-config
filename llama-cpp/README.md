@@ -124,32 +124,61 @@ llama-cli -hf ggml-org/gemma-4-31B-it-GGUF:Q4_K_M -c 4096
 
 Context size is a runtime setting. You can change it later without downloading the model again.
 
-## Run As A Local API Server
+## Run The Local Server
 
-Start the local server with a Hugging Face model:
+This repo includes a small wrapper that makes `llama-server` the default out-of-the-box path:
+
+For `zsh`, add an alias to `~/.zshrc` that points to this script:
 
 ```sh
-llama-server -hf ggml-org/gemma-3-1b-it-GGUF --port 8080
+# Add this line to ~/.zshrc, then replace [path-to-your-local-developer-tools-repo] with your local clone path.
+alias run-llama-server='[path-to-your-local-developer-tools-repo]/llama-cpp/run-llama-server.sh'
+
+source ~/.zshrc
 ```
 
-Then use:
+Then start the launcher with:
+
+```sh
+run-llama-server
+```
+
+`llama-server` is an OpenAI-compatible local HTTP server. After launch, use:
 
 - Browser UI: `http://127.0.0.1:8080`
 - API endpoint: `http://127.0.0.1:8080/v1/chat/completions`
 
-`llama-server` is an OpenAI-compatible local HTTP server.
-
-## Use With Coding Tools
-
-For tools like OpenCode, `llama-server` is usually the right entrypoint.
+Optional arguments:
 
 ```sh
-llama-server -hf ggml-org/gemma-4-31B-it-GGUF:Q4_K_M --port 8080
+run-llama-server --port 8080
+run-llama-server --port 8080 --ctx-size 8192
 ```
 
-Coding tools usually send more text than normal chat, including system prompts, tool schemas, diffs, and file contents. If prompts start failing or feel cramped, try a larger context.
+What it does:
 
-If you want the simplest first try, omit `-c` and let the model use its default context. If memory or performance becomes a problem, add `-c` later to cap it.
+- Lists cached `llama.cpp` models
+- Lets you choose one from a numbered menu
+- Starts `llama-server` with `--offline`
+
+The launcher uses `--offline`, so it only starts models already present in the local cache. If the model you want is not installed yet, download it first with `llama-cli -hf ...` or `llama-server -hf ...`.
+
+For predictable results, install and run the full `repo:quant` value you want instead of leaving the quant implicit.
+
+### OpenCode
+
+For tools like OpenCode, `llama-server` is usually the right entrypoint. Coding tools usually send more text than normal chat, including system prompts, tool schemas, diffs, and file contents. If prompts start failing or feel cramped, try a larger context.
+
+If you want the simplest first try, omit `--ctx-size` and let the model use its default context. If memory or performance becomes a problem, add it later to cap memory use.
+
+### Run Manually
+
+If you want to skip the launcher, you can still start the server manually with an exact cached model:
+
+```sh
+llama-server -hf ggml-org/gemma-4-31B-it-GGUF:Q4_K_M --offline --port 8080
+llama-server -hf ggml-org/Qwen3-Coder-30B-A3B-Instruct-Q8_0-GGUF:Q8_0 --offline --port 8080
+```
 
 ## Models To Try
 
