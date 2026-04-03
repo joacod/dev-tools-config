@@ -1,6 +1,6 @@
 # llama.cpp
 
-Run local GGUF models from the terminal with [llama.cpp](https://github.com/ggml-org/llama.cpp).
+Run local GGUF models from the terminal with [llama.cpp](https://github.com/ggml-org/llama.cpp)
 
 ## Install
 
