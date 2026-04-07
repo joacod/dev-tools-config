@@ -204,7 +204,7 @@ If you want to skip the launcher, you can still start the server manually with a
 
 ```sh
 llama-server -hf ggml-org/gemma-4-31B-it-GGUF:Q4_K_M --offline --port 8080
-llama-server -hf ggml-org/Qwen3-Coder-30B-A3B-Instruct-Q8_0-GGUF:Q8_0 --offline --port 8080
+llama-server -hf Jackrong/Qwen3.5-27B-Claude-4.6-Opus-Reasoning-Distilled-GGUF --offline --port 8080
 ```
 
 ### OpenCode
@@ -217,7 +217,7 @@ If you are tuning for a single local coding session and have enough GPU or unifi
 
 ```sh
 llama-server \
-  -hf ggml-org/Qwen3-Coder-30B-A3B-Instruct-Q8_0-GGUF:Q8_0 \
+  -hf Jackrong/Qwen3.5-27B-Claude-4.6-Opus-Reasoning-Distilled-GGUF \
   --offline \
   --port 8080 \
   --ctx-size 65536 \
@@ -246,9 +246,9 @@ These are useful starting points for local testing:
 
 | Model | Good For | Example |
 | --- | --- | --- |
-| `ggml-org/gemma-3-1b-it-GGUF` | Fast local testing and basic prompting | `llama-cli -hf ggml-org/gemma-3-1b-it-GGUF` |
-| `ggml-org/gemma-4-31B-it-GGUF` | Larger instruct model from a high-trust GGUF publisher | `llama-cli -hf ggml-org/gemma-4-31B-it-GGUF:Q4_K_M` |
-| `ggml-org/Qwen3-Coder-30B-A3B-Instruct-Q8_0-GGUF` | Larger coding-focused model if you have strong hardware | `llama-cli -hf ggml-org/Qwen3-Coder-30B-A3B-Instruct-Q8_0-GGUF` |
+| [`ggml-org/gemma-3-1b-it-GGUF`](https://huggingface.co/ggml-org/gemma-3-1b-it-GGUF) | Fast local testing and basic prompting | `llama-cli -hf ggml-org/gemma-3-1b-it-GGUF` |
+| [`ggml-org/gemma-4-31B-it-GGUF`](https://huggingface.co/ggml-org/gemma-4-31B-it-GGUF) | Larger instruct model from a high-trust GGUF publisher | `llama-cli -hf ggml-org/gemma-4-31B-it-GGUF:Q4_K_M` |
+| [`Jackrong/Qwen3.5-27B-Claude-4.6-Opus-Reasoning-Distilled-GGUF`](https://huggingface.co/Jackrong/Qwen3.5-27B-Claude-4.6-Opus-Reasoning-Distilled-GGUF) | Larger reasoning-focused model if you have strong hardware | `llama-cli -hf Jackrong/Qwen3.5-27B-Claude-4.6-Opus-Reasoning-Distilled-GGUF` |
 
 If you have more hardware headroom, try larger quants such as `Q5_K_M`, `Q6_K`, or `Q8_0` when the repo provides them.
 
