@@ -55,10 +55,38 @@ llama-cli -hf ggml-org/gemma-3-1b-it-GGUF -p "Explain recursion in simple terms.
 | Quant | A specific compressed variant, such as `Q4_K_M` or `Q8_0`. |
 | Base model | A raw model, usually not tuned for assistant-style chat. |
 | Instruct / IT / Chat | A model tuned for prompts, chat, Q&A, and coding help. |
+| Dense model | A traditional model where all parameters are used for every token during inference. |
+| MoE | Mixture of Experts. A model with many expert subnetworks where only a few are activated per token. |
+| Total parameters | The full size of the model, which usually matters for storage, loading, and overall memory footprint. |
+| Active parameters | The parameters actually used for each token during inference. This is more relevant to speed and compute cost. |
 | Context window | How much text the model can keep in working memory for the current request. |
 | KV cache | Temporary memory the model uses to keep long prompts and chats fast. Larger contexts use more KV cache memory. |
 
 For most local assistant use, start with an `Instruct`, `it`, or `Chat` model instead of a base model.
+
+## Model Size vs Active Parameters
+
+Many newer open models, including some Qwen releases, use `MoE` instead of a `Dense` architecture.
+
+- `Dense` model: all parameters are active for every token.
+- `MoE` model: only a subset of experts is active for each token.
+
+That is why some model names include both total and active parameter counts:
+
+- `Qwen3-30B-A3B`: about `30B` total parameters, about `3B` active per token
+- `Qwen3-235B-A22B`: about `235B` total parameters, about `22B` active per token
+
+This distinction matters when you compare models:
+
+- A `Dense` model uses all of its parameters for every token.
+- An `MoE` model uses only some of its experts for each token, even when the full model is much larger overall.
+
+As a rule of thumb:
+
+- Total parameters tell you more about model capacity and model size.
+- Active parameters tell you more about inference speed and compute cost.
+
+So an `MoE` model like `30B-A3B` is not a direct comparison with a `Dense` `30B` or `32B` model. For local use, an `MoE` model can be much cheaper to run while still performing surprisingly well.
 
 ## How To Read A Hugging Face GGUF Page
 
