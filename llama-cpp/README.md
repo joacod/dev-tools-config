@@ -207,36 +207,41 @@ llama-server -hf ggml-org/gemma-4-31B-it-GGUF:Q4_K_M --offline --port 8080
 llama-server -hf Jackrong/Qwen3.5-27B-Claude-4.6-Opus-Reasoning-Distilled-GGUF --offline --port 8080
 ```
 
+Online examples often mix short and long flag names. These common pairs are equivalent:
+
+- `-m` = `--model`
+- `-ngl` = `--gpu-layers`
+- `-c` = `--ctx-size`
+- `-np` = `--parallel`
+- `-fa` = `--flash-attn`
+
+If you want to run `llama-server` directly instead of using the launcher, the same tuning flags still apply:
+
+```sh
+llama-server \
+  -hf Jackrong/Qwen3.5-27B-Claude-4.6-Opus-Reasoning-Distilled-GGUF \
+  --offline \
+  -c 65536 \
+  -ngl all \
+  -np 1 \
+  -fa on \
+  --cache-type-k q4_0 \
+  --cache-type-v q4_0
+```
+
+Many shared examples use `-ngl 99` to mean "offload as much as possible to the GPU." `--gpu-layers all` is the clearer version of that idea, so this README uses `all` in examples.
+
 ### OpenCode
 
 For tools like OpenCode, `llama-server` is usually the right entrypoint. Coding tools usually send more text than normal chat, including system prompts, tool schemas, diffs, and file contents. If prompts start failing or feel cramped, try a larger context.
 
 If you want the simplest first try, omit `--ctx-size` and let the model use its default context. If memory or performance becomes a problem, add it later to cap memory use.
 
-If you are tuning for a single local coding session and have enough GPU or unified memory, these flags are a useful next step:
+If you need advanced tuning for a single local coding session, run `llama-server` directly and use the manual example above as a starting point.
 
-```sh
-llama-server \
-  -hf Jackrong/Qwen3.5-27B-Claude-4.6-Opus-Reasoning-Distilled-GGUF \
-  --offline \
-  --port 8080 \
-  --ctx-size 65536 \
-  --gpu-layers all \
-  --parallel 1 \
-  --flash-attn on \
-  --cache-type-k q4_0 \
-  --cache-type-v q4_0
-```
+Start lower if you are unsure about your hardware. `--ctx-size 32768` or `65536` is a safer first step than `131072` on most local machines, and reducing context is usually the first fix if the server runs out of memory. Treat `131072` as an aggressive long-context tuning choice, not a general default.
 
-What these flags do:
-
-- `--ctx-size 65536`: gives the model more room for long chats, file contents, and tool prompts, but increases memory use.
-- `--gpu-layers all`: tries to keep as much of the model on the GPU as your hardware allows.
-- `--parallel 1`: keeps memory focused on one active coding session instead of multiple server slots.
-- `--flash-attn on`: can improve long-context performance on supported hardware.
-- `--cache-type-k q4_0 --cache-type-v q4_0`: compresses the KV cache so larger contexts fit more easily, with some quality tradeoff.
-
-Start lower if you are unsure about your hardware. `--ctx-size 32768` is a safer first step than `131072` on most local machines, and reducing context is usually the first fix if the server runs out of memory.
+By default, `llama-server` listens on `127.0.0.1`, which keeps it local to your machine. If you set `--host 0.0.0.0`, the server listens on all interfaces and may become reachable from other machines on your network, so only use that when you intentionally want network access.
 
 The `run-llama-server` wrapper in this repo only exposes `--port` and `--ctx-size`. For advanced tuning like `--gpu-layers`, `--parallel`, Flash Attention, or KV cache quantization, run `llama-server` directly.
 
