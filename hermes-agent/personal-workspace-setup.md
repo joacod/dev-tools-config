@@ -16,6 +16,12 @@ This is a personal organization choice for this setup, not an official Hermes re
 
 Inside the Docker sandbox, this same structure appears under `/workspace`.
 
+If you use this mount convention, point wiki-backed skills at the shared wiki folder with:
+
+```sh
+hermes config set skills.config.wiki.path /workspace/wikis
+```
+
 ## What Each Folder Is For
 
 - `repos/`: cloned git repositories Hermes works on
