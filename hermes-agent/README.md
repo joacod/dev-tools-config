@@ -443,6 +443,10 @@ Security reference:
 
 - [Security](https://hermes-agent.nousresearch.com/docs/user-guide/security)
 
+## Shared Workspace Convention
+
+For a simple way to organize the persistent shared Docker workspace under `~/hermes-workspace` and `/workspace`, see [Personal Workspace Setup](./personal-workspace-setup.md).
+
 ## Final Step
 
 Run the [sanity check](./sanity-check.md) to verify the SSH alias, user separation, Hermes install, and any optional services are working correctly.
