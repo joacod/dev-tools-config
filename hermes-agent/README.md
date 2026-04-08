@@ -320,7 +320,7 @@ hermes setup
 For this guide's VPS setup:
 
 - choose `Docker` as the terminal backend
-- choose whether you want a persistent filesystem
+- choose a persistent filesystem
 - if you want Telegram access, you can configure it during `hermes setup` or later with `hermes gateway setup`
 
 ### Telegram Settings
@@ -329,6 +329,26 @@ For this guide's VPS setup:
 
 - your Telegram bot token from BotFather
 - your own Telegram user ID in the allowed users list
+
+## Configure Persistent Docker Workspace
+
+**Run as:** `hermes` on the VPS
+
+After `hermes setup`, configure Hermes to keep its Docker sandbox filesystem between sessions and to use a predictable host-mounted workspace at `/workspace`.
+
+This keeps Docker as the isolation boundary while giving Hermes a simple persistent folder for inputs and outputs.
+
+```sh
+hermes config set terminal.container_persistent true
+mkdir -p ~/hermes-workspace
+hermes config set terminal.docker_volumes '["/home/hermes/hermes-workspace:/workspace"]'
+```
+
+What this does:
+
+- `terminal.container_persistent true` tells Hermes to preserve the Docker sandbox filesystem across sessions
+- `terminal.docker_volumes` bind-mounts `~/hermes-workspace` from the VPS into the container as `/workspace`
+- files Hermes writes to `/workspace` inside the container will appear in `/home/hermes/hermes-workspace` on the VPS
 
 ## Configure A Model Provider
 
