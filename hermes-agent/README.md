@@ -409,6 +409,21 @@ What this does:
 - `provider_routing.data_collection deny` is the documented Hermes/OpenRouter setting closest to Zero Data Retention style routing and prefers providers that do not allow training or retention on your data
 - `fallback_model.*` gives Hermes a backup model if the primary provider or model fails during a session
 
+### Quick Verification
+
+After setting the OpenRouter model, routing, and fallback values, run:
+
+```sh
+hermes config
+hermes config check
+```
+
+Notes:
+
+- `hermes config` shows a high-level summary of your current Hermes configuration
+- `hermes config check` helps detect missing or stale configuration after changes
+- some advanced settings may not appear in the summary output, so if you need to confirm exact values like `provider_routing.*` or `fallback_model.*`, inspect the raw file path shown by `hermes config path`
+
 ## Optional: Set Up Telegram Gateway
 
 **Run as:** `hermes` on the VPS for gateway setup, and your admin user on the VPS for the linger step
