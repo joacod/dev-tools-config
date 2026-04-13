@@ -374,6 +374,42 @@ Why this matters:
 - your API keys stay private to the `hermes` account instead of being readable by other users on the VPS
 - this matters even more if you expose Hermes through Telegram
 
+## Optional: OpenRouter Routing And Fallback Model
+
+**Run as:** `hermes` on the VPS
+
+If you use OpenRouter, you can also configure provider routing rules and a fallback model.
+
+This can help Hermes avoid providers that do not support the full request parameters, reduce data retention exposure, and recover automatically if your primary model fails.
+
+If you are looking for Zero Data Retention style behavior, the relevant Hermes setting here is `provider_routing.data_collection deny`.
+
+```sh
+hermes config set model.provider openrouter
+hermes config set model.default x-ai/grok-4.1-fast
+
+hermes config set provider_routing.require_parameters true
+hermes config set provider_routing.data_collection deny
+
+# Optional: explicit cheapest routing
+# OpenRouter already defaults to sorting by price
+# hermes config set provider_routing.sort price
+
+hermes config set fallback_model.provider openrouter
+hermes config set fallback_model.model deepseek/deepseek-v3.2
+```
+
+What this does:
+
+- `provider_routing.require_parameters true` avoids OpenRouter providers that do not support all request parameters Hermes wants to send
+- `provider_routing.data_collection deny` is the documented Hermes/OpenRouter setting closest to Zero Data Retention style routing and prefers providers that do not allow training or retention on your data
+- `fallback_model.*` gives Hermes a backup model if the primary provider or model fails during a session
+
+Official references:
+
+- [AI Providers](https://hermes-agent.nousresearch.com/docs/integrations/providers)
+- [Configuration](https://hermes-agent.nousresearch.com/docs/user-guide/configuration)
+
 ## Optional: Set Up Telegram Gateway
 
 **Run as:** `hermes` on the VPS for gateway setup, and your admin user on the VPS for the linger step
