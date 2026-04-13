@@ -378,11 +378,15 @@ Why this matters:
 
 **Run as:** `hermes` on the VPS
 
-If you use OpenRouter, you can also configure provider routing rules and a fallback model.
+If you use OpenRouter, you can configure Hermes to use it as the main provider and optionally add provider routing rules and a fallback model.
 
-This can help Hermes avoid providers that do not support the full request parameters, reduce data retention exposure, and recover automatically if your primary model fails.
+This is useful if you want a broader model catalog and a cleaner way to keep a primary model plus a backup.
 
-If you are looking for Zero Data Retention style behavior, the relevant Hermes setting here is `provider_routing.data_collection deny`.
+For OpenRouter-specific notes, recommended models, and the shortlist I am actively using, see [`../openrouter`](../openrouter).
+
+In Hermes, `provider_routing` is OpenRouter-specific.
+
+If you are looking for Zero Data Retention style behavior, the relevant documented Hermes setting here is `provider_routing.data_collection deny`.
 
 ```sh
 hermes config set model.provider openrouter
@@ -404,11 +408,6 @@ What this does:
 - `provider_routing.require_parameters true` avoids OpenRouter providers that do not support all request parameters Hermes wants to send
 - `provider_routing.data_collection deny` is the documented Hermes/OpenRouter setting closest to Zero Data Retention style routing and prefers providers that do not allow training or retention on your data
 - `fallback_model.*` gives Hermes a backup model if the primary provider or model fails during a session
-
-Official references:
-
-- [AI Providers](https://hermes-agent.nousresearch.com/docs/integrations/providers)
-- [Configuration](https://hermes-agent.nousresearch.com/docs/user-guide/configuration)
 
 ## Optional: Set Up Telegram Gateway
 
