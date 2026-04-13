@@ -374,6 +374,56 @@ Why this matters:
 - your API keys stay private to the `hermes` account instead of being readable by other users on the VPS
 - this matters even more if you expose Hermes through Telegram
 
+## Optional: OpenRouter Routing And Fallback Model
+
+**Run as:** `hermes` on the VPS
+
+If you use OpenRouter, you can configure Hermes to use it as the main provider and optionally add provider routing rules and a fallback model.
+
+This is useful if you want a broader model catalog and a cleaner way to keep a primary model plus a backup.
+
+For OpenRouter-specific notes, recommended models, and the shortlist I am actively using, see [`../openrouter`](../openrouter).
+
+In Hermes, `provider_routing` is OpenRouter-specific.
+
+If you are looking for Zero Data Retention style behavior, the relevant documented Hermes setting here is `provider_routing.data_collection deny`.
+
+```sh
+hermes config set model.provider openrouter
+hermes config set model.default x-ai/grok-4.1-fast
+
+hermes config set provider_routing.require_parameters true
+hermes config set provider_routing.data_collection deny
+
+# Optional: explicit cheapest routing
+# OpenRouter already defaults to sorting by price
+# hermes config set provider_routing.sort price
+
+hermes config set fallback_model.provider openrouter
+hermes config set fallback_model.model deepseek/deepseek-v3.2
+```
+
+What this does:
+
+- `provider_routing.require_parameters true` avoids OpenRouter providers that do not support all request parameters Hermes wants to send
+- `provider_routing.data_collection deny` is the documented Hermes/OpenRouter setting closest to Zero Data Retention style routing and prefers providers that do not allow training or retention on your data
+- `fallback_model.*` gives Hermes a backup model if the primary provider or model fails during a session
+
+### Quick Verification
+
+After setting the OpenRouter model, routing, and fallback values, run:
+
+```sh
+hermes config
+hermes config check
+```
+
+Notes:
+
+- `hermes config` shows a high-level summary of your current Hermes configuration
+- `hermes config check` helps detect missing or stale configuration after changes
+- some advanced settings may not appear in the summary output, so if you need to confirm exact values like `provider_routing.*` or `fallback_model.*`, inspect the raw file path shown by `hermes config path`
+
 ## Optional: Set Up Telegram Gateway
 
 **Run as:** `hermes` on the VPS for gateway setup, and your admin user on the VPS for the linger step

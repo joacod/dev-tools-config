@@ -8,6 +8,7 @@ My setup and notes for development tools, AI agents, and server utilities.
 | NVM and Node.js | Runtime | [`./nvm-node`](./nvm-node) | Node.js version management and setup notes. |
 | GitHub CLI | CLI | [`./github-cli`](./github-cli) | GitHub command-line workflow and usage. |
 | llama.cpp | Local AI | [`./llama-cpp`](./llama-cpp) | Local LLM runtime setup and usage. |
+| OpenRouter | AI Provider | [`./openrouter`](./openrouter) | Model catalog, routing notes, and recommended models I use. |
 | OpenCode | AI Agent | [`./opencode`](./opencode) | AI coding agent setup and configuration. |
 | Claude Code | AI Agent | [`./claude-code`](./claude-code) | AI coding agent setup and configuration. |
 | VPS Security | Infrastructure | [`./vps-security`](./vps-security) | VPS security and hardening notes. |
