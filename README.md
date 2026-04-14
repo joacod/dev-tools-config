@@ -11,5 +11,6 @@ My setup and notes for development tools, AI agents, and server utilities.
 | OpenRouter | AI Provider | [`./openrouter`](./openrouter) | Model catalog, routing notes, and recommended models I use. |
 | OpenCode | AI Agent | [`./opencode`](./opencode) | AI coding agent setup and configuration. |
 | Claude Code | AI Agent | [`./claude-code`](./claude-code) | AI coding agent setup and configuration. |
+| Tailscale | Networking | [`./tailscale`](./tailscale) | Secure private networking and remote access for devices and servers. |
 | VPS Security | Infrastructure | [`./vps-security`](./vps-security) | VPS security and hardening notes. |
 | Hermes Agent | Infrastructure / AI | [`./hermes-agent`](./hermes-agent) | AI agent setup for a VPS environment. |
