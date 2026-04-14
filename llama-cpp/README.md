@@ -47,6 +47,16 @@ llama-cli -hf ggml-org/gemma-3-1b-it-GGUF -p "Explain recursion in simple terms.
 
 `llama.cpp` expects models in `GGUF` format. The `-hf <user>/<model>[:quant]` flag downloads a compatible model directly.
 
+### Remove A Downloaded Model
+
+Models downloaded with `-hf` are typically cached under `~/.cache/huggingface/hub/`.
+
+For the `ggml-org/gemma-3-1b-it-GGUF` example above, remove the cached model with:
+
+```sh
+rm -rf ~/.cache/huggingface/hub/models--ggml-org--gemma-3-1b-it-GGUF
+```
+
 ## Run The Local Server
 
 This repo includes a small wrapper that makes `llama-server` the default out-of-the-box path:
