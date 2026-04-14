@@ -479,6 +479,25 @@ Gateway reference:
 
 - [Messaging Gateway](https://hermes-agent.nousresearch.com/docs/user-guide/messaging/)
 
+## Optional: Hermes Dashboard
+
+**Run as:** `hermes` on the VPS
+
+Once the dashboard dependencies are installed, you can start the Hermes dashboard with:
+
+```sh
+hermes dashboard
+```
+
+By default, Hermes serves the dashboard at:
+
+```text
+http://127.0.0.1:9119
+```
+
+If you are running Hermes on a VPS, you can expose `localhost:9119` through Tailscale to access the dashboard from your laptop while keeping it available only inside your tailnet.
+
+For the Tailscale setup, see [Tailscale](../tailscale/README.md).
 
 ## Security Notes
 
