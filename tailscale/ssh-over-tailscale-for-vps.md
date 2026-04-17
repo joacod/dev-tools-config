@@ -71,6 +71,15 @@ tailscale ip -4
 sudo ufw status verbose
 ```
 
+What to confirm before continuing:
+
+- `sudo systemctl status ssh`: the service shows `active (running)`
+- `tailscale status`: the VPS appears connected to your tailnet and does not show a disconnected state
+- `tailscale ip -4`: you get a Tailscale IPv4 address you can use to sanity-check the machine identity if needed
+- `sudo ufw status verbose`: `ufw` is active and you can see the current `OpenSSH` rule that will be removed later
+
+If any of these checks look wrong, stop there and fix that problem before changing the firewall rules.
+
 ## Test SSH Over Tailscale First
 
 **Run as:** your user on your `local machine`
@@ -92,15 +101,6 @@ Allow incoming traffic on the Tailscale interface.
 sudo ufw allow in on tailscale0
 ```
 
-Keep only the public ports you actually want to expose.
-
-```sh
-sudo ufw allow 80/tcp
-sudo ufw allow 443/tcp
-```
-
-Only keep `80/tcp` and `443/tcp` if you really need public web traffic.
-
 ## Remove Public SSH Exposure
 
 **Run as:** your admin user on the VPS
@@ -113,20 +113,35 @@ First list the current numbered rules:
 sudo ufw status numbered
 ```
 
+What to look for:
+
+- one or more rules for `OpenSSH`
+- the rule numbers attached to those `OpenSSH` entries
+
+You will use those rule numbers in the next step.
+
 Delete the `OpenSSH` rules you see there.
 
 ```sh
 sudo ufw delete <RULE_NUMBER>
-sudo ufw delete <RULE_NUMBER>
 ```
 
-Then reload the firewall and restart SSH.
+What to do here:
+
+- replace `<RULE_NUMBER>` with the actual numbers shown by `sudo ufw status numbered`
+- if you have both IPv4 and IPv6 `OpenSSH` rules, delete both
+- if your rule numbers shift after the first delete, run `sudo ufw status numbered` again before deleting the next one
+
+Then verify the firewall state.
 
 ```sh
-sudo ufw reload
-sudo systemctl restart ssh
 sudo ufw status verbose
 ```
+
+What to confirm before moving on:
+
+- `sudo ufw status verbose` no longer shows public `OpenSSH` rules
+- `sudo ufw status verbose` shows the `tailscale0` allow rule
 
 ## Final Verification
 
@@ -146,6 +161,13 @@ Expected result:
 - `ssh vps-hermes` works
 - `ssh personal@YOUR_PUBLIC_IP` fails
 
+The public-IP failure will often look like `Operation timed out` because `ufw` is dropping the incoming connection.
+
+What this verifies:
+
+- both local aliases now work over Tailscale with their existing users and keys
+- SSH is no longer reachable from the public internet on the VPS public IP
+
 ## Rollback
 
 **Run as:** your admin user on the VPS while you still have an open SSH session
@@ -157,6 +179,12 @@ sudo ufw allow OpenSSH
 sudo ufw limit OpenSSH
 sudo ufw reload
 ```
+
+What to confirm after rollback:
+
+- `sudo ufw reload` completes without errors
+- `sudo ufw status verbose` shows the `OpenSSH` rules again
+- you can reconnect using the old public SSH path if needed
 
 ## Notes
 
