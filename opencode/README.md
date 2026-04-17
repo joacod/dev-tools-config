@@ -4,13 +4,20 @@
 
 ## Configuration
 
-Paste the content of `opencode.json` into `/Users/[your-username]/.config/opencode/`
+Copy the config examples from [`./config`](./config) into `~/.config/opencode/`.
 
-This file includes:
+- Copy [`config/opencode.json`](./config/opencode.json) to `~/.config/opencode/opencode.json`
+- Copy [`config/tui.json`](./config/tui.json) to `~/.config/opencode/tui.json`
+
+`opencode.json` contains runtime and provider settings.
+
+`tui.json` contains TUI-only settings like `theme` and keybinds.
+
+The runtime config example includes:
 
 - Settings for using local models through [llama.cpp](https://github.com/ggml-org/llama.cpp) and [LM Studio](https://lmstudio.ai)
 
-Official documentation:
+Relevant documentation:
 
 - [llama.cpp provider docs](https://opencode.ai/docs/providers/#llamacpp)
 - [LM Studio provider docs](https://opencode.ai/docs/providers/#lm-studio)
