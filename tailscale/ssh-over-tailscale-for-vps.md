@@ -36,25 +36,9 @@ If you still need the basic Tailscale setup, start with [README.md](./README.md)
 
 **Run as:** your user on your `local machine`
 
-Replace `HostName YOUR_VPS_IP` in your local SSH aliases with the VPS Tailscale IP or, if MagicDNS is enabled, the machine hostname.
+Replace `HostName YOUR_VPS_IP` in your local SSH aliases with the VPS `MagicDNS hostname`.
 
-Example with Tailscale IP:
-
-```sshconfig
-Host vps-personal
-  HostName 100.x.y.z
-  User personal
-  IdentityFile ~/.ssh/personal_vps
-  IdentitiesOnly yes
-
-Host vps-hermes
-  HostName 100.x.y.z
-  User hermes
-  IdentityFile ~/.ssh/hermes_vps
-  IdentitiesOnly yes
-```
-
-Example with MagicDNS hostname:
+Example:
 
 ```sshconfig
 Host vps-personal
@@ -71,6 +55,8 @@ Host vps-hermes
 ```
 
 Only the `HostName` value changes for this migration. Your users and private keys stay the same.
+
+If you do not use MagicDNS, use the VPS Tailscale IP instead.
 
 ## Check The Current VPS State
 
@@ -174,7 +160,6 @@ sudo ufw reload
 
 ## Notes
 
-- If MagicDNS is enabled, using the hostname is usually easier than using the raw Tailscale IP
 - Your SSH login model does not change: OpenSSH still decides which Linux user you become and what permissions that user has
 - Fail2ban is still fine to keep installed, but it matters much less for SSH once public port `22` is no longer exposed
 
