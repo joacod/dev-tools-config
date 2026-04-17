@@ -108,8 +108,13 @@ If you are using multiple Serve mappings or non-default flags, use the matching 
 - `tailscale serve` shares the service only inside your tailnet, not publicly on the internet
 - `tailscale serve reset` clears all Serve configuration on that machine, while matching `tailscale serve ... off` commands are better when you want to remove only one specific mapping
 
+## VPS Guides
+
+For a VPS that already uses the base hardening guide, see [SSH Over Tailscale For VPS](./ssh-over-tailscale-for-vps.md) to keep normal OpenSSH users and keys while removing public SSH exposure
+
 ## Official References
 
 - [Tailscale Quickstart](https://tailscale.com/docs/how-to/quickstart)
 - [tailscale up](https://tailscale.com/docs/reference/tailscale-cli/up)
 - [tailscale serve](https://tailscale.com/docs/reference/tailscale-cli/serve)
+- [Protect your SSH servers using Tailscale](https://tailscale.com/docs/reference/ssh-over-tailscale)

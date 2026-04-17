@@ -22,6 +22,10 @@ This guide walks you through a simple baseline hardening setup for a public Ubun
 
 **Result:** a safer default VPS setup with less unnecessary exposure and a simpler SSH workflow from your local machine.
 
+### Tailscale (Optional)
+
+If you later want SSH to be reachable only inside your Tailscale network, keep this baseline guide as-is first, then follow [SSH Over Tailscale For VPS](../tailscale/ssh-over-tailscale-for-vps.md) as an optional add-on.
+
 ## Before You Start
 
 First connect to the VPS as `root` from your local machine terminal.
