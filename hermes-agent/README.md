@@ -125,6 +125,8 @@ Host hermes
 
 Save and exit with `CTRL + O`, `ENTER`, then `CTRL + X`.
 
+If the VPS later uses [SSH Over Tailscale For VPS](../tailscale/ssh-over-tailscale-for-vps.md), replace `HostName YOUR_VPS_IP` with the VPS Tailscale IP or MagicDNS hostname. The `User` and `IdentityFile` lines stay the same.
+
 ## Login As Hermes
 
 **Run as:** your user on your `local machine`
