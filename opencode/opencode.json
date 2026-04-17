@@ -9,13 +9,16 @@
       },
       "models": {
         "ggml-org/gemma-3-1b-it-GGUF": {
-          "name": "Qwen 3 1b"
-        },
-        "ggml-org/Qwen3-Coder-30B-A3B-Instruct-Q8_0-GGUF:Q8_0": {
-          "name": "Qwen 3 Coder 30b Q8"
+          "name": "Gemma 3 1b"
         },
         "ggml-org/gemma-4-31B-it-GGUF:Q4_K_M": {
           "name": "Gemma 4 31b Q4"
+        },
+        "Jackrong/Qwen3.5-27B-Claude-4.6-Opus-Reasoning-Distilled-GGUF": {
+          "name": "Qwen 3.5 27b Opus Distilled"
+        },
+        "unsloth/Qwen3.6-35B-A3B-GGUF:UD-Q4_K_M": {
+          "name": "Qwen 3.6 35b A3B Q4"
         }
       }
     },
