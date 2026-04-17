@@ -120,6 +120,8 @@ What to look for:
 
 You will use those rule numbers in the next step.
 
+**IMPORTANT**: after you delete the first rule, the remaining rule numbers can change. Run `sudo ufw status numbered` again before deleting the next `OpenSSH` rule so you do not remove the wrong entry.
+
 Delete the `OpenSSH` rules you see there.
 
 ```sh
@@ -130,7 +132,6 @@ What to do here:
 
 - replace `<RULE_NUMBER>` with the actual numbers shown by `sudo ufw status numbered`
 - if you have both IPv4 and IPv6 `OpenSSH` rules, delete both
-- if your rule numbers shift after the first delete, run `sudo ufw status numbered` again before deleting the next one
 
 Then verify the firewall state.
 
