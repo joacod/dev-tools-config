@@ -13,4 +13,5 @@ My setup and notes for development tools, AI agents, and server utilities.
 | Claude Code | AI Agent | [`./claude-code`](./claude-code) | AI coding agent setup and configuration. |
 | Tailscale | Networking | [`./tailscale`](./tailscale) | Secure private networking and remote access for devices and servers. |
 | VPS Security | Infrastructure | [`./vps-security`](./vps-security) | VPS security and hardening notes. |
+| Dokploy | Infrastructure | [`./dokploy`](./dokploy) | Dokploy installation and basic configuration on a VPS. |
 | Hermes Agent | Infrastructure / AI | [`./hermes-agent`](./hermes-agent) | AI agent setup for a VPS environment. |
