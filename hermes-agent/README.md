@@ -311,6 +311,12 @@ If the rootless Docker service is not already running after setup, start it once
 systemctl --user start docker
 ```
 
+This guide uses `DOCKER_HOST` as the one explicit way to tell Hermes which Docker daemon to use.
+
+That matters because Hermes only knows it should use the `docker` backend. The actual Docker socket still comes from the `hermes` user environment.
+
+If `docker context ls` later warns that `DOCKER_HOST` overrides the active context, that is expected and safe to ignore in this setup.
+
 ### 4. Verify rootless Docker as `hermes`
 
 **Run as:** `hermes` on the VPS
@@ -326,6 +332,7 @@ Expected result:
 - `docker info` shows `rootless` under `Security Options`
 - `docker run hello-world` completes successfully
 - the Docker client is no longer using `/var/run/docker.sock`
+- `docker ps` does not show Dokploy containers from the system Docker daemon
 
 ### 5. If Hermes still uses the old system Docker socket
 
@@ -337,6 +344,40 @@ docker context ls
 ```
 
 If you still see the system socket, log out completely and reconnect as `hermes`, then rerun the verification commands.
+
+### 6. Make the rootless socket available to Hermes services too
+
+**Run as:** `hermes` on the VPS
+
+If you run Hermes as a long-lived user service, make the same Docker socket available outside interactive shells too.
+
+```sh
+mkdir -p ~/.config/environment.d
+nano ~/.config/environment.d/docker.conf
+```
+
+Add:
+
+```ini
+DOCKER_HOST=unix:///run/user/1002/docker.sock
+PATH=/usr/bin
+```
+
+Save and exit with `CTRL + O`, `ENTER`, then `CTRL + X`.
+
+If your `hermes` user has a different UID on another machine, replace `1002` with the value from `id -u`.
+
+Reload the user environment:
+
+```sh
+systemctl --user daemon-reload
+systemctl --user import-environment DOCKER_HOST PATH
+systemctl --user show-environment | grep DOCKER_HOST
+```
+
+Expected result:
+
+- `systemctl --user show-environment | grep DOCKER_HOST` shows the rootless Docker socket path
 
 Docker reference:
 
