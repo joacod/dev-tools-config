@@ -257,57 +257,90 @@ When that is done, continue to the next section.
 
 ## Install Docker Backend
 
-**Run as:** your admin user on the VPS
+**Run as:** your admin user on the VPS unless a step says otherwise
 
-If you want Hermes to execute commands inside Docker instead of directly on the host, install Docker from Docker's official Ubuntu repository.
+If you want Hermes to execute commands inside Docker instead of directly on the host, use a separate rootless Docker daemon for the `hermes` user.
 
-This is the recommended path for stronger isolation.
+This is the recommended path when Hermes shares a machine with something like Dokploy.
 
-### 1. Install Docker repository prerequisites
+Why this guide uses rootless Docker for Hermes:
 
-```sh
-sudo apt update
-sudo apt install ca-certificates curl -y
-```
+- Dokploy uses the system Docker daemon
+- adding `hermes` to the system `docker` group would give `hermes` root-equivalent control of that daemon
+- a separate rootless Docker daemon keeps Hermes from controlling Dokploy containers through `/var/run/docker.sock`
 
-### 2. Add Docker's signing key and repository
+### 1. Install rootless Docker prerequisites
 
-```sh
-sudo install -m 0755 -d /etc/apt/keyrings
-sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
-sudo chmod a+r /etc/apt/keyrings/docker.asc
-sudo sh -c 'echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo $VERSION_CODENAME) stable" > /etc/apt/sources.list.d/docker.list'
-```
-
-### 3. Install Docker
+If Docker is already installed for Dokploy, you do not need to reinstall the base engine. You only need the rootless extras package and the user namespace helpers.
 
 ```sh
 sudo apt update
-sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+sudo apt install docker-ce-rootless-extras uidmap -y
 ```
 
-### 4. Allow the `hermes` user to use Docker
+### 2. Remove `hermes` from the system `docker` group
 
 ```sh
-sudo usermod -aG docker hermes
+sudo gpasswd -d hermes docker
+id hermes
 ```
 
-This change does not apply to existing `hermes` shell sessions. Log out completely, then log back in as `hermes` before testing Docker.
+Expected result:
 
-### 5. Verify Docker as `hermes`
+- `id hermes` no longer lists the `docker` group
 
-**Run as:** `hermes` on the VPS after reconnecting
+### 3. Set up rootless Docker as `hermes`
 
-If you skip the logout/login step, Docker commands may fail with `permission denied while trying to connect to the docker API`.
+**Run as:** `hermes` on the VPS
 
 ```sh
-docker --version
+dockerd-rootless-setuptool.sh install
+```
+
+Then add the Docker socket path for the current `hermes` user and reload the shell.
+
+```sh
+echo 'export PATH=/usr/bin:$PATH' >> ~/.bashrc
+echo "export DOCKER_HOST=unix:///run/user/$(id -u)/docker.sock" >> ~/.bashrc
+source ~/.bashrc
+```
+
+If the rootless Docker service is not already running after setup, start it once in the current session.
+
+```sh
+systemctl --user start docker
+```
+
+### 4. Verify rootless Docker as `hermes`
+
+**Run as:** `hermes` on the VPS
+
+```sh
+docker context ls
+docker info
 docker run hello-world
 ```
 
+Expected result:
+
+- `docker info` shows `rootless` under `Security Options`
+- `docker run hello-world` completes successfully
+- the Docker client is no longer using `/var/run/docker.sock`
+
+### 5. If Hermes still uses the old system Docker socket
+
+**Run as:** `hermes` on the VPS
+
+```sh
+echo "$DOCKER_HOST"
+docker context ls
+```
+
+If you still see the system socket, log out completely and reconnect as `hermes`, then rerun the verification commands.
+
 Docker reference:
 
-- [Docker Install](https://docs.docker.com/engine/install/ubuntu/)
+- [Docker Rootless Mode](https://docs.docker.com/engine/security/rootless/)
 
 ## Run Hermes Setup
 

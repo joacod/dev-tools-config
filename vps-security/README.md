@@ -22,9 +22,11 @@ This guide walks you through a simple baseline hardening setup for a public Ubun
 
 **Result:** a safer default VPS setup with less unnecessary exposure and a simpler SSH workflow from your local machine.
 
-### Tailscale (Optional)
+### Tailscale
 
-If you later want SSH to be reachable only inside your Tailscale network, keep this baseline guide as-is first, then follow [SSH Over Tailscale For VPS](../tailscale/ssh-over-tailscale-for-vps.md) as an optional add-on.
+For this repo's normal VPS stack, the intended next step after this guide is [SSH Over Tailscale For VPS](../tailscale/ssh-over-tailscale-for-vps.md).
+
+That keeps SSH private inside your tailnet instead of leaving port `22` exposed on the public internet.
 
 ## Before You Start
 
@@ -163,6 +165,16 @@ sudo ufw allow https
 sudo ufw enable
 sudo ufw status verbose
 ```
+
+## Docker Boundary
+
+If you later install both Dokploy and Hermes on the same machine, do not let Hermes share the system Docker daemon that Dokploy uses.
+
+For this repo's intended same-machine setup:
+
+- Dokploy uses the system Docker daemon
+- Hermes uses a separate rootless Docker daemon owned by the `hermes` user
+- the `hermes` user should not be added to the system `docker` group
 
 ## Update The System
 
