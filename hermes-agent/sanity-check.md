@@ -53,20 +53,32 @@ Expected result:
 - `hermes doctor` completes without blocking install issues
 - `hermes status` shows your configured environment
 
-## Check Docker Backend
+## Check Rootless Docker Backend
 
 **Run as:** `hermes` on the VPS
 
 Only run this section if you chose Docker as the Hermes terminal backend.
 
 ```sh
-docker --version
+echo "$DOCKER_HOST"
+docker info
+docker ps
+```
+
+Expected result:
+
+- `DOCKER_HOST` points to `unix:///run/user/<your-hermes-uid>/docker.sock`
+- `docker info` shows `rootless` under `Security Options`
+- `docker ps` does not show Dokploy containers from the system Docker daemon
+
+Optional extra check:
+
+```sh
 docker run hello-world
 ```
 
 Expected result:
 
-- Docker is installed and available to the `hermes` user
 - `hello-world` runs successfully
 
 ## Check Provider Configuration
@@ -124,7 +136,8 @@ If all checks pass, you have verified:
 - the local `ssh hermes` alias works
 - Hermes is isolated under its own Ubuntu user
 - the Hermes CLI is installed and available
-- Docker is ready if you chose the Docker backend
+- Hermes uses its own rootless Docker daemon if you chose the Docker backend
+- Hermes does not share Dokploy's system Docker daemon
 - a model provider is configured for normal Hermes use
 - the main secrets file has restrictive permissions
 - the gateway service is running correctly if enabled
