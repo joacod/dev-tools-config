@@ -1,6 +1,6 @@
 # SSH Over Tailscale For VPS
 
-Optional add-on guide to move VPS SSH access from the public internet to your Tailscale network while keeping normal OpenSSH users, keys, and permissions.
+Recommended follow-up guide to move VPS SSH access from the public internet to your Tailscale network while keeping normal OpenSSH users, keys, and permissions.
 
 | Item | Value |
 | --- | --- |
@@ -20,6 +20,8 @@ Use this path if you want to:
 - Keep separate SSH private keys for each user
 - Keep your normal `sudo` and `non-sudo` user permissions
 - Remove public SSH exposure from port `22`
+
+For this repo's Dokploy and Hermes VPS flow, this is the intended SSH setup after the base hardening guide.
 
 ## Before You Start
 

@@ -15,6 +15,7 @@ This guide keeps the setup close to the official Dokploy docs and covers a minim
 
 - **Uses the official installer:** the same install script from Dokploy's installation docs
 - **Uses Tailscale for access:** reach the Dokploy panel from your local machine without exposing it publicly
+- **Keeps Dokploy on the system Docker daemon:** this matches the default Dokploy install flow
 - **Keeps the setup minimal:** install first, then use a private Tailscale URL to complete the admin setup
 
 **Result:** Dokploy is installed on the VPS and reachable privately from your local machine through Tailscale.
@@ -29,9 +30,13 @@ You should already have:
 - a non-root admin user with `sudo`
 - SSH access working from your local machine
 - Tailscale installed and working on the VPS and your local machine
-- ports `80`, `443`, and `3000` available before install
+- ports `80` and `443` available before install
+
+This guide assumes the Dokploy panel is meant to stay private and be opened through `tailscale serve`, not directly from the public internet.
 
 Dokploy installs Docker automatically if it is not already present.
+
+Dokploy also initializes a single-node Docker Swarm by default as part of its standard install flow.
 
 If you do not use Tailscale, follow the official Dokploy installation documentation instead of this guide.
 
@@ -50,7 +55,7 @@ sudo curl -sSL https://dokploy.com/install.sh | sudo sh
 What this does:
 
 - installs Docker if needed
-- initializes the Docker Swarm Dokploy uses
+- initializes the single-node Docker Swarm Dokploy uses
 - creates Dokploy services and supporting containers
 - exposes the panel on port `3000`
 
@@ -106,6 +111,7 @@ This account becomes the main admin account for the Dokploy panel.
 
 - Dokploy uses Docker Swarm under the hood as part of the default installation flow.
 - This guide assumes Tailscale is your safe way to reach the Dokploy panel during setup.
+- If you later run Hermes on the same machine, keep Dokploy on the system Docker daemon and keep Hermes on a separate rootless Docker daemon for the `hermes` user.
 - If you want version pinning, custom swarm network options, or manual installation details, use the official manual installation docs.
 - If you later update Dokploy, the basic update command is `sudo curl -sSL https://dokploy.com/install.sh | sudo sh -s update`.
 
