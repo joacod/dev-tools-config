@@ -408,11 +408,11 @@ For this guide's VPS setup:
 
 ## Configure Persistent Docker Workspace
 
-**Run as:** `hermes` on the VPS
-
 After `hermes setup`, configure Hermes to keep its Docker sandbox filesystem between sessions and to use a predictable host-mounted workspace at `/workspace`.
 
 This keeps Docker as the isolation boundary while giving Hermes a simple persistent folder for inputs and outputs.
+
+**Run as:** `hermes` on the VPS
 
 ```sh
 hermes config set terminal.container_persistent true
@@ -420,11 +420,31 @@ mkdir -p ~/hermes-workspace
 hermes config set terminal.docker_volumes '["/home/hermes/hermes-workspace:/workspace"]'
 ```
 
+Make sure the whole shared workspace tree is owned by `hermes`.
+
+**Run as:** your admin user on the VPS
+
+```sh
+sudo chown -R hermes:hermes /home/hermes/hermes-workspace
+sudo find /home/hermes/hermes-workspace -type d -exec chmod 755 {} \;
+sudo find /home/hermes/hermes-workspace -type f -exec chmod 644 {} \;
+```
+
+Then confirm `hermes` can write inside the mounted workspace.
+
+**Run as:** `hermes` on the VPS
+
+```sh
+touch ~/hermes-workspace/wikis/test-write.txt
+rm ~/hermes-workspace/wikis/test-write.txt
+```
+
 What this does:
 
 - `terminal.container_persistent true` tells Hermes to preserve the Docker sandbox filesystem across sessions
 - `terminal.docker_volumes` bind-mounts `~/hermes-workspace` from the VPS into the container as `/workspace`
 - files Hermes writes to `/workspace` inside the container will appear in `/home/hermes/hermes-workspace` on the VPS
+- the ownership fix prevents a common failure mode where `/workspace` is mounted correctly but Hermes cannot write to the underlying host folders
 
 ## Configure A Model Provider
 
