@@ -81,7 +81,7 @@ sudo journalctl -p 3 -xb
 ## Avoid
 
 - unnecessary PPAs and third-party repositories unless they are truly needed and trustworthy
-- Backports unless you explicitly need them
+- installing packages from Ubuntu Backports unless you explicitly need a newer version
 - routine `dist-upgrade`, `full-upgrade`, or release upgrades as part of normal maintenance
 - running an unsupported Ubuntu release
 
