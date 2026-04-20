@@ -110,6 +110,10 @@ Complete the initial setup page and create the first Dokploy administrator accou
 
 This account becomes the main admin account for the Dokploy panel.
 
+## Update Dokploy
+
+Updates are available directly from the Dokploy dashboard. Look for the update notification in the UI when a new version is ready and apply it there without needing to touch the VPS command line.
+
 ## Notes
 
 - Dokploy uses Docker Swarm under the hood as part of the default installation flow.
