@@ -65,8 +65,10 @@ What this does:
 
 Expose Dokploy only inside your tailnet so you can open it safely from your local machine.
 
+Important: Dokploy publishes host port `3000` itself. Do not configure Tailscale Serve to also listen on `:3000` for Dokploy. Use a different Tailscale-facing port such as `8443` and proxy it to `localhost:3000` to avoid startup conflicts after reboot.
+
 ```sh
-sudo tailscale serve --bg --https=3000 localhost:3000
+sudo tailscale serve --bg --https=8443 localhost:3000
 ```
 
 Check the current Tailscale Serve status:
@@ -75,9 +77,9 @@ Check the current Tailscale Serve status:
 tailscale serve status
 ```
 
-You should see a Tailscale HTTPS URL ending in `:3000`.
+You should see a Tailscale HTTPS URL ending in `:8443`.
 
-This keeps Dokploy reachable from your local machine without opening port `3000` to the public internet.
+This keeps Dokploy reachable from your local machine without opening port `3000` to the public internet while leaving Dokploy free to keep using its own local `3000` binding.
 
 If you have not set up Tailscale yet, use the steps in [Tailscale](../tailscale/README.md) first.
 
@@ -90,12 +92,13 @@ Open the Tailscale Serve URL from the previous step in your browser.
 It should look similar to:
 
 ```text
-https://your-machine.your-tailnet.ts.net:3000
+https://your-machine.your-tailnet.ts.net:8443
 ```
 
 If the page does not load, recheck:
 
 - the Dokploy installer finished without errors
+- `curl -I http://127.0.0.1:3000` works on the VPS
 - `tailscale serve status` shows the mapping
 - your local machine is connected to the same tailnet
 
@@ -106,6 +109,10 @@ If the page does not load, recheck:
 Complete the initial setup page and create the first Dokploy administrator account.
 
 This account becomes the main admin account for the Dokploy panel.
+
+## Update Dokploy
+
+Updates are available directly from the Dokploy dashboard. Look for the update notification in the UI when a new version is ready and apply it there without needing to touch the VPS command line.
 
 ## Notes
 
