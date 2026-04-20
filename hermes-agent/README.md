@@ -1,6 +1,6 @@
 # Hermes Agent
 
-Install Hermes Agent on an already-configured Ubuntu VPS using a dedicated `hermes` user and a dedicated SSH key.
+Hermes Agent is a self-hosted AI agent you can run on your own server. This guide covers installing it on an Ubuntu VPS with a dedicated `hermes` user, separate SSH access, and optional Docker and Telegram setup.
 
 | Item | Value |
 | --- | --- |
