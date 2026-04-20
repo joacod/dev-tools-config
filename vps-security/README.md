@@ -166,6 +166,27 @@ sudo ufw enable
 sudo ufw status verbose
 ```
 
+## Cloud Firewall
+
+If your VPS provider offers a network or cloud firewall, enable it there too.
+
+Why this matters:
+
+- `ufw` runs on the VPS itself
+- Docker can publish ports using its own iptables rules, which can bypass normal `ufw` filtering on Linux
+- a provider firewall filters traffic before it ever reaches the VPS
+
+Recommended baseline:
+
+- allow public `80/tcp` (source any)
+- allow public `443/tcp` (source any)
+- allow `22/tcp` (optional, only if you still use public SSH)
+- deny everything else
+
+Treat this as the first firewall layer and `ufw` as the second layer on the server.
+
+Example: on Hostinger, create a VPS Firewall in hPanel and only allow the ports above. This keeps accidentally published Docker ports from being reachable from the public internet.
+
 ## Docker Boundary
 
 If you later install both Dokploy and Hermes on the same machine, do not let Hermes share the system Docker daemon that Dokploy uses.
