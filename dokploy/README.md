@@ -1,6 +1,6 @@
 # Dokploy
 
-Install Dokploy on an already-configured Ubuntu VPS and access it safely over Tailscale during first setup.
+Dokploy is a self-hosted deployment platform for running and managing apps, databases, and services on your own server. This guide covers a minimal Dokploy install on an Ubuntu VPS and private first access over Tailscale.
 
 | Item | Value |
 | --- | --- |
