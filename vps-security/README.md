@@ -281,3 +281,5 @@ Expected checks:
 ## Final Step
 
 Run the [sanity check](./sanity-check.md) to verify the VPS is configured correctly.
+
+After the baseline setup is done, use the ongoing [server maintenance guide](./server-maintenance.md) for low-risk manual upkeep.
