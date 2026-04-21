@@ -505,6 +505,12 @@ What this does:
 - `provider_routing.data_collection deny` is the documented Hermes/OpenRouter setting closest to Zero Data Retention style routing and prefers providers that do not allow training or retention on your data
 - `fallback_model.*` gives Hermes a backup model if the primary provider or model fails during a session
 
+Relevant Hermes docs:
+
+- [Hermes AI Providers](https://hermes-agent.nousresearch.com/docs/integrations/providers)
+- [Hermes Provider Routing](https://hermes-agent.nousresearch.com/docs/user-guide/features/provider-routing)
+- [Hermes Configuration](https://hermes-agent.nousresearch.com/docs/user-guide/configuration)
+
 ### Quick Verification
 
 After setting the OpenRouter model, routing, and fallback values, run:
