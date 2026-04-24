@@ -8,17 +8,14 @@
         "baseURL": "http://127.0.0.1:8080/v1"
       },
       "models": {
-        "ggml-org/gemma-3-1b-it-GGUF": {
-          "name": "Gemma 3 1b"
+        "unsloth/Qwen3.6-27B-GGUF:UD-Q4_K_XL": {
+          "name": "Qwen 3.6 27B Q4"
         },
-        "ggml-org/gemma-4-31B-it-GGUF:Q4_K_M": {
-          "name": "Gemma 4 31b Q4"
+        "unsloth/Qwen3.6-35B-A3B-GGUF:Q4_K_M": {
+          "name": "Qwen 3.6 MoE 35B A3B Q4"
         },
-        "Jackrong/Qwen3.5-27B-Claude-4.6-Opus-Reasoning-Distilled-GGUF": {
-          "name": "Qwen 3.5 27b Opus Distilled"
-        },
-        "unsloth/Qwen3.6-35B-A3B-GGUF:UD-Q4_K_M": {
-          "name": "Qwen 3.6 35b A3B Q4"
+        "Jackrong/Qwen3.5-27B-Claude-4.6-Opus-Reasoning-Distilled-GGUF:Q4_K_M": {
+          "name": "Qwen 3.5 27B Q4"
         }
       }
     },
