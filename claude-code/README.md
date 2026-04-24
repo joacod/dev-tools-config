@@ -25,6 +25,16 @@ mkdir -p .claude/agents
 cp agents/senior-code-reviewer.md .claude/agents/
 ```
 
+## MCP
+
+Claude Code supports MCP servers, which let it connect to external tools and capabilities.
+
+For example, you can install the Playwright MCP server with:
+
+```bash
+claude mcp add playwright npx @playwright/mcp@latest
+```
+
 ## Available Agents
 
 | Name | Path | Description |
