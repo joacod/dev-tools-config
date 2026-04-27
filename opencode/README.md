@@ -9,13 +9,14 @@ Copy the config examples from [`./config`](./config) into `~/.config/opencode/`.
 - Copy [`config/opencode.json`](./config/opencode.json) to `~/.config/opencode/opencode.json`
 - Copy [`config/tui.json`](./config/tui.json) to `~/.config/opencode/tui.json`
 
-`opencode.json` contains runtime and provider settings.
+`opencode.json` contains runtime, provider, and MCP settings.
 
 `tui.json` contains TUI-only settings like `theme` and keybinds.
 
 The runtime config example includes:
 
 - Settings for using local models through [llama.cpp](https://github.com/ggml-org/llama.cpp) and [LM Studio](https://lmstudio.ai)
+- Playwright MCP configuration for local server using `@playwright/mcp@latest`
 
 Relevant documentation:
 
