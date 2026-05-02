@@ -126,7 +126,10 @@ These are useful starting points for local testing:
 
 ## Learn More
 
-If you want help understanding model names, quant choices, context size, and common `llama-server` tuning flags, see [Hugging Face And Tuning](./hugging-face-and-tuning.md).
+| Resource | Covers |
+| --- | --- |
+| [Hugging Face And Tuning](./hugging-face-and-tuning.md) | Model names, quant choices, context size, and common `llama-server` tuning flags |
+| [llama.cpp Parameters](./llama-cpp-parameters.md) | Parameter reference and hardware-specific setup examples |
 
 ## Apple Silicon Note
 
