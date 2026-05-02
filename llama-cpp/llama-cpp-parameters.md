@@ -26,15 +26,15 @@ Common values for `--cache-type-k` and `--cache-type-v`:
 - `q8_0`: strong quality, moderate memory use
 - `f16`: full precision, best quality, highest memory cost
 
-## Recommended Setup: MacBook Pro M4 Max, 48GB RAM
+## Recommended Setup for specific Hardware
 
-For this hardware, the following parameter combination delivers strong performance and quality for models like Qwen3.6-27B:
+### MacBook Pro M4 Max, 48GB RAM
+
+The following parameter combination delivers strong performance and quality for models like Qwen3.6-27B:
 
 ```sh
 llama-server -hf unsloth/Qwen3.6-27B-GGUF:UD-Q6_K_XL --offline --port 8080 -ngl 99 -fa 1 --cache-type-k q8_0 --cache-type-v q8_0 -b 2048 -ub 2048 -c 131072 --jinja
 ```
-
-What each flag does:
 
 - `-ngl 99` → full Metal GPU offload (biggest speed win)
 - `-fa 1` → Flash Attention (faster + better long-context quality)
@@ -43,4 +43,19 @@ What each flag does:
 - `-c 131072` → usable context length (Qwen3.6's native strength)
 - `--jinja` → correct modern chat template handling (free quality boost for Qwen3.6, harmless elsewhere)
 
-If you run into memory pressure, reduce `-c` first. `65536` is a comfortable fallback that still supports very long conversations.
+### MacBook Air M2, 16GB RAM
+
+Use the `UD-Q3_K_XL` quant and the following parameters for Qwen3.6-27B:
+
+```sh
+llama-server -hf unsloth/Qwen3.6-27B-GGUF:UD-Q3_K_XL --offline --port 8080 -ngl 99 -fa 1 --cache-type-k q8_0 --cache-type-v q8_0 -b 512 -ub 512 -c 16384 --jinja
+```
+
+- Quant: Dropped from `UD-Q6_K_XL` to `UD-Q3_K_XL` (weights alone must leave room for system + KV cache)
+- `-b 512 -ub 512`: Smaller prompt batch size to avoid swapping or crashing on 16GB
+- `-c 16384`: Realistic max context on 16GB
+- `-ngl 99` and `-fa 1`: Kept (M2 Metal still benefits hugely)
+- `--cache-type-k/v q8_0`: Kept (small context keeps memory use low)
+- `--jinja`: Kept (required for Qwen3.6 chat formatting)
+
+Expected speed: ~8-18 tokens/sec generation. If you ever get OOM, drop `-ngl` to `60` or lower to let some layers run on CPU.

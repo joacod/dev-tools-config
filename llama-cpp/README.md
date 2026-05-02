@@ -59,7 +59,7 @@ rm -rf ~/.cache/huggingface/hub/models--ggml-org--gemma-3-1b-it-GGUF
 
 ## Run The Local Server
 
-This repo includes a small wrapper that makes `llama-server` the default out-of-the-box path:
+This repo includes a small wrapper that makes `llama-server` the default out-of-the-box path.
 
 For `zsh`, add an alias to `~/.zshrc` that points to this script:
 
@@ -76,34 +76,34 @@ Then start the launcher with:
 run-llama-server
 ```
 
-`llama-server` is an OpenAI-compatible local HTTP server. After launch, use:
+What it does:
+
+- Lists downloaded `llama.cpp` models
+- Lets you choose one from a numbered menu
+- Starts `llama-server` (an OpenAI-compatible local HTTP server) on port `8080` with `--offline` (only starts models already present in the local cache)
+
+After launch, use:
 
 - Browser UI: `http://127.0.0.1:8080`
 - API endpoint: `http://127.0.0.1:8080/v1/chat/completions`
 
-Optional arguments:
+### Optional arguments:
 
 ```sh
 run-llama-server --m4-48gb
+run-llama-server --m2-16gb
 ```
 
-What it does:
-
-- Lists cached `llama.cpp` models
-- Lets you choose one from a numbered menu
-- Starts `llama-server` on port `8080` with `--offline`
-- `--m4-48gb` applies optimized parameters for M4 Max 48GB Mac (full GPU offload, Flash Attention, high-precision KV cache, large batch size, 128k context, Jinja templates)
-
-The launcher uses `--offline`, so it only starts models already present in the local cache. If the model you want is not installed yet, download it first with `llama-cli -hf ...` or `llama-server -hf ...`.
-
-For predictable results, install and run the full `repo:quant` value you want instead of leaving the quant implicit.
+This arguments applies optimized parameters for specific machines:
+- `--m4-48gb` for M4 Max 48GB Mac (Q6 quant, 128k context, large batch size)
+- `--m2-16gb` for M2 16GB Mac (Q3 quant, 16k context, smaller batch size)
 
 ### Run Manually
 
 If you want to skip the launcher, you can still start the server manually with an exact cached model:
 
 ```sh
-llama-server -hf ggml-org/gemma-4-31B-it-GGUF:Q4_K_M --offline --port 8080
+llama-server -hf ggml-org/gemma-3-1b-it-GGUF --offline --port 8080
 ```
 
 ## Models To Try
