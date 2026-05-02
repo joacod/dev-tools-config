@@ -30,32 +30,49 @@ Common values for `--cache-type-k` and `--cache-type-v`:
 
 ### MacBook Pro M4 Max, 48GB RAM
 
-The following parameter combination delivers strong performance and quality for models like Qwen3.6-27B:
+The following parameter combination delivers strong performance and quality for **Qwen3.6-35B-A3B** (recommended) and **Qwen3.6-27B** (strong alternative):
 
 ```sh
-llama-server -hf unsloth/Qwen3.6-27B-GGUF:UD-Q6_K_XL --offline --port 8080 -ngl 99 -fa 1 --cache-type-k q8_0 --cache-type-v q8_0 -b 2048 -ub 2048 -c 131072 --jinja
+llama-server -hf unsloth/Qwen3.6-35B-A3B-GGUF:UD-Q6_K_XL --offline --port 8080 -ngl 99 -fa 1 --cache-type-k q8_0 --cache-type-v q8_0 -b 2048 -ub 2048 -c 131072 --jinja
 ```
 
+- **Model**: `Qwen3.6-35B-A3B` MoE is the best daily-driver on 48GB — only ~3B active params per token, but stronger reasoning, coding, and tool-use than the dense 27B
+- **Quant**: `UD-Q6_K_XL` (~31.8 GB) or `UD-Q5_K_XL` (~26.6 GB) — both leave plenty of room for the 128k KV cache. If you prefer more speed, `UD-Q4_K_XL` (~22 GB) is still very high quality
 - `-ngl 99` → full Metal GPU offload (biggest speed win)
 - `-fa 1` → Flash Attention (faster + better long-context quality)
 - `--cache-type-k q8_0 --cache-type-v q8_0` → high-precision KV cache (keeps responses sharp over long chats)
 - `-b 2048 -ub 2048` → large prompt batch size (much faster initial processing)
 - `-c 131072` → usable context length (Qwen3.6's native strength)
-- `--jinja` → correct modern chat template handling (free quality boost for Qwen3.6, harmless elsewhere)
+- `--jinja` → correct modern chat template handling (free quality boost, harmless elsewhere)
+
+If you'd rather run the dense **Qwen3.6-27B**, keep the exact same command and swap the model to `unsloth/Qwen3.6-27B-GGUF:UD-Q6_K_XL`.
+
+#### M4 Max 48GB — Qwen3-Coder-Next (80B MoE, coding/agentic specialist)
+
+For coding-heavy or agentic workflows, this is an 80B MoE with ~3B active params. It is right at the edge of 48GB unified memory.
+
+```sh
+llama-server -hf unsloth/Qwen3-Coder-Next-GGUF:UD-Q3_K --offline --port 8080 -ngl 99 -fa 1 --cache-type-k q8_0 --cache-type-v q8_0 -b 2048 -ub 2048 -c 131072 --jinja
+```
+
+**Quant**: `UD-Q3_K` is the max recommended quant that fits (~40 GB). If you see memory pressure with 128k context, reduce `-c` to `65536` or lower KV cache precision
 
 ### MacBook Air M2, 16GB RAM
 
-Use the `UD-Q3_K_XL` quant and the following parameters for Qwen3.6-27B:
+The practical Qwen3.6 option on 16GB is the **35B-A3B MoE** — only ~3–4B active parameters per token, but with much stronger reasoning and tool-use than a true 8B model.
+
+Best quant for this hardware: **UD-IQ2_XXS** (~10.8 GB), **UD-Q2_M** (~11.5 GB)
 
 ```sh
-llama-server -hf unsloth/Qwen3.6-27B-GGUF:UD-Q3_K_XL --offline --port 8080 -ngl 99 -fa 1 --cache-type-k q8_0 --cache-type-v q8_0 -b 512 -ub 512 -c 16384 --jinja
+llama-server -hf unsloth/Qwen3.6-35B-A3B-GGUF:UD-IQ2_XXS --offline --port 8080 -ngl 99 -fa 1 --cache-type-k q8_0 --cache-type-v q8_0 -b 512 -ub 512 -c 16384 --jinja
 ```
 
-- Quant: Dropped from `UD-Q6_K_XL` to `UD-Q3_K_XL` (weights alone must leave room for system + KV cache)
-- `-b 512 -ub 512`: Smaller prompt batch size to avoid swapping or crashing on 16GB
-- `-c 16384`: Realistic max context on 16GB
+- Model: `Qwen3.6-35B-A3B` MoE — the only Qwen3.6 variant that fits comfortably and performs well on 16GB
+- Quant: Ultra-low 2-bit `IQ2_XXS` to leave headroom for KV cache and system use
+- `-b 512 -ub 512`: Small prompt batch size to avoid swapping or crashing on 16GB
+- `-c 16384`: Safe realistic context on 16GB
 - `-ngl 99` and `-fa 1`: Kept (M2 Metal still benefits hugely)
 - `--cache-type-k/v q8_0`: Kept (small context keeps memory use low)
 - `--jinja`: Kept (required for Qwen3.6 chat formatting)
 
-Expected speed: ~8-18 tokens/sec generation. If you ever get OOM, drop `-ngl` to `60` or lower to let some layers run on CPU.
+Expected speed: ~12–25 tokens/sec generation. If you ever get OOM, drop `-ngl` to `60` or lower to let some layers run on CPU.
