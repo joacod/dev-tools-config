@@ -114,7 +114,8 @@ These are useful starting points for local testing:
 | --- | --- | --- |
 | [`ggml-org/gemma-3-1b-it-GGUF`](https://huggingface.co/ggml-org/gemma-3-1b-it-GGUF) | Fast local testing and basic prompting | `llama-cli -hf ggml-org/gemma-3-1b-it-GGUF` |
 | [`unsloth/Qwen3.6-27B-GGUF`](https://huggingface.co/unsloth/Qwen3.6-27B-GGUF) | Strong all-around Qwen 3.6 for coding and tool use (best on 32GB+ RAM) | `llama-cli -hf unsloth/Qwen3.6-27B-GGUF:UD-Q6_K_XL` |
-| [`unsloth/Qwen3.6-35B-A3B-GGUF`](https://huggingface.co/unsloth/Qwen3.6-35B-A3B-GGUF) | MoE Qwen 3.6 variant — strong reasoning on 16GB with 2-bit quant | `llama-cli -hf unsloth/Qwen3.6-35B-A3B-GGUF:UD-IQ2_XXS` |
+| [`unsloth/Qwen3.6-35B-A3B-GGUF`](https://huggingface.co/unsloth/Qwen3.6-35B-A3B-GGUF) | MoE Qwen 3.6 variant — stronger reasoning and coding than 27B, fits well on 48GB with Q5/Q6 quants | `llama-cli -hf unsloth/Qwen3.6-35B-A3B-GGUF:UD-Q6_K_XL` |
+| [`unsloth/Qwen3-Coder-Next-GGUF`](https://huggingface.co/unsloth/Qwen3-Coder-Next-GGUF) | Specialized 80B MoE for coding/agentic tasks — use Q3 quant on 48GB only | `llama-cli -hf unsloth/Qwen3-Coder-Next-GGUF:UD-Q3_K` |
 
 ## Learn More
 
