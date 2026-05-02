@@ -94,9 +94,9 @@ run-llama-server --m4-48gb
 run-llama-server --m2-16gb
 ```
 
-This arguments applies optimized parameters for specific machines:
-- `--m4-48gb` for M4 Max 48GB Mac (Q6 quant, 128k context, large batch size)
-- `--m2-16gb` for M2 16GB Mac (Q3 quant, 16k context, smaller batch size)
+This arguments applies optimized parameters for specific hardware:
+- `--m4-48gb` for M4 Max 48GB Mac (128k context, large batch size)
+- `--m2-16gb` for M2 16GB Mac (16k context, smaller batch size)
 
 ### Run Manually
 
@@ -113,8 +113,8 @@ These are useful starting points for local testing:
 | Model | Good For | Example |
 | --- | --- | --- |
 | [`ggml-org/gemma-3-1b-it-GGUF`](https://huggingface.co/ggml-org/gemma-3-1b-it-GGUF) | Fast local testing and basic prompting | `llama-cli -hf ggml-org/gemma-3-1b-it-GGUF` |
-| [`unsloth/Qwen3.6-27B-GGUF`](https://huggingface.co/unsloth/Qwen3.6-27B-GGUF) | Strong all-around Qwen 3.6 for coding and tool use | `llama-cli -hf unsloth/Qwen3.6-27B-GGUF:UD-Q6_K_XL` |
-| [`unsloth/Qwen3.6-35B-A3B-GGUF`](https://huggingface.co/unsloth/Qwen3.6-35B-A3B-GGUF) | MoE Qwen 3.6 variant for agentic coding with lower active params | `llama-cli -hf unsloth/Qwen3.6-35B-A3B-GGUF:UD-Q4_K_M` |
+| [`unsloth/Qwen3.6-27B-GGUF`](https://huggingface.co/unsloth/Qwen3.6-27B-GGUF) | Strong all-around Qwen 3.6 for coding and tool use (best on 32GB+ RAM) | `llama-cli -hf unsloth/Qwen3.6-27B-GGUF:UD-Q6_K_XL` |
+| [`unsloth/Qwen3.6-35B-A3B-GGUF`](https://huggingface.co/unsloth/Qwen3.6-35B-A3B-GGUF) | MoE Qwen 3.6 variant — strong reasoning on 16GB with 2-bit quant | `llama-cli -hf unsloth/Qwen3.6-35B-A3B-GGUF:UD-IQ2_XXS` |
 
 ## Learn More
 
