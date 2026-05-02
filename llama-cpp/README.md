@@ -121,12 +121,8 @@ These are useful starting points for local testing:
 | Model | Good For | Example |
 | --- | --- | --- |
 | [`ggml-org/gemma-3-1b-it-GGUF`](https://huggingface.co/ggml-org/gemma-3-1b-it-GGUF) | Fast local testing and basic prompting | `llama-cli -hf ggml-org/gemma-3-1b-it-GGUF` |
-| [`ggml-org/gemma-4-31B-it-GGUF`](https://huggingface.co/ggml-org/gemma-4-31B-it-GGUF) | Larger Gemma 4 instruct option from the `ggml-org` GGUF publisher | `llama-cli -hf ggml-org/gemma-4-31B-it-GGUF:Q4_K_M` |
-| [`unsloth/Qwen3.6-27B-GGUF`](https://huggingface.co/unsloth/Qwen3.6-27B-GGUF) | Strong all-around Qwen 3.6 for coding and tool use — higher-fidelity Q6 quant | `llama-cli -hf unsloth/Qwen3.6-27B-GGUF:UD-Q6_K_XL` |
-| [`unsloth/Qwen3.6-27B-GGUF`](https://huggingface.co/unsloth/Qwen3.6-27B-GGUF) | Strong all-around Qwen 3.6 for coding and tool use — lighter Q4 quant | `llama-cli -hf unsloth/Qwen3.6-27B-GGUF:Q4_K_M` |
+| [`unsloth/Qwen3.6-27B-GGUF`](https://huggingface.co/unsloth/Qwen3.6-27B-GGUF) | Strong all-around Qwen 3.6 for coding and tool use | `llama-cli -hf unsloth/Qwen3.6-27B-GGUF:UD-Q6_K_XL` |
 | [`unsloth/Qwen3.6-35B-A3B-GGUF`](https://huggingface.co/unsloth/Qwen3.6-35B-A3B-GGUF) | MoE Qwen 3.6 variant for agentic coding with lower active params | `llama-cli -hf unsloth/Qwen3.6-35B-A3B-GGUF:UD-Q4_K_M` |
-
-If you have more hardware headroom, try larger quants such as `Q5_K_M`, `Q6_K`, or `Q8_0` when the repo provides them.
 
 ## Learn More
 
