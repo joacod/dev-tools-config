@@ -5,42 +5,22 @@
 
 set -euo pipefail
 
-port=8080
-ctx_size=""
 m4_48gb=false
 
 # Parse optional launcher flags before we query the local llama.cpp cache.
 while [ "$#" -gt 0 ]; do
   case "$1" in
-    --port)
-      if [ "$#" -lt 2 ]; then
-        echo "Missing value for --port" >&2
-        exit 1
-      fi
-      port="$2"
-      shift 2
-      ;;
-    --ctx-size)
-      if [ "$#" -lt 2 ]; then
-        echo "Missing value for --ctx-size" >&2
-        exit 1
-      fi
-      ctx_size="$2"
-      shift 2
-      ;;
     --m4-48gb)
       m4_48gb=true
       shift
       ;;
     -h|--help)
       cat <<'EOF'
-Usage: run-llama-server.sh [--port PORT] [--ctx-size TOKENS] [--m4-48gb]
+Usage: run-llama-server.sh [--m4-48gb]
 
 Lists cached llama.cpp models, prompts for a selection, and starts llama-server in offline mode.
 
 Options:
-  --port PORT      Port to listen on (default: 8080)
-  --ctx-size N     Context window size in tokens
   --m4-48gb        Apply optimized parameters for M4 Max 48GB Mac
 EOF
       exit 0
@@ -106,10 +86,7 @@ fi
 model="${models[$((selection - 1))]}"
 
 # Build the server command as an array so quoting stays correct.
-command=(llama-server -hf "$model" --offline --port "$port")
-if [ -n "$ctx_size" ]; then
-  command+=(--ctx-size "$ctx_size")
-fi
+command=(llama-server -hf "$model" --offline --port 8080)
 if [ "$m4_48gb" = true ]; then
   command+=(-ngl 99 -fa 1 --cache-type-k q8_0 --cache-type-v q8_0 -b 2048 -ub 2048 -c 131072 --jinja)
 fi

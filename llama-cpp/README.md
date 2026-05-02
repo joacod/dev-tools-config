@@ -84,8 +84,6 @@ run-llama-server
 Optional arguments:
 
 ```sh
-run-llama-server --port 8080
-run-llama-server --port 8080 --ctx-size 8192
 run-llama-server --m4-48gb
 ```
 
@@ -93,7 +91,7 @@ What it does:
 
 - Lists cached `llama.cpp` models
 - Lets you choose one from a numbered menu
-- Starts `llama-server` with `--offline`
+- Starts `llama-server` on port `8080` with `--offline`
 - `--m4-48gb` applies optimized parameters for M4 Max 48GB Mac (full GPU offload, Flash Attention, high-precision KV cache, large batch size, 128k context, Jinja templates)
 
 The launcher uses `--offline`, so it only starts models already present in the local cache. If the model you want is not installed yet, download it first with `llama-cli -hf ...` or `llama-server -hf ...`.
@@ -107,14 +105,6 @@ If you want to skip the launcher, you can still start the server manually with a
 ```sh
 llama-server -hf ggml-org/gemma-4-31B-it-GGUF:Q4_K_M --offline --port 8080
 ```
-
-### OpenCode
-
-For tools like OpenCode, `llama-server` is usually the right entrypoint. Coding tools usually send more text than normal chat, including system prompts, tool schemas, diffs, and file contents. If prompts start failing or feel cramped, try a larger context.
-
-If you want the simplest first try, omit `--ctx-size` and let the model use its default context. If memory or performance becomes a problem, add it later to cap memory use.
-
-If you need advanced tuning for a single local coding session, run `llama-server` directly. The wrapper in this repo exposes `--port`, `--ctx-size`, and the `--m4-48gb` hardware profile.
 
 ## Models To Try
 
