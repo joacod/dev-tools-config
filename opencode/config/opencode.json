@@ -18,6 +18,9 @@
         "baseURL": "http://127.0.0.1:8080/v1"
       },
       "models": {
+        "unsloth/Qwen3.6-27B-GGUF:UD-Q6_K_XL": {
+          "name": "Qwen 3.6 27B Q6"
+        },
         "unsloth/Qwen3.6-27B-GGUF:UD-Q4_K_XL": {
           "name": "Qwen 3.6 27B Q4"
         },
