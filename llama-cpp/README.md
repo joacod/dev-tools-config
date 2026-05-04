@@ -94,9 +94,12 @@ run-llama-server --m4-48gb
 run-llama-server --m2-16gb
 ```
 
-This arguments applies optimized parameters for specific hardware:
-- `--m4-48gb` for M4 Max 48GB Mac (128k context, large batch size)
-- `--m2-16gb` for M2 16GB Mac (16k context, smaller batch size)
+These flags apply optimized parameters for specific hardware. See the full breakdown:
+
+| Hardware | Config |
+| --- | --- |
+| MacBook Pro M4 Max 48GB | [hardware/m4-48gb.md](./hardware/m4-48gb.md) |
+| MacBook Air M2 16GB | [hardware/m2-16gb.md](./hardware/m2-16gb.md) |
 
 ### Run Manually
 
@@ -115,14 +118,13 @@ These are useful starting points for local testing:
 | [`ggml-org/gemma-3-1b-it-GGUF`](https://huggingface.co/ggml-org/gemma-3-1b-it-GGUF) | Fast local testing and basic prompting | `llama-cli -hf ggml-org/gemma-3-1b-it-GGUF` |
 | [`unsloth/Qwen3.6-27B-GGUF`](https://huggingface.co/unsloth/Qwen3.6-27B-GGUF) | Strong all-around Qwen 3.6 for coding and tool use (best on 32GB+ RAM) | `llama-cli -hf unsloth/Qwen3.6-27B-GGUF:UD-Q6_K_XL` |
 | [`unsloth/Qwen3.6-35B-A3B-GGUF`](https://huggingface.co/unsloth/Qwen3.6-35B-A3B-GGUF) | MoE Qwen 3.6 variant — stronger reasoning and coding than 27B, fits well on 48GB with Q5/Q6 quants | `llama-cli -hf unsloth/Qwen3.6-35B-A3B-GGUF:UD-Q6_K_XL` |
-| [`unsloth/Qwen3-Coder-Next-GGUF`](https://huggingface.co/unsloth/Qwen3-Coder-Next-GGUF) | Specialized 80B MoE for coding/agentic tasks — use Q3 quant on 48GB only | `llama-cli -hf unsloth/Qwen3-Coder-Next-GGUF:UD-Q3_K` |
 
 ## Learn More
 
 | Resource | Covers |
 | --- | --- |
 | [Hugging Face And Tuning](./hugging-face-and-tuning.md) | Model names, quant choices, context size, and common `llama-server` tuning flags |
-| [llama.cpp Parameters](./llama-cpp-parameters.md) | Parameter reference and hardware-specific setup examples |
+| [llama.cpp Parameters](./llama-cpp-parameters.md) | Most useful `llama-server` runtime parameters reference |
 
 ## Apple Silicon Note
 
