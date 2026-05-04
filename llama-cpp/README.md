@@ -94,9 +94,12 @@ run-llama-server --m4-48gb
 run-llama-server --m2-16gb
 ```
 
-This arguments applies optimized parameters for specific hardware:
-- `--m4-48gb` for M4 Max 48GB Mac (128k context, large batch size)
-- `--m2-16gb` for M2 16GB Mac (16k context, smaller batch size)
+These flags apply optimized parameters for specific hardware. See the full breakdown:
+
+| Hardware | Config |
+| --- | --- |
+| MacBook Pro M4 Max 48GB | [hardware/m4-48gb.md](./hardware/m4-48gb.md) |
+| MacBook Air M2 16GB | [hardware/m2-16gb.md](./hardware/m2-16gb.md) |
 
 ### Run Manually
 
@@ -121,7 +124,7 @@ These are useful starting points for local testing:
 | Resource | Covers |
 | --- | --- |
 | [Hugging Face And Tuning](./hugging-face-and-tuning.md) | Model names, quant choices, context size, and common `llama-server` tuning flags |
-| [llama.cpp Parameters](./llama-cpp-parameters.md) | Parameter reference and hardware-specific setup examples |
+| [llama.cpp Parameters](./llama-cpp-parameters.md) | Most useful `llama-server` runtime parameters reference |
 
 ## Apple Silicon Note
 
