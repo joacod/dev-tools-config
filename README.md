@@ -10,6 +10,7 @@ My setup and notes for development tools, AI agents, and server utilities.
 | GitHub CLI | CLI | [`./github-cli`](./github-cli) | Official command-line interface for GitHub. |
 | Hermes Agent | Infrastructure / AI | [`./hermes-agent`](./hermes-agent) | Self-hosted AI agent for running coding and automation tasks on your own server. |
 | llama.cpp | Local AI | [`./llama-cpp`](./llama-cpp) | Local runtime for running GGUF language models. |
+| MLX | Local AI | [`./mlx`](./mlx) | Local runtime for running MLX-compatible language models on Apple Silicon. |
 | NVM and Node.js | Runtime | [`./nvm-node`](./nvm-node) | Node version manager and Node.js runtime setup. |
 | OpenCode | AI Agent | [`./opencode`](./opencode) | Open source AI coding agent. |
 | OpenRouter | AI Provider | [`./openrouter`](./openrouter) | Unified API and model catalog for multiple LLM providers. |
