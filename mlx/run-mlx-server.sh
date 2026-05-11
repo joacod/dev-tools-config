@@ -21,7 +21,7 @@ Starts mlx_lm.server on port 8080.
 
 Options:
   --model <repo_or_path>   Use a Hugging Face repo or local model path
-  --m4-48gb                Apply conservative 48 GB defaults (--max-kv-size 8192)
+  --m4-48gb                Apply 48 GB optimized defaults (all flags below)
   -h, --help               Show this help message
 
 Examples:
@@ -165,7 +165,13 @@ fi
 command=(mlx_lm.server --model "$model" --port 8080)
 
 if [ "$m4_48gb" = true ]; then
-  command+=(--max-kv-size 8192)
+  command+=(
+    --max-tokens 8192
+    --prompt-cache-size 16
+    --prompt-cache-bytes 20000000000
+    --decode-concurrency 2
+    --prompt-concurrency 1
+  )
 fi
 
 echo

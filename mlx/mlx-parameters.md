@@ -9,7 +9,11 @@ This guide covers the most useful `mlx_lm.server` runtime parameters for this re
 | `--model` | Hugging Face repo or local model path to load |
 | `--port` | Server port. This repo uses `8080` |
 | `--host` | Server host. Keep local by default; only use `0.0.0.0` intentionally |
-| `--max-kv-size` | Rotating KV cache size. Larger uses more memory but helps longer context |
+| `--prompt-cache-bytes` | Maximum KV cache memory in bytes. Dynamically trims oldest cache entries when memory pressure approaches the limit. 20 GB (20000000000) is optimal for M4 Max 48 GB |
+| `--max-tokens` | Maximum tokens in response. Default 512 is too low for coding/agent use, 8192 recommended for M4 Max 48 GB |
+| `--prompt-cache-size` | Number of prompt cache files. Set to 16 for M4 Max 48 GB |
+| `--decode-concurrency` | Number of concurrent decode operations. Set to 2 for M4 Max 48 GB (safer starting point; bump to 4 if stable under load) |
+| `--prompt-concurrency` | Number of concurrent prompt operations. Set to 1 for M4 Max 48 GB (safer starting point; bump to 2 if stable under load) |
 | `--trust-remote-code` | Allows model-specific tokenizer/model code when required |
 
 ## Request-Time Parameters

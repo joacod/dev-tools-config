@@ -78,7 +78,7 @@ run-mlx-server --m4-48gb --model mlx-community/Qwen3.6-35B-A3B-4bit
 run-mlx-server --model ./models/my-local-mlx-model
 ```
 
-- `--m4-48gb` applies conservative memory and context defaults for a 48 GB Mac.
+- `--m4-48gb` applies optimized memory and context defaults for a 48 GB Mac.
 - `--model` skips the interactive menu and uses the specified Hugging Face repo or local path.
 
 ## Run Manually

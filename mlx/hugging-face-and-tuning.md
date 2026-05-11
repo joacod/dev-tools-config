@@ -54,15 +54,12 @@ This first version of the guide focuses on running `mlx-community` models direct
 
 ## Context Size And KV Cache
 
-`--max-kv-size` controls the rotating KV cache size in `mlx_lm.server`.
+`--prompt-cache-bytes` sets the maximum KV cache memory in bytes in `mlx_lm.server`. It dynamically trims the oldest cache entries when memory pressure approaches the limit, preventing kernel panics or OOM crashes.
 
-- Lower value: less memory, shorter reliable context
-- Higher value: more memory, better long-context behavior
+For a 48 GB Mac, `--prompt-cache-bytes 20000000000` (20 GB) is the optimal setting that provides ~12–16k effective context while leaving plenty of headroom for model weights and system overhead.
 
 Example:
 
 ```sh
-mlx_lm.server --model mlx-community/Qwen3.6-35B-A3B-4bit --max-kv-size 8192
+mlx_lm.server --model mlx-community/Qwen3.6-35B-A3B-4bit --prompt-cache-bytes 20000000000
 ```
-
-For a 48 GB Mac, `--max-kv-size 8192` is a safe starting point that balances context length and memory. Higher values like `16384` are possible but use more memory and should be treated as optional advanced settings.
