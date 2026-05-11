@@ -11,6 +11,18 @@
     }
   },
   "provider": {
+    "mlx": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "MLX (local)",
+      "options": {
+        "baseURL": "http://127.0.0.1:8080/v1"
+      },
+      "models": {
+        "mlx-community/Qwen3.6-35B-A3B-4bit": {
+          "name": "MLX Qwen 3.6 MoE 35B A3B"
+        }
+      }
+    },
     "llama.cpp": {
       "npm": "@ai-sdk/openai-compatible",
       "name": "llama.cpp (local)",
@@ -19,16 +31,10 @@
       },
       "models": {
         "unsloth/Qwen3.6-27B-GGUF:UD-Q6_K_XL": {
-          "name": "Qwen 3.6 27B Q6"
+          "name": "GGUF Qwen 3.6 27B Q6"
         },
-        "unsloth/Qwen3.6-27B-GGUF:UD-Q4_K_XL": {
-          "name": "Qwen 3.6 27B Q4"
-        },
-        "unsloth/Qwen3.6-35B-A3B-GGUF:Q4_K_M": {
-          "name": "Qwen 3.6 MoE 35B A3B Q4"
-        },
-        "Jackrong/Qwen3.5-27B-Claude-4.6-Opus-Reasoning-Distilled-GGUF:Q4_K_M": {
-          "name": "Qwen 3.5 27B Q4"
+        "unsloth/Qwen3.6-35B-A3B-GGUF:Q6_K_XL": {
+          "name": "GGUF Qwen 3.6 MoE 35B A3B Q6"
         }
       }
     },
