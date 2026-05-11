@@ -169,8 +169,8 @@ if [ "$m4_48gb" = true ]; then
     --max-tokens 8192
     --prompt-cache-size 16
     --prompt-cache-bytes 20000000000
-    --decode-concurrency 4
-    --prompt-concurrency 2
+    --decode-concurrency 2
+    --prompt-concurrency 1
   )
 fi
 
