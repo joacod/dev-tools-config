@@ -9,7 +9,7 @@ This guide covers the most useful `mlx_lm.server` runtime parameters for this re
 | `--model` | Hugging Face repo or local model path to load |
 | `--port` | Server port. This repo uses `8080` |
 | `--host` | Server host. Keep local by default; only use `0.0.0.0` intentionally |
-| `--max-kv-size` | Rotating KV cache size. Larger uses more memory but helps longer context |
+| `--prompt-cache-bytes` | Maximum KV cache memory in bytes. Dynamically trims oldest cache entries when memory pressure approaches the limit. 20 GB (20000000000) is optimal for M4 Max 48 GB |
 | `--trust-remote-code` | Allows model-specific tokenizer/model code when required |
 
 ## Request-Time Parameters
