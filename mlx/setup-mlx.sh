@@ -4,11 +4,19 @@ set -euo pipefail
 
 cd "$(dirname "$0")"
 
-echo "Creating Python virtual environment if needed..."
-python3 -m venv venv
+echo "Setting up mlx-lm..."
 
-echo "Activating venv and upgrading pip..."
+if [ ! -d "venv" ]; then
+  echo "Creating Python virtual environment..."
+  python3 -m venv venv
+else
+  echo "Using existing Python virtual environment..."
+fi
+
+echo "Activating venv..."
 source venv/bin/activate
+
+echo "Upgrading pip..."
 python -m pip install --upgrade pip
 
 echo "Installing or upgrading mlx-lm..."
@@ -21,3 +29,6 @@ mlx_lm.server --help >/dev/null
 
 echo
 echo "Setup complete. mlx-lm is installed and ready."
+echo
+echo "Next:"
+echo "  ./run-mlx-server.sh"
