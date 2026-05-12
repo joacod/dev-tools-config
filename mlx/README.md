@@ -92,8 +92,8 @@ mlx_lm.server --model mlx-community/Qwen3.6-35B-A3B-4bit-DWQ --port 8080
 
 | Model | Good For | Example |
 | --- | --- | --- |
-| `mlx-community/Qwen3.6-35B-A3B-4bit-DWQ` | Community-recommended MoE Qwen 3.6 variant, best 4-bit quality via Distilled Weight Quantization (text-only) | `run-mlx-server --model mlx-community/Qwen3.6-35B-A3B-4bit-DWQ` |
-| `mlx-community/Qwen3.6-35B-A3B-4bit` | MoE Qwen 3.6 variant with full vision stack for multimodal/image use | `run-mlx-server --model mlx-community/Qwen3.6-35B-A3B-4bit` |
+| [`mlx-community/Qwen3.6-35B-A3B-4bit-DWQ`](https://huggingface.co/mlx-community/Qwen3.6-35B-A3B-4bit-DWQ) | Community-recommended MoE Qwen 3.6 variant, best 4-bit quality via Distilled Weight Quantization (text-only) | `run-mlx-server --model mlx-community/Qwen3.6-35B-A3B-4bit-DWQ` |
+| [`mlx-community/Qwen3.6-35B-A3B-4bit`](https://huggingface.co/mlx-community/Qwen3.6-35B-A3B-4bit) | MoE Qwen 3.6 variant with full vision stack for multimodal/image use | `run-mlx-server --model mlx-community/Qwen3.6-35B-A3B-4bit` |
 
 ## Local Cache And Offline Use
 
