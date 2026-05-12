@@ -20,6 +20,9 @@
       "models": {
         "mlx-community/Qwen3.6-35B-A3B-4bit": {
           "name": "MLX Qwen 3.6 MoE 35B A3B"
+        },
+        "mlx-community/Qwen3.6-35B-A3B-4bit-DWQ": {
+          "name": "MLX Qwen 3.6 DWQ MoE 35B A3B"
         }
       }
     },

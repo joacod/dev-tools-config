@@ -33,7 +33,7 @@ If this works, `mlx-lm` is properly installed and ready to use.
 The simplest path is to pass a Hugging Face repo to `--model`. On first run, `mlx-lm` downloads the model automatically. Later runs reuse the local Hugging Face cache.
 
 ```sh
-mlx_lm.server --model mlx-community/Qwen3.6-35B-A3B-4bit
+mlx_lm.server --model mlx-community/Qwen3.6-35B-A3B-4bit-DWQ
 ```
 
 Hugging Face MLX models are commonly published under [huggingface.co/mlx-community](https://huggingface.co/mlx-community).
@@ -73,8 +73,8 @@ After launch, use:
 
 ```sh
 run-mlx-server --m4-48gb
-run-mlx-server --model mlx-community/Qwen3.6-35B-A3B-4bit
-run-mlx-server --m4-48gb --model mlx-community/Qwen3.6-35B-A3B-4bit
+run-mlx-server --model mlx-community/Qwen3.6-35B-A3B-4bit-DWQ
+run-mlx-server --m4-48gb --model mlx-community/Qwen3.6-35B-A3B-4bit-DWQ
 run-mlx-server --model ./models/my-local-mlx-model
 ```
 
@@ -85,14 +85,15 @@ run-mlx-server --model ./models/my-local-mlx-model
 
 ```sh
 source venv/bin/activate
-mlx_lm.server --model mlx-community/Qwen3.6-35B-A3B-4bit --port 8080
+mlx_lm.server --model mlx-community/Qwen3.6-35B-A3B-4bit-DWQ --port 8080
 ```
 
 ## Models To Try
 
 | Model | Good For | Example |
 | --- | --- | --- |
-| `mlx-community/Qwen3.6-35B-A3B-4bit` | MoE Qwen 3.6 variant, strong reasoning and coding | `run-mlx-server --model mlx-community/Qwen3.6-35B-A3B-4bit` |
+| [`mlx-community/Qwen3.6-35B-A3B-4bit-DWQ`](https://huggingface.co/mlx-community/Qwen3.6-35B-A3B-4bit-DWQ) | Community-recommended MoE Qwen 3.6 variant, best 4-bit quality via Distilled Weight Quantization (text-only) | `run-mlx-server --model mlx-community/Qwen3.6-35B-A3B-4bit-DWQ` |
+| [`mlx-community/Qwen3.6-35B-A3B-4bit`](https://huggingface.co/mlx-community/Qwen3.6-35B-A3B-4bit) | MoE Qwen 3.6 variant with full vision stack for multimodal/image use | `run-mlx-server --model mlx-community/Qwen3.6-35B-A3B-4bit` |
 
 ## Local Cache And Offline Use
 
@@ -108,7 +109,7 @@ The cache usually lives under:
 To remove a cached model, remove the corresponding `models--org--name` folder:
 
 ```sh
-rm -rf ~/.cache/huggingface/hub/models--mlx-community/Qwen3.6-35B-A3B-4bit
+rm -rf ~/.cache/huggingface/hub/models--mlx-community/Qwen3.6-35B-A3B-4bit-DWQ
 ```
 
 ## Learn More

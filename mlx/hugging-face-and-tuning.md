@@ -15,6 +15,27 @@ This guide covers the Hugging Face model terms and runtime settings that are use
 
 For most local assistant use, start with an Instruct or Chat model instead of a base model.
 
+## What Is DWQ
+
+DWQ (Distilled Weight Quantization) is an MLX-only quantization technique that produces noticeably higher quality than regular 4-bit quantization at the same RAM footprint.
+
+How it works:
+
+1. Starts from a higher-precision model (usually 6-bit).
+2. "Distills" the knowledge into 4-bit weights by training the quantization scales and a few extra parameters.
+3. Result: same ~20.7 GB RAM usage and speed as regular 4-bit, but quality that "feels like 8-bit in a 4-bit package".
+
+The community-recommended model is `mlx-community/Qwen3.6-35B-A3B-4bit-DWQ`. It consistently outperforms the regular `...-4bit` version on Apple Silicon.
+
+### DWQ vs Regular 4-bit
+
+The MLX community made two separate conversions of Qwen3.6-35B-A3B:
+
+- **`...-4bit-DWQ`** — Quantized with the DWQ technique for maximum text quality. The vision stack was dropped during distillation, so this is a text-only model.
+- **`...-4bit`** — Converted with mlx-vlm, keeps the full vision stack for multimodal/image use.
+
+Choose DWQ for reasoning, coding, and text tasks. Choose the regular 4-bit if you need to feed images to the model.
+
 ## How To Read A Hugging Face MLX Model Page
 
 When you open a model page on Hugging Face, check these things in order:
@@ -34,7 +55,7 @@ Trust order:
 ## First Download vs Offline Reuse
 
 ```sh
-run-mlx-server --model mlx-community/Qwen3.6-35B-A3B-4bit
+run-mlx-server --model mlx-community/Qwen3.6-35B-A3B-4bit-DWQ
 ```
 
 - First run: downloads the model from Hugging Face.
@@ -61,5 +82,5 @@ For a 48 GB Mac, `--prompt-cache-bytes 20000000000` (20 GB) is the optimal setti
 Example:
 
 ```sh
-mlx_lm.server --model mlx-community/Qwen3.6-35B-A3B-4bit --prompt-cache-bytes 20000000000
+mlx_lm.server --model mlx-community/Qwen3.6-35B-A3B-4bit-DWQ --prompt-cache-bytes 20000000000
 ```
