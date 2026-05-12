@@ -486,7 +486,7 @@ If you are looking for Zero Data Retention style behavior, the relevant document
 
 ```sh
 hermes config set model.provider openrouter
-hermes config set model.default x-ai/grok-4.1-fast
+hermes config set model.default deepseek/deepseek-v4-pro
 
 hermes config set provider_routing.require_parameters true
 hermes config set provider_routing.data_collection deny

@@ -33,5 +33,5 @@ These are the models I would look at first for daily agent use, where tool use, 
 
 | Model | Link | Notes |
 | --- | --- | --- |
-| `x-ai/grok-4.1-fast` | [Grok 4.1 Fast](https://openrouter.ai/x-ai/grok-4.1-fast) | Good daily "brain" candidate for agents. Fast, practical, and a strong default when I want solid tool-oriented behavior at a reasonable price. |
+| `deepseek/deepseek-v4-pro` | [DeepSeek V4 Pro](https://openrouter.ai/deepseek/deepseek-v4-pro) | Good daily "brain" candidate for agents. Fast, practical, and a strong default when I want solid tool-oriented behavior at a reasonable price. |
 | `deepseek/deepseek-v3.2` | [DeepSeek V3.2](https://openrouter.ai/deepseek/deepseek-v3.2) | Good fallback or alternate daily agent model. Usually a strong price/performance option for regular agent work. |
