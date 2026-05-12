@@ -15,4 +15,5 @@ My setup and notes for development tools, AI agents, and server utilities.
 | OpenCode | AI Agent | [`./opencode`](./opencode) | Open source AI coding agent. |
 | OpenRouter | AI Provider | [`./openrouter`](./openrouter) | Unified API and model catalog for multiple LLM providers. |
 | Tailscale | Networking | [`./tailscale`](./tailscale) | Secure private networking and remote access for devices and servers. |
+| Socket Firewall | Security | [`./socket-firewall`](./socket-firewall) | Dependency install protection using Socket Firewall. |
 | VPS Security | Infrastructure | [`./vps-security`](./vps-security) | VPS security and hardening notes. |
