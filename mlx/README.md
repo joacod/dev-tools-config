@@ -1,4 +1,4 @@
-# mlx
+# MLX
 
 Run local MLX-compatible models on Apple Silicon with [mlx-lm](https://github.com/ml-explore/mlx-lm).
 
