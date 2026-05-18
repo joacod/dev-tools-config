@@ -452,11 +452,42 @@ What this does:
 
 Hermes needs a provider before it can chat normally.
 
-Run the model selector and complete login or API key setup.
+If you want to use your X subscription with Hermes, use the xAI OAuth flow from the `hermes` user on the VPS.
+
+### xAI OAuth With X Premium
+
+Because Hermes is running on the VPS but the login happens in a browser on your laptop, use an SSH tunnel for the OAuth callback.
+
+On your local machine, open a new terminal and keep this tunnel running:
 
 ```sh
-hermes model
+ssh -N -L 56121:127.0.0.1:56121 hermes
 ```
+
+In another terminal, log in to the VPS as `hermes` and start the xAI OAuth flow:
+
+```sh
+ssh hermes
+hermes auth add xai-oauth --no-browser
+```
+
+Hermes will print a `Waiting for callback on http://127.0.0.1:56121/callback` line and an authorization URL.
+
+Copy that full URL into the browser on your laptop, sign in with the X account that has your Premium subscription, and approve the request.
+
+When the login succeeds, Hermes saves the token under the `hermes` user's home directory:
+
+```text
+~/.hermes/auth.json
+```
+
+After that, you can close the tunnel and choose the xAI provider normally.
+
+### Notes:
+
+- keep the OAuth login under the `hermes` user so the saved token is available to that Hermes install
+- this does not require opening any public ports
+- the token refresh is handled by Hermes after the initial login
 
 If you added API keys to `~/.hermes/.env`, restrict the file so only the `hermes` user can read and edit it.
 
@@ -469,6 +500,14 @@ Why this matters:
 - `600` means only the file owner can read and write the file
 - your API keys stay private to the `hermes` account instead of being readable by other users on the VPS
 - this matters even more if you expose Hermes through Telegram
+
+## Select a Model
+
+After you completed providers login or API key setup, you can run the model selector.
+
+```sh
+hermes model
+```
 
 ## Optional: OpenRouter Routing And Fallback Model
 
@@ -597,9 +636,27 @@ By default, Hermes serves the dashboard at:
 http://127.0.0.1:9119
 ```
 
-If you are running Hermes on a VPS, you can expose `localhost:9119` through Tailscale to access the dashboard from your laptop while keeping it available only inside your tailnet.
+For this repo's VPS setup, the most direct way to open the dashboard from your laptop is an SSH tunnel through your existing `hermes` SSH alias.
 
-For the Tailscale setup, see [Tailscale](../tailscale/README.md).
+On the VPS:
+
+```sh
+hermes dashboard
+```
+
+On your local machine, in another terminal:
+
+```sh
+ssh -N -L 9119:127.0.0.1:9119 hermes
+```
+
+Then open:
+
+```text
+http://127.0.0.1:9119
+```
+
+This keeps the dashboard bound to localhost on the VPS.
 
 ## Security Notes
 
