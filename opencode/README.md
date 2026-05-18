@@ -23,6 +23,54 @@ Relevant documentation:
 - [llama.cpp provider docs](https://opencode.ai/docs/providers/#llamacpp)
 - [LM Studio provider docs](https://opencode.ai/docs/providers/#lm-studio)
 
+## Instructions
+
+OpenCode reads `AGENTS.md` files for persistent instructions. Use global instructions for behavior that should apply everywhere, and project instructions for repository-specific context and stack choices.
+
+### Global instructions
+
+Copy the global template to `~/.config/opencode/AGENTS.md`:
+
+```bash
+cp instructions/global/AGENTS.md ~/.config/opencode/AGENTS.md
+```
+
+The global template focuses on reusable behavior:
+
+- Ask before assuming
+- Prefer the simplest correct change
+- Avoid touching unrelated code
+- Flag uncertainty explicitly
+- Confirm before destructive or external actions
+
+### Project instructions
+
+Copy the project template into a repo that needs project-specific OpenCode context:
+
+```bash
+cp instructions/project/AGENTS.md /path/to/project/AGENTS.md
+```
+
+Use project instructions for:
+
+- Project goals and audience
+- Stack and tooling constraints
+- Permanent architectural facts
+- Project-specific behavior rules
+
+Do not put project-specific stack choices in the global file. A decision that is correct for one repository may be wrong for another.
+
+### Available Instruction Templates
+
+| Scope | Path | Description |
+| --- | --- | --- |
+| Global | [`instructions/global/AGENTS.md`](./instructions/global/AGENTS.md) | Reusable OpenCode behavior and safety rules. |
+| Project | [`instructions/project/AGENTS.md`](./instructions/project/AGENTS.md) | Project-specific context, stack, and behavior rules. |
+
+### Extra
+
+Prefer `AGENTS.md` for OpenCode-specific setup. Use the `instructions` field in `opencode.json` only when you want to load extra non-standard files such as `CONTRIBUTING.md`, `docs/guidelines.md`, or globbed rule files.
+
 ## Local llama.cpp Note
 
 If you want to use OpenCode with local models, start with the guide in [`../llama-cpp`](../llama-cpp).
