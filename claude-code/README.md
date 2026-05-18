@@ -25,6 +25,43 @@ mkdir -p .claude/agents
 cp agents/senior-code-reviewer.md .claude/agents/
 ```
 
+## Instructions
+
+Claude Code reads `CLAUDE.md` files for persistent instructions. Use global instructions for behavior that should apply everywhere, and project instructions for repository-specific context and stack choices.
+
+### Global instructions
+
+Copy the global template to `~/.claude/CLAUDE.md`:
+
+```bash
+cp instructions/global/CLAUDE.md ~/.claude/CLAUDE.md
+```
+
+The global template focuses on reusable behavior:
+
+- Ask before assuming
+- Prefer the simplest correct change
+- Avoid touching unrelated code
+- Flag uncertainty explicitly
+- Confirm before destructive or external actions
+
+### Project instructions
+
+Copy the project template into a repo that needs project-specific Claude Code context:
+
+```bash
+cp instructions/project/CLAUDE.md /path/to/project/CLAUDE.md
+```
+
+Use project instructions for:
+
+- Project goals and audience
+- Stack and tooling constraints
+- Permanent architectural facts
+- Project-specific behavior rules
+
+Do not put project-specific stack choices in the global file. A decision that is correct for one repository may be wrong for another.
+
 ## MCP
 
 Claude Code supports MCP servers, which let it connect to external tools and capabilities.
@@ -40,3 +77,10 @@ claude mcp add playwright npx @playwright/mcp@latest
 | Name | Path | Description |
 | --- | --- | --- |
 | Senior Code Reviewer | [`agents/senior-code-reviewer.md`](./agents/senior-code-reviewer.md) | Reviews code for quality, reuse, and efficiency. |
+
+## Available Instruction Templates
+
+| Scope | Path | Description |
+| --- | --- | --- |
+| Global | [`instructions/global/CLAUDE.md`](./instructions/global/CLAUDE.md) | Reusable Claude Code behavior and safety rules. |
+| Project | [`instructions/project/CLAUDE.md`](./instructions/project/CLAUDE.md) | Project-specific context, stack, and behavior rules. |
