@@ -6,7 +6,7 @@ This workflow exists because, in this setup, Hermes runs inside an ephemeral san
 
 ## What This Depends On
 
-Before using this workflow, make sure you already configured the shared Docker workspace from the main setup guide.
+Before using this workflow, make sure you already configured the shared Docker workspace from [Install Hermes Agent](./install.md).
 
 That setup makes these paths line up:
 
