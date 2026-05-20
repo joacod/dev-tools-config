@@ -19,7 +19,13 @@ Run this every 2 to 4 weeks, or monthly if the server is stable and lightly chan
 
 ```sh
 sudo apt update
+```
+
+```sh
 sudo apt upgrade
+```
+
+```sh
 sudo apt autoremove
 ```
 
