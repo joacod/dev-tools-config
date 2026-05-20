@@ -446,6 +446,8 @@ What this does:
 - files Hermes writes to `/workspace` inside the container will appear in `/home/hermes/hermes-workspace` on the VPS
 - the ownership fix prevents a common failure mode where `/workspace` is mounted correctly but Hermes cannot write to the underlying host folders
 
+If you want to use that shared workspace to generate a new Hermes personality file and then copy it into `~/.hermes/SOUL.md`, see [SOUL Workflow](./soul-workflow.md).
+
 ## Configure A Model Provider
 
 **Run as:** `hermes` on the VPS
@@ -674,6 +676,8 @@ Security reference:
 ## Shared Workspace Convention
 
 For a simple way to organize the persistent shared Docker workspace under `~/hermes-workspace` and `/workspace`, see [Personal Workspace Setup](./personal-workspace-setup.md).
+
+For a practical workflow that uses that same mount to have Hermes generate `/workspace/SOUL.md` before you copy it into place, see [SOUL Workflow](./soul-workflow.md).
 
 ## Final Step
 
