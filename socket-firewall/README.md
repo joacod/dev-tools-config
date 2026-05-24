@@ -77,18 +77,6 @@ For CI or lockfile-based installs:
 sfw pnpm install --frozen-lockfile
 ```
 
-## Use With Bun
-
-Bun is not listed as an officially supported package manager for Socket Firewall Free.
-
-You can try:
-
-```sh
-sfw bun install
-```
-
-But do not rely on it as the only protection in CI until official support is confirmed.
-
 ## Add npm Scripts
 
 For a JavaScript or TypeScript project, add scripts to package.json.
@@ -107,3 +95,20 @@ Run:
 ```sh
 npm run safe:install
 ```
+
+## Add Shell Aliases
+
+Add aliases so common package manager commands are always routed through `sfw` in your interactive shell.
+
+```sh
+alias npm="sfw npm"
+alias npx="sfw npx"
+alias pnpm="sfw pnpm"
+alias pnpx="sfw pnpx"
+alias yarn="sfw yarn"
+alias bun="sfw bun"
+```
+
+Put them in your shell config, such as `~/.zshrc` or `~/.bashrc`, then reload your shell.
+
+Aliases only apply to interactive shells. In CI, package scripts, and automation, call `sfw` explicitly.
