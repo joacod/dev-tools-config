@@ -101,12 +101,13 @@ npm run safe:install
 Add aliases so common package manager commands are always routed through `sfw` in your interactive shell.
 
 ```sh
-alias npm="sfw npm"
-alias npx="sfw npx"
-alias pnpm="sfw pnpm"
-alias pnpx="sfw pnpx"
-alias yarn="sfw yarn"
-alias bun="sfw bun"
+# Socket Firewall
+alias npm="sfw --verbose npm"
+alias npx="sfw --verbose npx"
+alias pnpm="sfw --verbose pnpm"
+alias pnpx="sfw --verbose pnpx"
+alias yarn="sfw --verbose yarn"
+alias bun="sfw --verbose bun"
 ```
 
 Put them in your shell config, such as `~/.zshrc` or `~/.bashrc`, then reload your shell.
