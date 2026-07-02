@@ -44,7 +44,7 @@ using that change's proposal, design, and specs as context.
 After implementation, ask the agent to review only that change:
 
 ```text
-Review the implementation against openspec/changes/foundation-001.
+Review the implementation against current openspec change.
 Check for missing tasks, spec drift, shortcuts, weak tests, and broken assumptions.
 Do not make unrelated improvements.
 ```
