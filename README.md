@@ -12,6 +12,7 @@ My setup and notes for development tools, AI agents, and server utilities.
 | MLX | [`./mlx`](./mlx) | Local runtime for running MLX-compatible language models on Apple Silicon. |
 | OpenCode | [`./opencode`](./opencode) | Open source AI coding agent. |
 | OpenRouter | [`./openrouter`](./openrouter) | Unified API and model catalog for multiple LLM providers. |
+| OpenSpec | [`./openspec`](./openspec) | Spec-driven development workflow for AI coding agents. |
 
 ## Developer Environment
 
