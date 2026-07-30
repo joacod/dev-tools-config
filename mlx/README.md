@@ -123,7 +123,7 @@ mlx_lm.server --model mlx-community/Qwen3-1.7B-4bit --port 8080
 | Model | Good For | Example |
 | --- | --- | --- |
 | [`mlx-community/Qwen3-1.7B-4bit`](https://huggingface.co/mlx-community/Qwen3-1.7B-4bit) | Small, public general-purpose model for a first MLX launch | `run-mlx-server --model mlx-community/Qwen3-1.7B-4bit` |
-| [`mlx-community/gemma-4-12b-coder-fable5-composer2.5-4bit`](https://huggingface.co/mlx-community/gemma-4-12b-coder-fable5-composer2.5-4bit) | Specialized Python coding and reasoning model for Macs with at least 24 GB unified memory | `run-mlx-server --model mlx-community/gemma-4-12b-coder-fable5-composer2.5-4bit` |
+| [`mlx-community/gemma-4-12b-coder-fable5-composer2.5-4bit`](https://huggingface.co/mlx-community/gemma-4-12b-coder-fable5-composer2.5-4bit) | Coding and reasoning model for Macs with at least 16 GB unified memory | `run-mlx-server --model mlx-community/gemma-4-12b-coder-fable5-composer2.5-4bit` |
 | [`mlx-community/Qwen3.6-35B-A3B-4bit-DWQ`](https://huggingface.co/mlx-community/Qwen3.6-35B-A3B-4bit-DWQ) | Text-only MoE model for reasoning, coding, and tool use; mixed 4-bit and 8-bit quantization | `run-mlx-server --model mlx-community/Qwen3.6-35B-A3B-4bit-DWQ` |
 
 The separate [`mlx-community/Qwen3.6-35B-A3B-4bit`](https://huggingface.co/mlx-community/Qwen3.6-35B-A3B-4bit) vision-language conversion requires `mlx-vlm` for image input. This repository's `mlx_lm.server` launcher is text-only.

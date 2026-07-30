@@ -14,7 +14,7 @@ HF_CACHE_DIR="${HF_HUB_CACHE:-${HF_HOME:-$HOME/.cache/huggingface}/hub}"
 
 starter_models=(
   "mlx-community/Qwen3-1.7B-4bit|Small public smoke test"
-  "mlx-community/gemma-4-12b-coder-fable5-composer2.5-4bit|Coding model for 24 GB+ Macs"
+  "mlx-community/gemma-4-12b-coder-fable5-composer2.5-4bit|Coding and reasoning for 16 GB+ Macs"
   "mlx-community/Qwen3.6-35B-A3B-4bit-DWQ|Text reasoning and coding"
 )
 
