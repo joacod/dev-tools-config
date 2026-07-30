@@ -17,7 +17,7 @@ cd mlx
 ./setup-mlx.sh
 ```
 
-This script creates an isolated Python virtual environment inside `mlx/venv` and installs `mlx-lm`. The same command is safe to run repeatedly and will upgrade to the latest version when you run it again.
+This creates `mlx/venv` and installs or upgrades `mlx-lm`. Check `mlx_lm.server --help` after upgrades.
 
 ## Verify The Server Command
 
@@ -66,8 +66,11 @@ What it does:
 
 After launch, use:
 
-- Browser UI / health check: `http://127.0.0.1:8080`
+- Health check: `http://127.0.0.1:8080/health`
+- Model list: `http://127.0.0.1:8080/v1/models`
 - API endpoint: `http://127.0.0.1:8080/v1/chat/completions`
+
+`mlx_lm.server` does not include a browser chat UI.
 
 ### Optional arguments:
 
@@ -78,8 +81,9 @@ run-mlx-server --m4-48gb --model mlx-community/Qwen3.6-35B-A3B-4bit-DWQ
 run-mlx-server --model ./models/my-local-mlx-model
 ```
 
-- `--m4-48gb` applies optimized memory and context defaults for a 48 GB Mac.
+- `--m4-48gb` applies latency-first cache, concurrency, and prefill defaults for an M4 Max with 48 GB.
 - `--model` skips the interactive menu and uses the specified Hugging Face repo or local path.
+- `--` passes all remaining options to `mlx_lm.server`, for example `-- --log-level DEBUG`.
 
 ## Run Manually
 
@@ -92,15 +96,16 @@ mlx_lm.server --model mlx-community/Qwen3.6-35B-A3B-4bit-DWQ --port 8080
 
 | Model | Good For | Example |
 | --- | --- | --- |
-| [`mlx-community/Qwen3.6-35B-A3B-4bit-DWQ`](https://huggingface.co/mlx-community/Qwen3.6-35B-A3B-4bit-DWQ) | Community-recommended MoE Qwen 3.6 variant, best 4-bit quality via Distilled Weight Quantization (text-only) | `run-mlx-server --model mlx-community/Qwen3.6-35B-A3B-4bit-DWQ` |
-| [`mlx-community/Qwen3.6-35B-A3B-4bit`](https://huggingface.co/mlx-community/Qwen3.6-35B-A3B-4bit) | MoE Qwen 3.6 variant with full vision stack for multimodal/image use | `run-mlx-server --model mlx-community/Qwen3.6-35B-A3B-4bit` |
+| [`mlx-community/Qwen3.6-35B-A3B-4bit-DWQ`](https://huggingface.co/mlx-community/Qwen3.6-35B-A3B-4bit-DWQ) | Text-only MoE model for reasoning, coding, and tool use; mixed 4-bit and 8-bit quantization | `run-mlx-server --model mlx-community/Qwen3.6-35B-A3B-4bit-DWQ` |
+
+The separate [`mlx-community/Qwen3.6-35B-A3B-4bit`](https://huggingface.co/mlx-community/Qwen3.6-35B-A3B-4bit) vision-language conversion requires `mlx-vlm` for image input. This repository's `mlx_lm.server` launcher is text-only.
 
 ## Local Cache And Offline Use
 
 - First run with a Hugging Face repo downloads the model.
 - Later runs reuse the local Hugging Face cache.
 
-The cache usually lives under:
+The cache usually lives under the following directory. `HF_HUB_CACHE` or `HF_HOME` can override it.
 
 ```txt
 ~/.cache/huggingface/hub/
@@ -109,16 +114,18 @@ The cache usually lives under:
 To remove a cached model, remove the corresponding `models--org--name` folder:
 
 ```sh
-rm -rf ~/.cache/huggingface/hub/models--mlx-community/Qwen3.6-35B-A3B-4bit-DWQ
+rm -rf ~/.cache/huggingface/hub/models--mlx-community--Qwen3.6-35B-A3B-4bit-DWQ
 ```
 
 ## Learn More
 
 | Resource | Covers |
 | --- | --- |
-| [Hugging Face And Tuning](./hugging-face-and-tuning.md) | Model selection, MLX vs GGUF, context size, and KV cache |
+| [Hugging Face And Tuning](./hugging-face-and-tuning.md) | Model selection, quantization, context size, and KV cache |
 | [mlx-lm Parameters](./mlx-parameters.md) | Most useful `mlx_lm.server` runtime parameters reference |
-| [MacBook Pro M4 Max 48GB](./hardware/m4-48gb.md) | Optimized defaults and troubleshooting for 48 GB Macs |
+| [MacBook Pro M4 Max 48GB](./hardware/m4-48gb.md) | Hardware-specific defaults and cache sizing |
+| [M4 Max 48GB Benchmarks](./hardware/m4-48gb-benchmark.md) | TTFT, throughput, cache reuse, and power measurements |
+| [Hardware Qualification Guide](./hardware/hardware-qualification-guide.md) | Workflow for profiling a new machine or model |
 
 ## Apple Silicon Note
 
@@ -127,5 +134,6 @@ MLX is designed specifically for Apple Silicon. It uses the same unified memory 
 ## Official References
 
 - [mlx-lm](https://github.com/ml-explore/mlx-lm)
+- [mlx-lm HTTP server](https://github.com/ml-explore/mlx-lm/blob/main/mlx_lm/SERVER.md)
 - [MLX](https://github.com/ml-explore/mlx)
 - [MLX Community models](https://huggingface.co/mlx-community)

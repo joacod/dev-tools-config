@@ -2,34 +2,39 @@
 
 set -euo pipefail
 
+invocation_dir="$PWD"
 cd "$(dirname "$0")"
 
 m4_48gb=false
 model=""
+server_args=()
+server_arg_count=0
 
-HF_CACHE_DIR="${HF_HOME:-$HOME/.cache/huggingface}/hub"
+HF_CACHE_DIR="${HF_HUB_CACHE:-${HF_HOME:-$HOME/.cache/huggingface}/hub}"
 
 starter_models=(
-  "mlx-community/Qwen3.6-35B-A3B-4bit|Strong reasoning and coding"
+  "mlx-community/Qwen3.6-35B-A3B-4bit-DWQ|Text reasoning and coding"
 )
 
 usage() {
   cat <<'EOF'
-Usage: run-mlx-server.sh [OPTIONS]
+Usage: run-mlx-server.sh [OPTIONS] [-- SERVER_OPTIONS]
 
 Starts mlx_lm.server on port 8080.
 
 Options:
   --model <repo_or_path>   Use a Hugging Face repo or local model path
-  --m4-48gb                Apply 48 GB optimized defaults (all flags below)
+  --m4-48gb                Apply M4 Max 48 GB single-agent defaults
+  --                       Pass all remaining options to mlx_lm.server
   -h, --help               Show this help message
 
 Examples:
   ./run-mlx-server.sh
   ./run-mlx-server.sh --m4-48gb
-  ./run-mlx-server.sh --model mlx-community/Qwen3.6-35B-A3B-4bit
+  ./run-mlx-server.sh --model mlx-community/Qwen3.6-35B-A3B-4bit-DWQ
   ./run-mlx-server.sh --model ./models/my-local-mlx-model
-  ./run-mlx-server.sh --m4-48gb --model mlx-community/Qwen3.6-35B-A3B-4bit
+  ./run-mlx-server.sh --m4-48gb --model mlx-community/Qwen3.6-35B-A3B-4bit-DWQ
+  ./run-mlx-server.sh --m4-48gb --model mlx-community/Qwen3.6-35B-A3B-4bit-DWQ -- --log-level DEBUG
 EOF
   exit 0
 }
@@ -50,6 +55,12 @@ while [ "$#" -gt 0 ]; do
       ;;
     -h|--help)
       usage
+      ;;
+    --)
+      shift
+      server_args=("$@")
+      server_arg_count="$#"
+      break
       ;;
     *)
       echo "Unknown argument: $1" >&2
@@ -162,16 +173,33 @@ if [ -z "$model" ]; then
   choose_model_from_menu
 fi
 
-command=(mlx_lm.server --model "$model" --port 8080)
+if [[ "$model" == ./* ]]; then
+  model="$invocation_dir/${model#./}"
+elif [[ "$model" == ../* ]]; then
+  model="$invocation_dir/$model"
+fi
+
+command=(mlx_lm.server --model "$model" --host 127.0.0.1 --port 8080)
 
 if [ "$m4_48gb" = true ]; then
+  memory_bytes="$(sysctl -n hw.memsize 2>/dev/null || true)"
+  chip="$(sysctl -n machdep.cpu.brand_string 2>/dev/null || true)"
+  if [ "$memory_bytes" != "51539607552" ] || [[ "$chip" != *"M4 Max"* ]]; then
+    echo "Warning: --m4-48gb was tuned for an M4 Max with 48 GB unified memory." >&2
+  fi
+
   command+=(
     --max-tokens 8192
-    --prompt-cache-size 16
-    --prompt-cache-bytes 20000000000
-    --decode-concurrency 2
+    --prompt-cache-size 4
+    --prompt-cache-bytes 4000000000
+    --decode-concurrency 1
     --prompt-concurrency 1
+    --prefill-step-size 2048
   )
+fi
+
+if [ "$server_arg_count" -gt 0 ]; then
+  command+=("${server_args[@]}")
 fi
 
 echo

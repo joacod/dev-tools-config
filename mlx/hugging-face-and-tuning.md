@@ -17,24 +17,23 @@ For most local assistant use, start with an Instruct or Chat model instead of a 
 
 ## What Is DWQ
 
-DWQ (Distilled Weight Quantization) is an MLX-only quantization technique that produces noticeably higher quality than regular 4-bit quantization at the same RAM footprint.
+DWQ means Distilled Weight Quantization. Quality and performance depend on the specific conversion and should be verified with benchmarks.
 
-How it works:
+For `mlx-community/Qwen3.6-35B-A3B-4bit-DWQ`, note that:
 
-1. Starts from a higher-precision model (usually 6-bit).
-2. "Distills" the knowledge into 4-bit weights by training the quantization scales and a few extra parameters.
-3. Result: same ~20.7 GB RAM usage and speed as regular 4-bit, but quality that "feels like 8-bit in a 4-bit package".
-
-The community-recommended model is `mlx-community/Qwen3.6-35B-A3B-4bit-DWQ`. It consistently outperforms the regular `...-4bit` version on Apple Silicon.
+- the repository is approximately 20.7 GB on disk
+- its configuration uses mixed quantization: many expert projections are 4-bit while other weights are 8-bit
+- the Hugging Face model card does not publish quality or speed benchmarks
+- it is published for text generation and contains no vision weights
 
 ### DWQ vs Regular 4-bit
 
-The MLX community made two separate conversions of Qwen3.6-35B-A3B:
+The MLX community publishes two conversions with different runtimes:
 
-- **`...-4bit-DWQ`** — Quantized with the DWQ technique for maximum text quality. The vision stack was dropped during distillation, so this is a text-only model.
-- **`...-4bit`** — Converted with mlx-vlm, keeps the full vision stack for multimodal/image use.
+- **`...-4bit-DWQ`** - text-only mixed-quantization model for `mlx-lm`
+- **`...-4bit`** - vision-language conversion published for `mlx-vlm`
 
-Choose DWQ for reasoning, coding, and text tasks. Choose the regular 4-bit if you need to feed images to the model.
+This repository's `run-mlx-server` launcher always starts `mlx_lm.server`, whose chat endpoint accepts text content only. It cannot serve image input from the vision-language conversion. For images, install and use `mlx-vlm` separately as shown on that model's Hugging Face page.
 
 ## How To Read A Hugging Face MLX Model Page
 
@@ -61,7 +60,7 @@ run-mlx-server --model mlx-community/Qwen3.6-35B-A3B-4bit-DWQ
 - First run: downloads the model from Hugging Face.
 - Later runs: reuse the cached model from `~/.cache/huggingface/hub/`.
 
-The model files stay on disk. You do not need to re-download them unless you delete the cache.
+The model files stay on disk. You do not need to download them again unless the cache is removed or the requested revision changes.
 
 ## Use A Local Model Path
 
@@ -69,18 +68,28 @@ The model files stay on disk. You do not need to re-download them unless you del
 run-mlx-server --model ./models/my-local-mlx-model
 ```
 
-This is useful when the model is already in a repo folder or converted locally. The path can be absolute or relative to where you run the command.
+This is useful when the model is already in a repository folder or converted locally. Absolute paths are passed through. Paths beginning with `./` or `../` are resolved relative to the directory where you invoke `run-mlx-server`.
 
-This first version of the guide focuses on running `mlx-community` models directly from Hugging Face. Model conversion scripts are not included here.
+This guide focuses on running existing `mlx-community` models. Model conversion is not covered.
 
 ## Context Size And KV Cache
 
-`--prompt-cache-bytes` sets the maximum KV cache memory in bytes in `mlx_lm.server`. It dynamically trims the oldest cache entries when memory pressure approaches the limit, preventing kernel panics or OOM crashes.
+Context length and retained-cache budget are different controls:
 
-For a 48 GB Mac, `--prompt-cache-bytes 20000000000` (20 GB) is the optimal setting that provides ~12–16k effective context while leaving plenty of headroom for model weights and system overhead.
+- The model configuration advertises its supported position range.
+- Request prompt and completion tokens determine the active sequence length.
+- `--prompt-cache-size` limits the number of reusable in-memory cache entries.
+- `--prompt-cache-bytes` is used by the batchable server path to trim retained entries relative to active cache accounting.
 
-Example:
+`--prompt-cache-bytes` does not set the context window, monitor macOS memory pressure, or guarantee OOM prevention. Cache use is model-dependent.
+
+For the M4 Max 48 GB single-agent profile, start with:
 
 ```sh
-mlx_lm.server --model mlx-community/Qwen3.6-35B-A3B-4bit-DWQ --prompt-cache-bytes 20000000000
+mlx_lm.server \
+  --model mlx-community/Qwen3.6-35B-A3B-4bit-DWQ \
+  --prompt-cache-size 4 \
+  --prompt-cache-bytes 4000000000
 ```
+
+See [MacBook Pro M4 Max 48GB](./hardware/m4-48gb.md) for this model's cache formula and memory table.

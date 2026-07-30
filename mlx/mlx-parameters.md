@@ -1,42 +1,76 @@
 # mlx-lm Parameters
 
-This guide covers the most useful `mlx_lm.server` runtime parameters for this repo.
+Use the installed command as the authoritative reference:
 
-## Parameter Reference
+```sh
+mlx_lm.server --help
+```
+
+## Server Parameters
 
 | Flag | Meaning |
 | --- | --- |
-| `--model` | Hugging Face repo or local model path to load |
-| `--port` | Server port. This repo uses `8080` |
-| `--host` | Server host. Keep local by default; only use `0.0.0.0` intentionally |
-| `--prompt-cache-bytes` | Maximum KV cache memory in bytes. Dynamically trims oldest cache entries when memory pressure approaches the limit. 20 GB (20000000000) is optimal for M4 Max 48 GB |
-| `--max-tokens` | Maximum tokens in response. Default 512 is too low for coding/agent use, 8192 recommended for M4 Max 48 GB |
-| `--prompt-cache-size` | Number of prompt cache files. Set to 16 for M4 Max 48 GB |
-| `--decode-concurrency` | Number of concurrent decode operations. Set to 2 for M4 Max 48 GB (safer starting point; bump to 4 if stable under load) |
-| `--prompt-concurrency` | Number of concurrent prompt operations. Set to 1 for M4 Max 48 GB (safer starting point; bump to 2 if stable under load) |
-| `--trust-remote-code` | Allows model-specific tokenizer/model code when required |
+| `--model` | Hugging Face repository or local model directory to load |
+| `--host` | Bind address; keep `127.0.0.1` for local use |
+| `--port` | Server port; this repository uses `8080` |
+| `--max-tokens` | Default response limit; requests can override it and it does not set context size |
+| `--prompt-cache-size` | Maximum number of reusable in-memory cache entries |
+| `--prompt-cache-bytes` | Active/retained cache budget in the batchable path; not a hard memory limit |
+| `--decode-concurrency` | Requests decoded together for aggregate throughput |
+| `--prompt-concurrency` | Prompts prefilling together; higher values use more memory |
+| `--prefill-step-size` | Tokens per prefill step; smaller values can reduce peak memory |
+| `--trust-remote-code` | Allows code from a trusted model repository |
+
+## M4 Max 48GB Profile
+
+For one interactive coding agent using `Qwen3.6-35B-A3B-4bit-DWQ`, start with:
+
+```sh
+--max-tokens 8192
+--prompt-cache-size 4
+--prompt-cache-bytes 4000000000
+--decode-concurrency 1
+--prompt-concurrency 1
+--prefill-step-size 2048
+```
+
+See [MacBook Pro M4 Max 48GB](./hardware/m4-48gb.md) for hardware and cache details.
+
+## Cache Behavior
+
+Prompt caching reuses processed prefixes:
+
+- `--prompt-cache-size` limits the number of distinct entries.
+- `--prompt-cache-bytes` trims retained entries relative to active batch-cache use.
+
+In `mlx-lm 0.31.3`, the byte budget is not enforced in every path and cannot shrink an active sequence. Cache size depends on model architecture, sequence length, and concurrency.
 
 ## Request-Time Parameters
 
-Many generation settings are sent in the API request body instead of the startup command. This lets you change them per-request without restarting the server.
+Common API fields are `temperature`, `top_p`, `top_k`, `min_p`, `max_tokens`, `max_completion_tokens`, and `stream`.
 
-Common request-time parameters:
-
-- `temperature` — Controls randomness. Lower is more deterministic.
-- `top_p` — Nucleus sampling threshold.
-- `max_tokens` — Maximum number of tokens in the response.
-- `stream` — Whether to stream tokens as they are generated (`true` or `false`).
-
-Example request:
+Example:
 
 ```sh
 curl http://127.0.0.1:8080/v1/chat/completions \
   -H "Content-Type: application/json" \
   -d '{
     "messages": [{"role": "user", "content": "Explain recursion in simple terms."}],
-    "temperature": 0.7,
-    "top_p": 0.9,
+    "temperature": 0.0,
     "max_tokens": 512,
     "stream": false
   }'
 ```
+
+## Launcher Passthrough
+
+Use `--` to pass installed server options that the launcher does not manage directly:
+
+```sh
+run-mlx-server \
+  --m4-48gb \
+  --model mlx-community/Qwen3.6-35B-A3B-4bit-DWQ \
+  -- --log-level DEBUG
+```
+
+Arguments after `--` are appended last and can override earlier scalar options supported by `argparse`, such as `--port` or `--prefill-step-size`.
