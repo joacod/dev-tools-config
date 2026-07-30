@@ -107,6 +107,8 @@ mlx/venv/bin/python mlx/scripts/benchmark-mlx-server.py \
   --max-tokens 128
 ```
 
+The benchmark client loads tokenizer files from the local Hugging Face cache and does not download them. Cache the complete model and tokenizer before qualification.
+
 The client does not manage the server process. Restart the server yourself between parameter configurations and verify its final flags.
 
 Recommended matrix:

@@ -192,7 +192,7 @@ def main():
 
     client = ServerClient(args.url, args.timeout)
     client.health()
-    tokenizer = AutoTokenizer.from_pretrained(args.model)
+    tokenizer = AutoTokenizer.from_pretrained(args.model, local_files_only=True)
 
     emit(
         {
