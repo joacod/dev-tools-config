@@ -27,6 +27,8 @@ Use this index to find the right document without reading the full reference set
 
 | Document | Use it for |
 | --- | --- |
+| [M2 16 GB](./hardware/m2-16gb.md) | Current measured base-M2 server profile |
+| [M2 16 GB Benchmark](./hardware/m2-16gb-benchmark.md) | Current measurements supporting the M2 profile |
 | [M4 Max 48 GB](./hardware/m4-max-48gb.md) | Current measured server profile |
 | [M4 Max 48 GB Benchmark](./hardware/m4-max-48gb-benchmark.md) | Current measurements supporting that profile |
 

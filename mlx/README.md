@@ -100,12 +100,14 @@ After launch, use:
 
 ```sh
 run-mlx-server --m4-48gb
+run-mlx-server --m2-16gb --model mlx-community/Qwen3-4B-Instruct-2507-4bit
 run-mlx-server --model mlx-community/Qwen3-1.7B-4bit
 run-mlx-server --model mlx-community/Qwen3.6-35B-A3B-4bit-DWQ
 run-mlx-server --m4-48gb --model mlx-community/Qwen3.6-35B-A3B-4bit-DWQ
 run-mlx-server --model ./models/my-local-mlx-model
 ```
 
+- `--m2-16gb` applies measured single-agent defaults for a base M2 with 16 GB.
 - `--m4-48gb` applies latency-first cache, concurrency, and prefill defaults for an M4 Max with 48 GB.
 - `--model` skips the interactive menu and uses the specified Hugging Face repo or local path.
 - `--` passes all remaining options to `mlx_lm.server`, for example `-- --log-level DEBUG`.
@@ -122,9 +124,10 @@ mlx_lm.server --model mlx-community/Qwen3-1.7B-4bit --port 8080
 | Model | Good For | Example |
 | --- | --- | --- |
 | [`mlx-community/Qwen3-1.7B-4bit`](https://huggingface.co/mlx-community/Qwen3-1.7B-4bit) | Small, public general-purpose model for a first MLX launch | `run-mlx-server --model mlx-community/Qwen3-1.7B-4bit` |
+| [`mlx-community/Qwen3-4B-Instruct-2507-4bit`](https://huggingface.co/mlx-community/Qwen3-4B-Instruct-2507-4bit) | Text instruction model with a measured base-M2 16 GB profile | `run-mlx-server --m2-16gb --model mlx-community/Qwen3-4B-Instruct-2507-4bit` |
 | [`mlx-community/Qwen3.6-35B-A3B-4bit-DWQ`](https://huggingface.co/mlx-community/Qwen3.6-35B-A3B-4bit-DWQ) | Text-only MoE model for reasoning, coding, and tool use; mixed 4-bit and 8-bit quantization | `run-mlx-server --model mlx-community/Qwen3.6-35B-A3B-4bit-DWQ` |
 
-The first model is a smoke test. The second has a measured M4 Max 48 GB profile and should not be treated as suitable for smaller Macs. Use the [Model Selection Research Brief](./docs/guides/model-selection.md) to find a coding or workload model for another machine.
+The first model is a smoke test. The other models have machine-specific measured profiles; do not copy those profiles to different hardware without qualification. Use the [Model Selection Research Brief](./docs/guides/model-selection.md) to find a coding or workload model for another machine.
 
 The separate [`mlx-community/Qwen3.6-35B-A3B-4bit`](https://huggingface.co/mlx-community/Qwen3.6-35B-A3B-4bit) vision-language conversion requires `mlx-vlm` for image input. This repository's `mlx_lm.server` launcher is text-only.
 

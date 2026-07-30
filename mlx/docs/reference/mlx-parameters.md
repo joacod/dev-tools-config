@@ -21,6 +21,21 @@ mlx_lm.server --help
 | `--prefill-step-size` | Tokens per prefill step; smaller values can reduce peak memory |
 | `--trust-remote-code` | Allows code from a trusted model repository |
 
+## M2 16GB Profile
+
+For one interactive coding agent using `Qwen3-4B-Instruct-2507-4bit`, use:
+
+```sh
+--max-tokens 8192
+--prompt-cache-size 2
+--prompt-cache-bytes 3000000000
+--decode-concurrency 1
+--prompt-concurrency 1
+--prefill-step-size 1024
+```
+
+See [MacBook Air M2 16GB](../hardware/m2-16gb.md) for the measured context and memory limits.
+
 ## M4 Max 48GB Profile
 
 For one interactive coding agent using `Qwen3.6-35B-A3B-4bit-DWQ`, start with:

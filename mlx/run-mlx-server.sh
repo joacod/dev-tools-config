@@ -6,6 +6,7 @@ invocation_dir="$PWD"
 cd "$(dirname "$0")"
 
 m4_48gb=false
+m2_16gb=false
 model=""
 server_args=()
 server_arg_count=0
@@ -24,6 +25,7 @@ Starts mlx_lm.server on port 8080.
 
 Options:
   --model <repo_or_path>   Use a Hugging Face repo or local model path
+  --m2-16gb                Apply M2 16 GB single-agent defaults
   --m4-48gb                Apply M4 Max 48 GB single-agent defaults
   --                       Pass all remaining options to mlx_lm.server
   -h, --help               Show this help message
@@ -32,6 +34,7 @@ Examples:
   ./run-mlx-server.sh
   ./run-mlx-server.sh --m4-48gb
   ./run-mlx-server.sh --model mlx-community/Qwen3-1.7B-4bit
+  ./run-mlx-server.sh --m2-16gb --model mlx-community/Qwen3-4B-Instruct-2507-4bit
   ./run-mlx-server.sh --model mlx-community/Qwen3.6-35B-A3B-4bit-DWQ
   ./run-mlx-server.sh --model ./models/my-local-mlx-model
   ./run-mlx-server.sh --m4-48gb --model mlx-community/Qwen3.6-35B-A3B-4bit-DWQ
@@ -42,6 +45,10 @@ EOF
 
 while [ "$#" -gt 0 ]; do
   case "$1" in
+    --m2-16gb)
+      m2_16gb=true
+      shift
+      ;;
     --m4-48gb)
       m4_48gb=true
       shift
@@ -69,6 +76,11 @@ while [ "$#" -gt 0 ]; do
       ;;
   esac
 done
+
+if [ "$m2_16gb" = true ] && [ "$m4_48gb" = true ]; then
+  echo "Error: choose only one hardware profile." >&2
+  exit 1
+fi
 
 if [ ! -f "venv/bin/activate" ]; then
   echo "MLX is not installed yet. Run ./setup-mlx.sh first."
@@ -181,6 +193,23 @@ elif [[ "$model" == ../* ]]; then
 fi
 
 command=(mlx_lm.server --model "$model" --host 127.0.0.1 --port 8080)
+
+if [ "$m2_16gb" = true ]; then
+  memory_bytes="$(sysctl -n hw.memsize 2>/dev/null || true)"
+  chip="$(sysctl -n machdep.cpu.brand_string 2>/dev/null || true)"
+  if [ "$memory_bytes" != "17179869184" ] || [ "$chip" != "Apple M2" ]; then
+    echo "Warning: --m2-16gb was tuned for a base M2 with 16 GB unified memory." >&2
+  fi
+
+  command+=(
+    --max-tokens 8192
+    --prompt-cache-size 2
+    --prompt-cache-bytes 3000000000
+    --decode-concurrency 1
+    --prompt-concurrency 1
+    --prefill-step-size 1024
+  )
+fi
 
 if [ "$m4_48gb" = true ]; then
   memory_bytes="$(sysctl -n hw.memsize 2>/dev/null || true)"
