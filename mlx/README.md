@@ -17,7 +17,9 @@ cd mlx
 ./setup-mlx.sh
 ```
 
-This creates `mlx/venv` and installs or upgrades `mlx-lm`. Check `mlx_lm.server --help` after upgrades.
+This creates `mlx/venv` and installs or upgrades `mlx-lm`, `mlx`, and `mlx-metal`. It prints the resolved versions and verifies `mlx_lm.server` after upgrades.
+
+PyTorch is not required. Model execution uses MLX; the included benchmark client uses Transformers only for tokenizer and chat-template utilities.
 
 ## Verify The Server Command
 
@@ -124,8 +126,10 @@ rm -rf ~/.cache/huggingface/hub/models--mlx-community--Qwen3.6-35B-A3B-4bit-DWQ
 | [Hugging Face And Tuning](./hugging-face-and-tuning.md) | Model selection, quantization, context size, and KV cache |
 | [mlx-lm Parameters](./mlx-parameters.md) | Most useful `mlx_lm.server` runtime parameters reference |
 | [MacBook Pro M4 Max 48GB](./hardware/m4-48gb.md) | Hardware-specific defaults and cache sizing |
-| [M4 Max 48GB Benchmarks](./hardware/m4-48gb-benchmark.md) | TTFT, throughput, cache reuse, and power measurements |
+| [M4 Max 48GB Benchmarks](./hardware/m4-48gb-benchmark.md) | TTFT, throughput, cache reuse, and memory measurements |
 | [Hardware Qualification Guide](./hardware/hardware-qualification-guide.md) | Workflow for profiling a new machine or model |
+| [Upgrade And Benchmark Guide](./upgrade-benchmark-guide.md) | Repeatable package-upgrade, comparison, and retuning workflow |
+| [HTTP Benchmark Client](./benchmark-mlx-server.py) | Reusable cold-prompt and prompt-cache benchmark tool |
 
 ## Apple Silicon Note
 

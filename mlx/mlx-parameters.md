@@ -31,7 +31,7 @@ For one interactive coding agent using `Qwen3.6-35B-A3B-4bit-DWQ`, start with:
 --prompt-cache-bytes 4000000000
 --decode-concurrency 1
 --prompt-concurrency 1
---prefill-step-size 2048
+--prefill-step-size 4096
 ```
 
 See [MacBook Pro M4 Max 48GB](./hardware/m4-48gb.md) for hardware and cache details.

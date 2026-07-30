@@ -2,6 +2,8 @@
 
 Use this document as instructions for profiling a new Apple Silicon machine or retuning an MLX setup.
 
+For an existing measured machine after a package upgrade, use the [MLX Upgrade And Benchmark Guide](../upgrade-benchmark-guide.md).
+
 ## Goal
 
 Create a measured `mlx_lm.server` profile for one machine, model, and workload. Produce a short configuration guide and a separate benchmark report.
@@ -94,6 +96,19 @@ Use streaming chat completions so TTFT and API token usage are available. Keep t
 
 Run one warm-up, then at least three cold trials per setting and report the median. Give cold prompts unique prefixes to prevent cache reuse. Use actual API `prompt_tokens`.
 
+Use the shared HTTP benchmark client rather than creating an ad hoc harness:
+
+```sh
+mlx/venv/bin/python mlx/benchmark-mlx-server.py \
+  --model <repo-or-local-path> \
+  --label <profile-name> \
+  --targets 2048 8192 16384 32768 \
+  --trials 3 \
+  --max-tokens 128
+```
+
+The client does not manage the server process. Restart the server yourself between parameter configurations and verify its final flags.
+
 Recommended matrix:
 
 ```txt
@@ -165,7 +180,7 @@ Create `hardware/<machine>-benchmark.md` with evidence:
 ## Memory
 ```
 
-Do not include superseded settings or documentation history in the configuration guide.
+Keep both documents current-only. Do not include superseded settings, package versions, old benchmark tables, upgrade narrative, or documentation history. Compare against previous results in the work report before replacing them; Git history preserves the old documents.
 
 ## 10. Align And Verify
 
@@ -174,6 +189,7 @@ Update the launcher profile, parameter guide, relevant model guidance, and READM
 Run:
 
 ```sh
+python3 -m py_compile mlx/benchmark-mlx-server.py
 bash -n mlx/run-mlx-server.sh
 mlx/venv/bin/mlx_lm.server --help
 git diff --check

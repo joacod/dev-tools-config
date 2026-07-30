@@ -194,7 +194,7 @@ if [ "$m4_48gb" = true ]; then
     --prompt-cache-bytes 4000000000
     --decode-concurrency 1
     --prompt-concurrency 1
-    --prefill-step-size 2048
+    --prefill-step-size 4096
   )
 fi
 

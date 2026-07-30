@@ -19,13 +19,17 @@ source venv/bin/activate
 echo "Upgrading pip..."
 python -m pip install --upgrade pip
 
-echo "Installing or upgrading mlx-lm..."
-python -m pip install --upgrade mlx-lm
+echo "Installing or upgrading mlx-lm and MLX..."
+python -m pip install --upgrade mlx-lm mlx
 
 echo
 echo "Verifying mlx_lm.server is available..."
 command -v mlx_lm.server
 mlx_lm.server --help >/dev/null
+
+echo
+echo "Installed versions:"
+python -c 'from importlib.metadata import version; print("mlx-lm", version("mlx-lm")); print("mlx", version("mlx")); print("mlx-metal", version("mlx-metal"))'
 
 echo
 echo "Setup complete. mlx-lm is installed and ready."
