@@ -10,7 +10,7 @@ Quick start from this directory:
 
 ```sh
 ./setup-mlx.sh
-./run-mlx-server.sh --model mlx-community/Qwen2.5-1.5B-Instruct-4bit
+./run-mlx-server.sh --model mlx-community/Qwen3-1.7B-4bit
 ```
 
 ## Folder Layout
@@ -57,7 +57,7 @@ If this works, `mlx-lm` is properly installed and ready to use.
 The simplest path is to pass a Hugging Face repo to `--model`. On first run, `mlx-lm` downloads the model automatically. Later runs reuse the local Hugging Face cache.
 
 ```sh
-mlx_lm.server --model mlx-community/Qwen2.5-1.5B-Instruct-4bit
+mlx_lm.server --model mlx-community/Qwen3-1.7B-4bit
 ```
 
 Hugging Face MLX models are commonly published under [huggingface.co/mlx-community](https://huggingface.co/mlx-community).
@@ -100,7 +100,8 @@ After launch, use:
 
 ```sh
 run-mlx-server --m4-48gb
-run-mlx-server --model mlx-community/Qwen2.5-1.5B-Instruct-4bit
+run-mlx-server --model mlx-community/Qwen3-1.7B-4bit
+run-mlx-server --model mlx-community/gemma-4-12b-coder-fable5-composer2.5-4bit
 run-mlx-server --model mlx-community/Qwen3.6-35B-A3B-4bit-DWQ
 run-mlx-server --m4-48gb --model mlx-community/Qwen3.6-35B-A3B-4bit-DWQ
 run-mlx-server --model ./models/my-local-mlx-model
@@ -114,14 +115,15 @@ run-mlx-server --model ./models/my-local-mlx-model
 
 ```sh
 source venv/bin/activate
-mlx_lm.server --model mlx-community/Qwen2.5-1.5B-Instruct-4bit --port 8080
+mlx_lm.server --model mlx-community/Qwen3-1.7B-4bit --port 8080
 ```
 
 ## Models To Try
 
 | Model | Good For | Example |
 | --- | --- | --- |
-| [`mlx-community/Qwen2.5-1.5B-Instruct-4bit`](https://huggingface.co/mlx-community/Qwen2.5-1.5B-Instruct-4bit) | Small, public smoke test for a first MLX launch | `run-mlx-server --model mlx-community/Qwen2.5-1.5B-Instruct-4bit` |
+| [`mlx-community/Qwen3-1.7B-4bit`](https://huggingface.co/mlx-community/Qwen3-1.7B-4bit) | Small, public general-purpose model for a first MLX launch | `run-mlx-server --model mlx-community/Qwen3-1.7B-4bit` |
+| [`mlx-community/gemma-4-12b-coder-fable5-composer2.5-4bit`](https://huggingface.co/mlx-community/gemma-4-12b-coder-fable5-composer2.5-4bit) | Specialized Python coding and reasoning model for Macs with at least 24 GB unified memory | `run-mlx-server --model mlx-community/gemma-4-12b-coder-fable5-composer2.5-4bit` |
 | [`mlx-community/Qwen3.6-35B-A3B-4bit-DWQ`](https://huggingface.co/mlx-community/Qwen3.6-35B-A3B-4bit-DWQ) | Text-only MoE model for reasoning, coding, and tool use; mixed 4-bit and 8-bit quantization | `run-mlx-server --model mlx-community/Qwen3.6-35B-A3B-4bit-DWQ` |
 
 The separate [`mlx-community/Qwen3.6-35B-A3B-4bit`](https://huggingface.co/mlx-community/Qwen3.6-35B-A3B-4bit) vision-language conversion requires `mlx-vlm` for image input. This repository's `mlx_lm.server` launcher is text-only.

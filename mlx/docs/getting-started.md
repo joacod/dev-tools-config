@@ -87,10 +87,10 @@ The alias points to this clone. If the repository moves, replace the alias in `~
 Use this public, ungated model for the first launch:
 
 ```sh
-run-mlx-server --model mlx-community/Qwen2.5-1.5B-Instruct-4bit
+run-mlx-server --model mlx-community/Qwen3-1.7B-4bit
 ```
 
-The first launch downloads approximately 900 MB. Later launches reuse the Hugging Face cache.
+The first launch downloads approximately 1 GB. Later launches reuse the Hugging Face cache.
 
 Do not apply another machine's hardware flag for this test. For example, use `--m4-48gb` only on the measured M4 Max 48 GB configuration.
 
@@ -108,7 +108,7 @@ Send a chat request:
 curl http://127.0.0.1:8080/v1/chat/completions \
   -H "Content-Type: application/json" \
   -d '{
-    "messages": [{"role": "user", "content": "Reply with: MLX is ready."}],
+    "messages": [{"role": "user", "content": "Reply with: MLX is ready. /no_think"}],
     "temperature": 0,
     "max_tokens": 32
   }'
