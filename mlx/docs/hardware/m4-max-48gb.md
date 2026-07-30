@@ -72,7 +72,7 @@ This excludes model weights, activations, prefill temporaries, allocator overhea
 - Check pressure with `memory_pressure -Q`.
 - Do not change the wired-memory limit unless MLX reports that the model is too large for the available working set.
 
-See [M4 Max 48GB Benchmarks](./m4-48gb-benchmark.md) for measured TTFT, decode speed, cache reuse, and memory behavior.
+See [M4 Max 48GB Benchmarks](./m4-max-48gb-benchmark.md) for measured TTFT, decode speed, cache reuse, and memory behavior.
 
 ## References
 

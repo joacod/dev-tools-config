@@ -1,6 +1,6 @@
 # MLX Upgrade And Benchmark Guide
 
-Use this guide after upgrading `mlx-lm`, `mlx`, or `mlx-metal` on a machine that already has a measured profile. For a new machine or model, use the [Hardware Qualification Guide](./hardware/hardware-qualification-guide.md) instead.
+Use this guide after upgrading `mlx-lm`, `mlx`, or `mlx-metal` on a machine that already has a measured profile. For a new machine or model, use the [Hardware Qualification Guide](./hardware-qualification.md) instead.
 
 ## Goal
 
@@ -10,29 +10,7 @@ The previous benchmark is a temporary comparison baseline. Compare against it wh
 
 ## Copy/Paste Agent Prompt
 
-Replace the bracketed values, then give this prompt to the coding agent from the repository root:
-
-```txt
-Upgrade and requalify the MLX setup for [machine profile, for example M4 Max 48 GB].
-
-Use mlx/upgrade-benchmark-guide.md and mlx/hardware/hardware-qualification-guide.md. Read the setup script, launcher, parameter reference, current machine guide, and current benchmark before changing anything.
-
-Requirements:
-- Treat the current machine benchmark as a temporary baseline and summarize measured improvements or regressions in the final response.
-- Check the latest stable PyPI releases and upstream release notes for mlx-lm, mlx, and mlx-metal.
-- Run mlx/setup-mlx.sh, record the exact resolved versions, inspect mlx_lm.server --help, and identify changes relevant to server behavior, Metal kernels, caching, concurrency, memory, or the selected model.
-- Benchmark [model repository] for [workload] with mlx/benchmark-mlx-server.py.
-- Keep the model, prompts, sampling, generation length, thinking mode, power mode, and trial count fixed across parameter comparisons.
-- Run at least three cold trials and report medians. Test the upstream/default prefill step plus one smaller and larger value unless release changes indicate another matrix.
-- Measure TTFT, total time, decode rate, actual prompt tokens, cache reuse, and memory pressure. Stop on persistent unhealthy pressure, material swap growth, request failures, or instability.
-- Do not run a second large model process. Ask before stopping a server you did not start or downloading uncached model weights.
-- Change machine parameters only when measurements support the change.
-- Update the launcher, parameter guide, machine guide, and benchmark report where applicable.
-- Keep tracked machine and benchmark documents latest-only: no superseded package versions, old result tables, migration notes, or benchmark history. Record untested current-version areas without retaining obsolete measurements.
-- Verify scripts, package consistency, server help, Markdown links, final process state, and git diff checks.
-
-Do not install PyTorch. MLX performs model execution; Transformers is used only for tokenizer utilities by the benchmark client.
-```
+Use the canonical [Requalify After An Upgrade](../getting-started.md#requalify-after-an-upgrade) prompt. It is kept in the beginner workflow so there is one copy/paste source for both new-machine and upgrade sessions.
 
 ## 1. Preserve A Temporary Baseline
 
@@ -131,7 +109,7 @@ The benchmark client drives a running server through streaming chat completions.
 From the repository root:
 
 ```sh
-mlx/venv/bin/python mlx/benchmark-mlx-server.py \
+mlx/venv/bin/python mlx/scripts/benchmark-mlx-server.py \
   --model mlx-community/Qwen3.6-35B-A3B-4bit-DWQ \
   --label prefill-4096 \
   --targets 2048 8192 16384 32768 \
@@ -147,7 +125,7 @@ Repeat the command after restarting the server with each candidate parameter. Us
 After selecting the profile, measure prompt-cache reuse without repeating the full matrix:
 
 ```sh
-mlx/venv/bin/python mlx/benchmark-mlx-server.py \
+mlx/venv/bin/python mlx/scripts/benchmark-mlx-server.py \
   --model mlx-community/Qwen3.6-35B-A3B-4bit-DWQ \
   --label selected-cache \
   --cache-only \
@@ -156,7 +134,7 @@ mlx/venv/bin/python mlx/benchmark-mlx-server.py \
   | tee /tmp/mlx-cache.jsonl
 ```
 
-Use `--url` for another host or port and `--chat-template-kwargs '{}'` when the selected model does not use thinking controls. Run `mlx/venv/bin/python mlx/benchmark-mlx-server.py --help` for all options.
+Use `--url` for another host or port and `--chat-template-kwargs '{}'` when the selected model does not use thinking controls. Run `mlx/venv/bin/python mlx/scripts/benchmark-mlx-server.py --help` for all options.
 
 ## 7. Select Parameters
 
@@ -190,7 +168,7 @@ Update the launcher profile, parameter reference, machine guide, benchmark repor
 Run:
 
 ```sh
-python3 -m py_compile mlx/benchmark-mlx-server.py
+python3 -m py_compile mlx/scripts/benchmark-mlx-server.py
 bash -n mlx/setup-mlx.sh mlx/run-mlx-server.sh
 mlx/venv/bin/python -m pip check
 mlx/venv/bin/mlx_lm.server --help

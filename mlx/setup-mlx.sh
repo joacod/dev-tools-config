@@ -36,3 +36,6 @@ echo "Setup complete. mlx-lm is installed and ready."
 echo
 echo "Next:"
 echo "  ./run-mlx-server.sh"
+echo
+echo "Optional zsh alias (add this line to ~/.zshrc):"
+printf "  alias run-mlx-server='%s/run-mlx-server.sh'\n" "$PWD"

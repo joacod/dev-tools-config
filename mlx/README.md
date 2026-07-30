@@ -2,6 +2,28 @@
 
 Run local MLX-compatible models on Apple Silicon with [mlx-lm](https://github.com/ml-explore/mlx-lm).
 
+## Start Here
+
+New to local models on a Mac? Follow [Getting Started With MLX On A Mac](./docs/getting-started.md) for installation, the launcher alias, a small smoke test, machine qualification, and package upgrades.
+
+Quick start from this directory:
+
+```sh
+./setup-mlx.sh
+./run-mlx-server.sh --model mlx-community/Qwen2.5-1.5B-Instruct-4bit
+```
+
+## Folder Layout
+
+| Path | Purpose |
+| --- | --- |
+| `README.md` | Short entry point and common commands |
+| `setup-mlx.sh` | Install or upgrade the local MLX environment |
+| `run-mlx-server.sh` | Interactive and profile-aware server launcher |
+| [`docs/`](./docs/README.md) | Getting started, guides, reference, and hardware profiles |
+| [`scripts/`](./scripts/) | Reusable benchmark and maintenance utilities |
+| `venv/` | Generated local Python environment (not committed) |
+
 ## What MLX is
 
 MLX is Apple's machine learning framework designed for Apple Silicon.
@@ -35,7 +57,7 @@ If this works, `mlx-lm` is properly installed and ready to use.
 The simplest path is to pass a Hugging Face repo to `--model`. On first run, `mlx-lm` downloads the model automatically. Later runs reuse the local Hugging Face cache.
 
 ```sh
-mlx_lm.server --model mlx-community/Qwen3.6-35B-A3B-4bit-DWQ
+mlx_lm.server --model mlx-community/Qwen2.5-1.5B-Instruct-4bit
 ```
 
 Hugging Face MLX models are commonly published under [huggingface.co/mlx-community](https://huggingface.co/mlx-community).
@@ -78,6 +100,7 @@ After launch, use:
 
 ```sh
 run-mlx-server --m4-48gb
+run-mlx-server --model mlx-community/Qwen2.5-1.5B-Instruct-4bit
 run-mlx-server --model mlx-community/Qwen3.6-35B-A3B-4bit-DWQ
 run-mlx-server --m4-48gb --model mlx-community/Qwen3.6-35B-A3B-4bit-DWQ
 run-mlx-server --model ./models/my-local-mlx-model
@@ -91,13 +114,14 @@ run-mlx-server --model ./models/my-local-mlx-model
 
 ```sh
 source venv/bin/activate
-mlx_lm.server --model mlx-community/Qwen3.6-35B-A3B-4bit-DWQ --port 8080
+mlx_lm.server --model mlx-community/Qwen2.5-1.5B-Instruct-4bit --port 8080
 ```
 
 ## Models To Try
 
 | Model | Good For | Example |
 | --- | --- | --- |
+| [`mlx-community/Qwen2.5-1.5B-Instruct-4bit`](https://huggingface.co/mlx-community/Qwen2.5-1.5B-Instruct-4bit) | Small, public smoke test for a first MLX launch | `run-mlx-server --model mlx-community/Qwen2.5-1.5B-Instruct-4bit` |
 | [`mlx-community/Qwen3.6-35B-A3B-4bit-DWQ`](https://huggingface.co/mlx-community/Qwen3.6-35B-A3B-4bit-DWQ) | Text-only MoE model for reasoning, coding, and tool use; mixed 4-bit and 8-bit quantization | `run-mlx-server --model mlx-community/Qwen3.6-35B-A3B-4bit-DWQ` |
 
 The separate [`mlx-community/Qwen3.6-35B-A3B-4bit`](https://huggingface.co/mlx-community/Qwen3.6-35B-A3B-4bit) vision-language conversion requires `mlx-vlm` for image input. This repository's `mlx_lm.server` launcher is text-only.
@@ -118,18 +142,6 @@ To remove a cached model, remove the corresponding `models--org--name` folder:
 ```sh
 rm -rf ~/.cache/huggingface/hub/models--mlx-community--Qwen3.6-35B-A3B-4bit-DWQ
 ```
-
-## Learn More
-
-| Resource | Covers |
-| --- | --- |
-| [Hugging Face And Tuning](./hugging-face-and-tuning.md) | Model selection, quantization, context size, and KV cache |
-| [mlx-lm Parameters](./mlx-parameters.md) | Most useful `mlx_lm.server` runtime parameters reference |
-| [MacBook Pro M4 Max 48GB](./hardware/m4-48gb.md) | Hardware-specific defaults and cache sizing |
-| [M4 Max 48GB Benchmarks](./hardware/m4-48gb-benchmark.md) | TTFT, throughput, cache reuse, and memory measurements |
-| [Hardware Qualification Guide](./hardware/hardware-qualification-guide.md) | Workflow for profiling a new machine or model |
-| [Upgrade And Benchmark Guide](./upgrade-benchmark-guide.md) | Repeatable package-upgrade, comparison, and retuning workflow |
-| [HTTP Benchmark Client](./benchmark-mlx-server.py) | Reusable cold-prompt and prompt-cache benchmark tool |
 
 ## Apple Silicon Note
 

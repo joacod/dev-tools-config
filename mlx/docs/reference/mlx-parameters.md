@@ -34,7 +34,7 @@ For one interactive coding agent using `Qwen3.6-35B-A3B-4bit-DWQ`, start with:
 --prefill-step-size 4096
 ```
 
-See [MacBook Pro M4 Max 48GB](./hardware/m4-48gb.md) for hardware and cache details.
+See [MacBook Pro M4 Max 48GB](../hardware/m4-max-48gb.md) for hardware and cache details.
 
 ## Cache Behavior
 

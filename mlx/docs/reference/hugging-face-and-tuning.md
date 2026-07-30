@@ -92,4 +92,4 @@ mlx_lm.server \
   --prompt-cache-bytes 4000000000
 ```
 
-See [MacBook Pro M4 Max 48GB](./hardware/m4-48gb.md) for this model's cache formula and memory table.
+See [MacBook Pro M4 Max 48GB](../hardware/m4-max-48gb.md) for this model's cache formula and memory table.

@@ -2,7 +2,7 @@
 
 Use this document as instructions for profiling a new Apple Silicon machine or retuning an MLX setup.
 
-For an existing measured machine after a package upgrade, use the [MLX Upgrade And Benchmark Guide](../upgrade-benchmark-guide.md).
+For a first-time walkthrough and the copy/paste new-machine prompt, start with [Getting Started](../getting-started.md#qualify-a-new-mac). For an existing measured machine after a package upgrade, use the [MLX Upgrade And Benchmark Guide](./upgrade-benchmark.md).
 
 ## Goal
 
@@ -99,7 +99,7 @@ Run one warm-up, then at least three cold trials per setting and report the medi
 Use the shared HTTP benchmark client rather than creating an ad hoc harness:
 
 ```sh
-mlx/venv/bin/python mlx/benchmark-mlx-server.py \
+mlx/venv/bin/python mlx/scripts/benchmark-mlx-server.py \
   --model <repo-or-local-path> \
   --label <profile-name> \
   --targets 2048 8192 16384 32768 \
@@ -155,7 +155,7 @@ Do not call a setting optimal without measurements. Record untested areas.
 
 ## 9. Produce Two Documents
 
-Create `hardware/<machine>.md` with current guidance only:
+Create `mlx/docs/hardware/<machine>.md` with current guidance only:
 
 ```md
 # Machine Name
@@ -168,7 +168,7 @@ Create `hardware/<machine>.md` with current guidance only:
 ## References
 ```
 
-Create `hardware/<machine>-benchmark.md` with evidence:
+Create `mlx/docs/hardware/<machine>-benchmark.md` with evidence:
 
 ```md
 # Machine Benchmarks
@@ -189,7 +189,7 @@ Update the launcher profile, parameter guide, relevant model guidance, and READM
 Run:
 
 ```sh
-python3 -m py_compile mlx/benchmark-mlx-server.py
+python3 -m py_compile mlx/scripts/benchmark-mlx-server.py
 bash -n mlx/run-mlx-server.sh
 mlx/venv/bin/mlx_lm.server --help
 git diff --check

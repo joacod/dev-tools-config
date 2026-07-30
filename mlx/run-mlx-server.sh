@@ -13,6 +13,7 @@ server_arg_count=0
 HF_CACHE_DIR="${HF_HUB_CACHE:-${HF_HOME:-$HOME/.cache/huggingface}/hub}"
 
 starter_models=(
+  "mlx-community/Qwen2.5-1.5B-Instruct-4bit|Small public smoke test"
   "mlx-community/Qwen3.6-35B-A3B-4bit-DWQ|Text reasoning and coding"
 )
 
@@ -31,6 +32,7 @@ Options:
 Examples:
   ./run-mlx-server.sh
   ./run-mlx-server.sh --m4-48gb
+  ./run-mlx-server.sh --model mlx-community/Qwen2.5-1.5B-Instruct-4bit
   ./run-mlx-server.sh --model mlx-community/Qwen3.6-35B-A3B-4bit-DWQ
   ./run-mlx-server.sh --model ./models/my-local-mlx-model
   ./run-mlx-server.sh --m4-48gb --model mlx-community/Qwen3.6-35B-A3B-4bit-DWQ

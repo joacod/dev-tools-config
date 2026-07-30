@@ -1,6 +1,6 @@
 # M4 Max 48GB Benchmarks
 
-Measurements for `mlx-community/Qwen3.6-35B-A3B-4bit-DWQ` on the hardware described in [M4 Max 48GB](./m4-48gb.md).
+Measurements for `mlx-community/Qwen3.6-35B-A3B-4bit-DWQ` on the hardware described in [M4 Max 48GB](./m4-max-48gb.md).
 
 ## Environment
 
