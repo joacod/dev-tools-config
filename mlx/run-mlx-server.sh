@@ -14,8 +14,6 @@ HF_CACHE_DIR="${HF_HUB_CACHE:-${HF_HOME:-$HOME/.cache/huggingface}/hub}"
 
 starter_models=(
   "mlx-community/Qwen3-1.7B-4bit|Small public smoke test"
-  "mlx-community/gemma-4-12b-coder-fable5-composer2.5-4bit|Coding and reasoning for 16 GB+ Macs"
-  "mlx-community/Qwen3.6-35B-A3B-4bit-DWQ|Text reasoning and coding"
 )
 
 usage() {
@@ -34,7 +32,6 @@ Examples:
   ./run-mlx-server.sh
   ./run-mlx-server.sh --m4-48gb
   ./run-mlx-server.sh --model mlx-community/Qwen3-1.7B-4bit
-  ./run-mlx-server.sh --model mlx-community/gemma-4-12b-coder-fable5-composer2.5-4bit
   ./run-mlx-server.sh --model mlx-community/Qwen3.6-35B-A3B-4bit-DWQ
   ./run-mlx-server.sh --model ./models/my-local-mlx-model
   ./run-mlx-server.sh --m4-48gb --model mlx-community/Qwen3.6-35B-A3B-4bit-DWQ

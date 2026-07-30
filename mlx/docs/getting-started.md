@@ -27,6 +27,7 @@ Model download size and runtime memory are different. Start with the small smoke
 | --- | --- |
 | First installation on this Mac | [New Mac Setup](#new-mac-setup) |
 | Already installed; normal daily use | [Daily Use](#daily-use) |
+| Smoke test works; need a useful model | [Select A Model](#select-a-model) |
 | New machine needs measured parameters | [Qualify A New Mac](#qualify-a-new-mac) |
 | `mlx-lm`, `mlx`, or `mlx-metal` was upgraded | [Requalify After An Upgrade](#requalify-after-an-upgrade) |
 
@@ -116,6 +117,12 @@ curl http://127.0.0.1:8080/v1/chat/completions \
 
 Stop the server with `Control-C` in its terminal.
 
+## Select A Model
+
+The smoke-test model proves that MLX works; it is not a recommendation for every workload. Paste the entire [Model Selection Research Brief](./guides/model-selection.md) into an AI with web access to inspect the exact Mac, research current models and community evidence, verify compatibility with the installed `mlx-lm`, and estimate memory headroom.
+
+The research report should return a ranked shortlist, one scoped recommendation, and the exact launcher command. Start that model, then use the separate hardware-qualification prompt to measure better parameters for the fixed model and machine.
+
 ## Daily Use
 
 Start the interactive launcher:
@@ -173,18 +180,19 @@ The qualification process creates:
 Replace the bracketed values and give this prompt to the coding agent from the repository root:
 
 ```txt
-Set up and qualify MLX on this Apple Silicon Mac.
+Qualify the currently running MLX model on this Apple Silicon Mac.
 
-Read mlx/docs/getting-started.md and mlx/docs/guides/hardware-qualification.md before changing anything. Also inspect the setup script, launcher, parameter reference, model guidance, existing hardware profiles, and git status.
+Read mlx/docs/getting-started.md and mlx/docs/guides/hardware-qualification.md before changing anything. Also inspect the setup script, launcher, parameter reference, existing hardware profiles, and git status.
 
-Target model: [Hugging Face repository, or help me select one that fits this Mac]
+Target model: [Hugging Face repository currently running on this Mac]
 Workload: [one interactive coding agent, concurrent clients, long-context analysis, or another workload]
 
 Requirements:
 - Inspect the exact Mac model, chip, CPU/GPU cores, unified memory, macOS version, power mode, and MLX recommended working set.
-- Run mlx/setup-mlx.sh and record the exact mlx-lm, mlx, and mlx-metal versions.
+- Treat the target model as fixed. Do not research, compare, download, or replace models.
+- Record the exact installed mlx-lm, mlx, and mlx-metal versions. Do not upgrade packages unless asked.
 - Verify mlx_lm.server --help and current upstream options.
-- Ask before downloading uncached model weights or stopping a server you did not start.
+- Ask before stopping or restarting a server you did not start.
 - Start with conservative settings. Do not reuse another machine's profile without measurement.
 - Use mlx/scripts/benchmark-mlx-server.py with at least three cold trials per setting and median results.
 - Measure TTFT, total time, decode rate, actual prompt tokens, cache reuse, and memory pressure.
@@ -282,6 +290,7 @@ PyTorch is not needed. The Transformers package can use tokenizers and configura
 ## Next References
 
 - [Documentation Index](./README.md)
+- [Model Selection Research Brief](./guides/model-selection.md)
 - [Hardware Qualification Guide](./guides/hardware-qualification.md)
 - [Upgrade And Benchmark Guide](./guides/upgrade-benchmark.md)
 - [mlx-lm Parameters](./reference/mlx-parameters.md)

@@ -1,6 +1,6 @@
 # Hugging Face And Tuning
 
-This guide covers the Hugging Face model terms and runtime settings that are useful for `mlx-lm` once you are past the first-run setup.
+This reference covers Hugging Face model terms and runtime settings that are useful for `mlx-lm` once you are past the first-run setup. To research current models for a specific Mac, use the [Model Selection Research Brief](../guides/model-selection.md).
 
 ## Basic Terminology
 

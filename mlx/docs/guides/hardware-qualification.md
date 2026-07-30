@@ -14,15 +14,15 @@ Establish before editing:
 
 - workload: one agent, concurrent clients, or long-context analysis
 - exact model repository and quantization
-- whether the model is cached
-- permission for downloads and server restarts
+- current server command and flags
+- permission for server restarts
 - files that should be updated
 
 Do not reuse another machine's preset without measurement.
 
 ## 2. Inspect The System
 
-Read the launcher, setup script, parameter reference, hardware guides, and model guidance. Check `git status` and preserve unrelated changes.
+Read the launcher, setup script, parameter reference, and hardware guides. Check `git status` and preserve unrelated changes.
 
 Collect non-sensitive system details:
 

@@ -4,7 +4,7 @@ Run local MLX-compatible models on Apple Silicon with [mlx-lm](https://github.co
 
 ## Start Here
 
-New to local models on a Mac? Follow [Getting Started With MLX On A Mac](./docs/getting-started.md) for installation, the launcher alias, a small smoke test, machine qualification, and package upgrades.
+New to local models on a Mac? Follow [Getting Started With MLX On A Mac](./docs/getting-started.md) for installation, the launcher alias, a small smoke test, model selection, machine qualification, and package upgrades.
 
 Quick start from this directory:
 
@@ -60,7 +60,7 @@ The simplest path is to pass a Hugging Face repo to `--model`. On first run, `ml
 mlx_lm.server --model mlx-community/Qwen3-1.7B-4bit
 ```
 
-Hugging Face MLX models are commonly published under [huggingface.co/mlx-community](https://huggingface.co/mlx-community).
+Hugging Face MLX models are commonly published under [huggingface.co/mlx-community](https://huggingface.co/mlx-community). An `mlx` tag does not guarantee compatibility with the installed `mlx-lm`; use the [Model Selection Research Brief](./docs/guides/model-selection.md) before downloading a larger workload model.
 
 ## Run The Local Server
 
@@ -101,7 +101,6 @@ After launch, use:
 ```sh
 run-mlx-server --m4-48gb
 run-mlx-server --model mlx-community/Qwen3-1.7B-4bit
-run-mlx-server --model mlx-community/gemma-4-12b-coder-fable5-composer2.5-4bit
 run-mlx-server --model mlx-community/Qwen3.6-35B-A3B-4bit-DWQ
 run-mlx-server --m4-48gb --model mlx-community/Qwen3.6-35B-A3B-4bit-DWQ
 run-mlx-server --model ./models/my-local-mlx-model
@@ -123,8 +122,9 @@ mlx_lm.server --model mlx-community/Qwen3-1.7B-4bit --port 8080
 | Model | Good For | Example |
 | --- | --- | --- |
 | [`mlx-community/Qwen3-1.7B-4bit`](https://huggingface.co/mlx-community/Qwen3-1.7B-4bit) | Small, public general-purpose model for a first MLX launch | `run-mlx-server --model mlx-community/Qwen3-1.7B-4bit` |
-| [`mlx-community/gemma-4-12b-coder-fable5-composer2.5-4bit`](https://huggingface.co/mlx-community/gemma-4-12b-coder-fable5-composer2.5-4bit) | Coding and reasoning model for Macs with at least 16 GB unified memory | `run-mlx-server --model mlx-community/gemma-4-12b-coder-fable5-composer2.5-4bit` |
 | [`mlx-community/Qwen3.6-35B-A3B-4bit-DWQ`](https://huggingface.co/mlx-community/Qwen3.6-35B-A3B-4bit-DWQ) | Text-only MoE model for reasoning, coding, and tool use; mixed 4-bit and 8-bit quantization | `run-mlx-server --model mlx-community/Qwen3.6-35B-A3B-4bit-DWQ` |
+
+The first model is a smoke test. The second has a measured M4 Max 48 GB profile and should not be treated as suitable for smaller Macs. Use the [Model Selection Research Brief](./docs/guides/model-selection.md) to find a coding or workload model for another machine.
 
 The separate [`mlx-community/Qwen3.6-35B-A3B-4bit`](https://huggingface.co/mlx-community/Qwen3.6-35B-A3B-4bit) vision-language conversion requires `mlx-vlm` for image input. This repository's `mlx_lm.server` launcher is text-only.
 

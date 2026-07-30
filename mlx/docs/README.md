@@ -12,6 +12,7 @@ Use this index to find the right document without reading the full reference set
 
 | Document | Use it for |
 | --- | --- |
+| [Model Selection](./guides/model-selection.md) | Pasteable AI brief for researching models for a specific Mac and workload |
 | [Hardware Qualification](./guides/hardware-qualification.md) | Measuring a new Mac, model, or workload |
 | [Upgrade And Benchmark](./guides/upgrade-benchmark.md) | Requalifying an existing profile after MLX package upgrades |
 
@@ -20,7 +21,7 @@ Use this index to find the right document without reading the full reference set
 | Document | Use it for |
 | --- | --- |
 | [mlx-lm Parameters](./reference/mlx-parameters.md) | Server flags, request fields, cache behavior, and launcher passthrough |
-| [Hugging Face And Tuning](./reference/hugging-face-and-tuning.md) | Model selection, quantization, context, cache, and downloads |
+| [Hugging Face And Tuning](./reference/hugging-face-and-tuning.md) | Model terminology, quantization, context, cache, and downloads |
 
 ## Hardware Profiles
 
