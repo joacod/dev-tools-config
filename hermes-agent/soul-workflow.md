@@ -1,18 +1,18 @@
 # SOUL Workflow
 
-This guide shows how to use Hermes itself to draft a new `SOUL.md` from the local template in this repo, save the result into the shared workspace, and then install it into Hermes' real home directory.
+This guide shows how to use Hermes itself to update the active `SOUL.md` from the local template in this repo.
 
-This workflow exists because, in this setup, Hermes runs inside an ephemeral sandbox. Hermes can write to the shared `/workspace` mount, but it should not be expected to write directly into `~/.hermes/SOUL.md` from inside the sandbox.
+The host personality file is mounted directly into the persistent default sandbox, so Hermes can update the authoritative file without a manual copy step.
 
 ## What This Depends On
 
-Before using this workflow, make sure you already configured the shared Docker workspace from [Install Hermes Agent](./install.md).
+Before using this workflow, configure the persistent Docker workspace from [Install Hermes Agent](./install.md) and verify the authoritative mount in [Sanity Check](./sanity-check.md).
 
-That setup makes these paths line up:
+The active paths are:
 
-- inside Hermes: `/workspace/SOUL.md`
-- on the VPS host: `/home/hermes/hermes-workspace/SOUL.md`
-- final active personality file: `~/.hermes/SOUL.md`
+- inside the default Hermes sandbox: `/root/.hermes/SOUL.md`
+- on the VPS host: `/home/hermes/.hermes/SOUL.md`
+- gateway identity source: `HERMES_HOME/SOUL.md`
 
 Relevant upstream doc:
 
@@ -26,13 +26,14 @@ Hermes loads its active personality only from `HERMES_HOME/SOUL.md`, which is us
 ~/.hermes/SOUL.md
 ```
 
-It does not load `SOUL.md` from the current working directory or from `/workspace` automatically.
+It does not load `SOUL.md` from the current working directory or from `/workspace` automatically. The explicit file bind maps the host file to the path Hermes edits inside the default sandbox.
 
 So the safe pattern here is:
 
-1. Ask Hermes to generate a new soul using the template.
-2. Ask Hermes to save the result as `/workspace/SOUL.md`.
-3. Copy that file into `~/.hermes/SOUL.md` yourself from the VPS shell.
+1. Verify the authoritative file bind is active.
+2. Ask Hermes to generate a new soul using the template.
+3. Ask Hermes to save the result as `/root/.hermes/SOUL.md`.
+4. Review the change and start a new session.
 
 ## Source Template
 
@@ -57,7 +58,7 @@ If I provide an older SOUL.md in this chat, use it as reference material too, bu
 Focus on durable identity, communication style, pushback style, autonomy boundaries, mission, and operating mode.
 Do not fill it with repo-specific instructions, temporary project notes, or file-path conventions unless they clearly belong in a persistent personal identity.
 
-Return the final result as a complete SOUL.md file and save that exact final content to /workspace/SOUL.md.
+Return the final result as a complete SOUL.md file and save that exact final content to /root/.hermes/SOUL.md.
 Do not save a draft, notes, or explanation into the file. Only the final SOUL.md content should be written.
 
 [Paste the full contents of ./SOUL-template.md here]
@@ -67,25 +68,15 @@ If you have an older soul you want Hermes to incorporate, paste that into the sa
 
 ## Verify The Output
 
-After Hermes writes the file, verify it exists on the VPS host:
+After Hermes writes the file, verify the authoritative host file metadata:
 
 ```sh
-ls -l /home/hermes/hermes-workspace/SOUL.md
+stat -c '%U:%G %a %s %y %n' /home/hermes/.hermes/SOUL.md
 ```
 
-If the file is there and looks right, install it as the active Hermes personality file.
+Review the resulting file through an approved interface, then start a new Hermes session so the updated personality is loaded from the beginning of the prompt. No host-side copy is required.
 
-## Install The New SOUL
-
-**Run as:** `hermes` on the VPS
-
-Use the exact command below to copy the generated file into Hermes' real home directory:
-
-```sh
-cp /home/hermes/hermes-workspace/SOUL.md ~/.hermes/SOUL.md
-```
-
-Start a new Hermes session after copying the file so the updated personality is loaded from the beginning of the prompt.
+Because this file controls durable agent behavior, retain a recoverable previous version and explicitly review changes to safety boundaries, permissions, or autonomy.
 
 ## Keep The Boundary Clean
 

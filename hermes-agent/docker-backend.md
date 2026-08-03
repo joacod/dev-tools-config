@@ -60,6 +60,10 @@ This guide uses `DOCKER_HOST` as the one explicit way to tell Hermes which Docke
 
 That matters because Hermes only knows it should use the `docker` backend. The actual Docker socket still comes from the `hermes` user environment.
 
+This socket is used by the host-level Hermes gateway to create terminal sandboxes. It is not mounted into those sandboxes by default. Therefore, commands running inside a Hermes terminal container cannot themselves run Docker or Compose against the host daemon.
+
+This distinction is intentional. Mounting the rootless socket into a sandbox would grant that sandbox full authority as the host `hermes` user, including the ability to create containers with mounts of Hermes-owned credentials, state, and workspace files. Use `ssh hermes` for supervised host-side Docker work instead of exposing the socket to the autonomous sandbox.
+
 If `docker context ls` later warns that `DOCKER_HOST` overrides the active context, that is expected and safe to ignore in this setup.
 
 ## 4. Verify Rootless Docker As `hermes`

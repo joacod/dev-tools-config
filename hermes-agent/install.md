@@ -145,9 +145,9 @@ During Telegram setup, make sure you provide:
 - your Telegram bot token from BotFather
 - your own Telegram user ID in the allowed users list
 
-## Configure Persistent Docker Workspace
+## Configure Persistent Docker Workspace And SOUL
 
-After `hermes setup`, configure Hermes to keep its Docker sandbox filesystem between sessions and to use a predictable host-mounted workspace at `/workspace`.
+After `hermes setup`, configure Hermes to keep its Docker sandbox filesystem between sessions, use a predictable host-mounted workspace at `/workspace`, and mount the authoritative personality file into the default sandbox.
 
 This keeps Docker as the isolation boundary while giving Hermes a simple persistent folder for inputs and outputs.
 
@@ -156,8 +156,19 @@ This keeps Docker as the isolation boundary while giving Hermes a simple persist
 ```sh
 hermes config set terminal.container_persistent true
 mkdir -p ~/hermes-workspace
-hermes config set terminal.docker_volumes '["/home/hermes/hermes-workspace:/workspace"]'
+hermes config edit
 ```
+
+Under the existing `terminal` section, store `docker_volumes` as a YAML list:
+
+```yaml
+terminal:
+  docker_volumes:
+    - /home/hermes/hermes-workspace:/workspace
+    - /home/hermes/.hermes/SOUL.md:/root/.hermes/SOUL.md
+```
+
+Do not pass the JSON-looking list to `hermes config set terminal.docker_volumes`. The current CLI stores that argument as a string instead of a YAML list, and the Docker backend may ignore malformed volume configuration.
 
 Make sure the whole shared workspace tree is owned by `hermes`.
 
@@ -181,10 +192,11 @@ rm ~/hermes-workspace/wikis/test-write.txt
 What this does:
 
 - `terminal.container_persistent true` tells Hermes to preserve the Docker sandbox filesystem across sessions
-- `terminal.docker_volumes` bind-mounts `~/hermes-workspace` from the VPS into the container as `/workspace`
+- `terminal.docker_volumes` bind-mounts `~/hermes-workspace` at `/workspace` and the authoritative personality file at `/root/.hermes/SOUL.md`
 - files Hermes writes to `/workspace` inside the container will appear in `/home/hermes/hermes-workspace` on the VPS
+- edits to `/root/.hermes/SOUL.md` update `/home/hermes/.hermes/SOUL.md` directly, with no manual copy step
 - the ownership fix prevents a common failure mode where `/workspace` is mounted correctly but Hermes cannot write to the underlying host folders
 
 For the recommended folder layout inside this mount, see [Personal Workspace Setup](./personal-workspace-setup.md).
 
-If you want to use that shared workspace to generate a new Hermes personality file and then copy it into `~/.hermes/SOUL.md`, see [SOUL Workflow](./soul-workflow.md).
+If you want Hermes to update its persistent personality through the authoritative file mount, see [SOUL Workflow](./soul-workflow.md).

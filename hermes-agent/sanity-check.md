@@ -110,6 +110,33 @@ Expected output:
 
 - `~/.hermes/.env` shows `-rw-------` (`600`)
 
+## Check Authoritative SOUL Mount
+
+**Run as:** `hermes` on the VPS
+
+After Hermes has used its default terminal at least once, identify the default sandbox and verify the active host personality file is mounted read-write.
+
+```sh
+container_id="$(docker ps -q \
+  --filter label=hermes-task-id=default \
+  --filter label=hermes-profile=default)"
+```
+
+If this returns an empty value, use the Hermes terminal once so the default sandbox is created, then rerun the command.
+
+```sh
+docker inspect "$container_id" \
+  --format '{{range .Mounts}}{{if eq .Destination "/root/.hermes/SOUL.md"}}{{.Source}} -> {{.Destination}} RW={{.RW}}{{end}}{{end}}'
+```
+
+Expected output:
+
+```text
+/home/hermes/.hermes/SOUL.md -> /root/.hermes/SOUL.md RW=true
+```
+
+This verifies that Hermes edits the authoritative host file rather than a task-specific sandbox copy.
+
 ## Check Gateway Service
 
 **Run as:** `hermes` on the VPS for gateway status, and your admin user on the VPS for the linger check
@@ -140,6 +167,7 @@ If all checks pass, you have verified:
 - Hermes does not share Dokploy's system Docker daemon
 - a model provider is configured for normal Hermes use
 - the main secrets file has restrictive permissions
+- the default terminal uses the authoritative persistent `SOUL.md`
 - the gateway service is running correctly if enabled
 
 ## Final Verdict
