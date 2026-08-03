@@ -2,7 +2,7 @@
 
 This guide shows how to use Hermes itself to update the active `SOUL.md` from the local template in this repo.
 
-The host personality file is mounted directly into the persistent default sandbox, so Hermes can update the authoritative file without a manual copy step.
+The host personality file is mounted directly into the persistent default sandbox. Hermes stages the complete replacement in the workspace, then copies it through the bind in place after terminal-write approval.
 
 ## What This Depends On
 
@@ -26,14 +26,17 @@ Hermes loads its active personality only from `HERMES_HOME/SOUL.md`, which is us
 ~/.hermes/SOUL.md
 ```
 
-It does not load `SOUL.md` from the current working directory or from `/workspace` automatically. The explicit file bind maps the host file to the path Hermes edits inside the default sandbox.
+It does not load `SOUL.md` from the current working directory or from `/workspace` automatically. The explicit file bind maps the host file to `/root/.hermes/SOUL.md` inside the default sandbox.
+
+Hermes must not use `write_file` directly on the mounted destination. `write_file` performs an atomic temporary-file rename, and Linux cannot rename over a bind-mount point, so that operation fails with `Device or resource busy`. A normal `cp` opens and overwrites the mounted file in place without replacing the mountpoint.
 
 So the safe pattern here is:
 
 1. Verify the authoritative file bind is active.
 2. Ask Hermes to generate a new soul using the template.
-3. Ask Hermes to save the result as `/root/.hermes/SOUL.md`.
-4. Review the change and start a new session.
+3. Ask Hermes to stage the complete result at `/workspace/outputs/SOUL.proposed.md`.
+4. Approve the terminal copy into `/root/.hermes/SOUL.md`.
+5. Review the result and start a new session.
 
 ## Source Template
 
@@ -58,23 +61,38 @@ If I provide an older SOUL.md in this chat, use it as reference material too, bu
 Focus on durable identity, communication style, pushback style, autonomy boundaries, mission, and operating mode.
 Do not fill it with repo-specific instructions, temporary project notes, or file-path conventions unless they clearly belong in a persistent personal identity.
 
-Return the final result as a complete SOUL.md file and save that exact final content to /root/.hermes/SOUL.md.
-Do not save a draft, notes, or explanation into the file. Only the final SOUL.md content should be written.
+Return the final result as a complete SOUL.md file and save that exact final content to /workspace/outputs/SOUL.proposed.md.
+Then request approval to run exactly:
+cp -- /workspace/outputs/SOUL.proposed.md /root/.hermes/SOUL.md
+Do not use write_file directly on /root/.hermes/SOUL.md because its atomic rename cannot replace the bind-mount point.
+Do not save notes or explanation into the proposal. Only the complete final SOUL.md content should be written.
 
 [Paste the full contents of ./SOUL-template.md here]
 ```
 
 If you have an older soul you want Hermes to incorporate, paste that into the same chat too.
 
-## Verify The Output
+## Apply And Verify
 
-After Hermes writes the file, verify the authoritative host file metadata:
+After Hermes stages the proposal, approve this command in the terminal tool:
+
+```sh
+cp -- /workspace/outputs/SOUL.proposed.md /root/.hermes/SOUL.md
+```
+
+Then verify the staged and active files have the same hash without printing their contents:
+
+```sh
+sha256sum /workspace/outputs/SOUL.proposed.md /root/.hermes/SOUL.md
+```
+
+From the host, verify the authoritative file metadata:
 
 ```sh
 stat -c '%U:%G %a %s %y %n' /home/hermes/.hermes/SOUL.md
 ```
 
-Review the resulting file through an approved interface, then start a new Hermes session so the updated personality is loaded from the beginning of the prompt. No host-side copy is required.
+Review the resulting file through an approved interface, then start a new Hermes session so the updated personality is loaded from the beginning of the prompt. No separate host-side copy is required.
 
 Because this file controls durable agent behavior, retain a recoverable previous version and explicitly review changes to safety boundaries, permissions, or autonomy.
 
