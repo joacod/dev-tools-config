@@ -12,6 +12,7 @@ My setup and notes for development tools, AI agents, and server utilities.
 | llama.cpp | [`./llama-cpp`](./llama-cpp) | Local runtime for running GGUF language models. |
 | MLX | [`./mlx`](./mlx) | Local runtime for running MLX-compatible language models on Apple Silicon. |
 | OpenCode | [`./opencode`](./opencode) | Open source AI coding agent. |
+| Agent Skills | [`./skills`](./skills) | Reusable capabilities for OpenCode, Claude Code, and other compatible AI agents. |
 | OpenRouter | [`./openrouter`](./openrouter) | Unified API and model catalog for multiple LLM providers. |
 | OpenSpec | [`./openspec`](./openspec) | Spec-driven development workflow for AI coding agents. |
 
