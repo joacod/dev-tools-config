@@ -76,6 +76,8 @@ The session continues running on the VPS after the local terminal closes or disc
 
 See the [Hermes setup](../hermes-agent/README.md) and [SSH over Tailscale guide](../tailscale/ssh-over-tailscale-for-vps.md) for the VPS prerequisites.
 
+For a persistent remote Hermes dashboard with a local SSH tunnel, see [Hermes Dashboard Through Herdr](./hermes-dashboard.md).
+
 ## References
 
 - [Herdr documentation](https://herdr.dev/docs/)
