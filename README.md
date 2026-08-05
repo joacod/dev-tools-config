@@ -15,6 +15,7 @@ My setup and notes for development tools, AI agents, and server utilities.
 | Agent Skills | [`./skills`](./skills) | Reusable capabilities for OpenCode, Claude Code, and other compatible AI agents. |
 | OpenRouter | [`./openrouter`](./openrouter) | Unified API and model catalog for multiple LLM providers. |
 | OpenSpec | [`./openspec`](./openspec) | Spec-driven development workflow for AI coding agents. |
+| Pi | [`./pi`](./pi) | Minimal, extensible terminal coding harness. |
 
 ## Developer Environment
 
