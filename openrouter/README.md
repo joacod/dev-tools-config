@@ -34,4 +34,4 @@ These are the models I would look at first for daily agent use, where tool use, 
 | Model | Link | Notes |
 | --- | --- | --- |
 | `deepseek/deepseek-v4-pro` | [DeepSeek V4 Pro](https://openrouter.ai/deepseek/deepseek-v4-pro) | Good daily "brain" candidate for agents. Fast, practical, and a strong default when I want solid tool-oriented behavior at a reasonable price. |
-| `deepseek/deepseek-v3.2` | [DeepSeek V3.2](https://openrouter.ai/deepseek/deepseek-v3.2) | Good fallback or alternate daily agent model. Usually a strong price/performance option for regular agent work. |
+| `deepseek/deepseek-v4-flash-0731` | [DeepSeek V4 Flash 0731](https://openrouter.ai/deepseek/deepseek-v4-flash-0731) | Preferred OpenRouter fallback for Hermes when default model reaches its limit; suited to coding, reasoning, and agent workflows. |

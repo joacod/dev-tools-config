@@ -65,11 +65,11 @@ After you completed providers login or API key setup, you can run the model sele
 hermes model
 ```
 
-## Optional: OpenRouter Routing And Fallback Model
+## Optional: OpenRouter Routing And Fallback Models
 
 **Run as:** `hermes` on the VPS
 
-If you use OpenRouter, you can configure Hermes to use it as the main provider and optionally add provider routing rules and a fallback model.
+If you use OpenRouter, you can configure Hermes to use it as the main provider and optionally add provider routing rules and a fallback chain.
 
 This is useful if you want a broader model catalog and a cleaner way to keep a primary model plus a backup.
 
@@ -90,15 +90,18 @@ hermes config set provider_routing.data_collection deny
 # OpenRouter already defaults to sorting by price
 # hermes config set provider_routing.sort price
 
-hermes config set fallback_model.provider openrouter
-hermes config set fallback_model.model deepseek/deepseek-v3.2
+# Use Hermes' current fallback manager, then add:
+# provider: openrouter
+# model: deepseek/deepseek-v4-flash-0731
+hermes fallback
 ```
 
 What this does:
 
 - `provider_routing.require_parameters true` avoids OpenRouter providers that do not support all request parameters Hermes wants to send
 - `provider_routing.data_collection deny` is the documented Hermes/OpenRouter setting closest to Zero Data Retention style routing and prefers providers that do not allow training or retention on your data
-- `fallback_model.*` gives Hermes a backup model if the primary provider or model fails during a session
+- `fallback_providers` gives Hermes one or more backup provider/model pairs if the primary provider or model fails during a session
+- `hermes fallback` manages the current fallback chain; older `fallback_model.*` settings are legacy compatibility keys
 
 Relevant Hermes docs:
 
@@ -113,10 +116,12 @@ After setting the OpenRouter model, routing, and fallback values, run:
 ```sh
 hermes config
 hermes config check
+hermes fallback list
 ```
 
 Notes:
 
 - `hermes config` shows a high-level summary of your current Hermes configuration
 - `hermes config check` helps detect missing or stale configuration after changes
-- some advanced settings may not appear in the summary output, so if you need to confirm exact values like `provider_routing.*` or `fallback_model.*`, inspect the raw file path shown by `hermes config path`
+- `hermes fallback list` confirms the active fallback chain and its order
+- some advanced settings may not appear in the summary output, so if you need to confirm exact values like `provider_routing.*` or `fallback_providers`, inspect the raw file path shown by `hermes config path`
