@@ -54,6 +54,27 @@ pi @README.md "Summarize this file"
 pi @src/app.ts @src/app.test.ts "Review these files together"
 ```
 
+## Reusable Commands
+
+Pi's file-backed slash commands are called **prompt templates**. The templates in [`prompts/`](./prompts) provide reusable git workflows.
+
+Install them globally:
+
+```bash
+# Run from this repository's root.
+mkdir -p ~/.pi/agent/prompts
+cp pi/prompts/*.md ~/.pi/agent/prompts/
+```
+
+Restart Pi or run `/reload` afterward. To keep them project-local, copy them into that repository's `.pi/prompts/` directory instead.
+
+| Command | Description |
+| --- | --- |
+| `/git-commit` | Stage and commit changes with safety checks and a generated message. |
+| `/git-push` | Push the current branch with safety checks and optionally create a PR. |
+
+Prompt templates expand into prompts. These templates tell Pi to run the checks through its bash tool.
+
 Run a shell command and send its output to the model with `!`:
 
 ```text
@@ -102,5 +123,6 @@ Review project instructions, skills, extensions, and packages before using them.
 - [Quickstart](https://pi.dev/docs/latest/quickstart)
 - [Using Pi](https://pi.dev/docs/latest/usage)
 - [Providers](https://pi.dev/docs/latest/providers)
+- [Prompt templates](https://pi.dev/docs/latest/prompt-templates)
 - [Skills](https://pi.dev/docs/latest/skills)
 - [Pi packages](https://pi.dev/docs/latest/packages)
