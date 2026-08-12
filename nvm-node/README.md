@@ -67,6 +67,30 @@ Install the latest Node.js LTS version.
 nvm install --lts
 ```
 
+To migrate and reinstall the global packages from an existing Node.js version, include that version in the install command:
+
+```sh
+nvm install --lts --reinstall-packages-from=<current-version>
+```
+
+For example:
+
+```sh
+nvm install --lts --reinstall-packages-from=v22.18.0
+```
+
+This migrates and reinstalls all global packages from the previous version so they keep working as expected.
+
+## Activate The Default Node.js Version
+
+Finally, activate the default Node.js version:
+
+```sh
+nvm use default
+```
+
+This updates only the current terminal. Run it once in each already-open terminal or Herdr pane. New terminals and new Herdr panes automatically use the configured default Node.js version.
+
 ## Verify Node.js And npm
 
 Check that both commands work.
