@@ -2,7 +2,7 @@
 
 [Pi](https://pi.dev/) is a minimal terminal coding harness. Its core stays small and can be extended with skills, extensions, prompt templates, themes, and Pi packages.
 
-For a new setup, follow this guide in order: install Pi, authenticate, start it from a project root, review the project's instructions, and then add optional integrations such as [Playwright MCP](./mcp-playwright.md).
+For a new setup, follow this guide in order: install Pi, authenticate, start it from a project root, review the project's instructions, and then add optional integrations such as [Playwright MCP](./mcp-playwright.md). See the [MCP catalog](./mcps.md) for the integrations currently used here.
 
 ## Installation
 
@@ -141,7 +141,7 @@ Review project instructions, skills, extensions, packages, and MCP configuration
 
 ## MCP Integrations
 
-Pi does not include MCP in its core. The [Playwright MCP guide](./mcp-playwright.md) documents global and project-local setups using `pi-mcp-adapter`, the official `@playwright/mcp` server, and approval gates for destructive or credential-related tool names. MCP servers inherit Pi's user permissions, so review their commands and keep secrets out of MCP configuration files.
+Pi does not include MCP in its core. The [MCP catalog](./mcps.md) tracks the integrations currently used here, including Context7 and GitHub. The [Playwright MCP guide](./mcp-playwright.md) documents global and project-local setups using `pi-mcp-adapter`, the official `@playwright/mcp` server, and approval gates for destructive or credential-related tool names. MCP servers inherit Pi's user permissions, so review their commands and keep secrets out of MCP configuration files.
 
 ## Further Reading
 
@@ -152,4 +152,5 @@ Pi does not include MCP in its core. The [Playwright MCP guide](./mcp-playwright
 - [Prompt templates](https://pi.dev/docs/latest/prompt-templates)
 - [Skills](https://pi.dev/docs/latest/skills)
 - [Pi packages](https://pi.dev/docs/latest/packages)
+- [MCP catalog](./mcps.md)
 - [Playwright MCP setup](./mcp-playwright.md)
