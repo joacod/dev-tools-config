@@ -73,7 +73,7 @@ Prefer `AGENTS.md` for OpenCode-specific setup. Use the `instructions` field in 
 
 ## Local llama.cpp Note
 
-If you want to use OpenCode with local models, start with the guide in [`../llama-cpp`](../llama-cpp).
+If you want to use OpenCode with local models, start with the [llama.cpp guide in the local-ai repository](https://github.com/joacod/local-ai/tree/main/llama-cpp).
 
 For coding-agent use, OpenCode should connect to a running `llama-server` instance.
 

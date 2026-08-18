@@ -16,13 +16,9 @@ My setup and notes for development tools, AI agents, and server utilities.
 
 ## Local AI
 
-| Name | Path | Description |
+| Name | Repository | Description |
 | --- | --- | --- |
-| Local AI Overview | [`./local-ai`](./local-ai) | Model choices and a fair benchmark plan for local inference on Apple Silicon. |
-| llama.cpp | [`./llama-cpp`](./llama-cpp) | Local runtime for running GGUF language models. |
-| MLX | [`./mlx`](./mlx) | Local runtime for running MLX-compatible language models on Apple Silicon. |
-| oMLX | [`./omlx`](./omlx) | Apple Silicon MLX server with continuous batching and tiered KV caching. |
-| MTPLX | [`./mtplx`](./mtplx) | Apple Silicon server with native MTP speculative decoding. |
+| Local AI Inference | [`local-ai`](https://github.com/joacod/local-ai) | Standalone guides for MLX, `llama.cpp`, oMLX, MTPLX, and fair Apple Silicon benchmarking. |
 
 ## AI APIs & Services
 

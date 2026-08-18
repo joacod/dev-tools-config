@@ -24,9 +24,9 @@
 ## Permanent facts
 - Each top-level tool directory is independent; `README.md` is the index and must be updated when adding or removing a top-level directory.
 - `opencode/` and `claude-code/` contain copyable templates and examples, not active user configuration. Preserve placeholders in `opencode/instructions/*/AGENTS.md` and `claude-code/instructions/*/CLAUDE.md`.
-- Keep API keys, passwords, private SSH keys, model caches, `__pycache__`, and generated `mlx/venv` out of tracked changes. `mlx/setup-mlx.sh` creates or updates `mlx/venv` on Apple Silicon.
-- `mlx/run-mlx-server.sh` and `llama-cpp/run-llama-server.sh` both bind local port `8080`; OpenCode's MLX and llama.cpp providers use `http://127.0.0.1:8080/v1`, so run only one backend there at a time.
-- `mlx/scripts/benchmark-mlx-server.py` drives an already-running MLX HTTP server and does not start or stop it. Measure hardware profiles on matching hardware and keep tracked MLX hardware/benchmark documents latest-only.
+- Keep API keys, passwords, private SSH keys, model caches, `__pycache__`, and generated local-AI virtual environments out of tracked changes. The external [`local-ai`](https://github.com/joacod/local-ai) repository's [MLX setup script](https://github.com/joacod/local-ai/blob/main/mlx/setup-mlx.sh) creates or updates `mlx/venv` on Apple Silicon.
+- The external [MLX launcher](https://github.com/joacod/local-ai/blob/main/mlx/run-mlx-server.sh) and [llama.cpp launcher](https://github.com/joacod/local-ai/blob/main/llama-cpp/run-llama-server.sh) both bind local port `8080`; OpenCode's MLX and llama.cpp providers use `http://127.0.0.1:8080/v1`, so run only one backend there at a time.
+- The external [MLX benchmark client](https://github.com/joacod/local-ai/blob/main/mlx/scripts/benchmark-mlx-server.py) drives an already-running MLX HTTP server and does not start or stop it. Measure hardware profiles on matching hardware and keep tracked MLX hardware/benchmark documents latest-only.
 - Preserve local-machine/VPS and run-as context in `dokploy/`, `hermes-agent/`, `tailscale/`, and `vps-security/` guides.
 - OpenSpec CLI commands such as `openspec validate <change>` run in the terminal; `/opsx:*` commands run in the coding assistant chat, never in the terminal.
 
