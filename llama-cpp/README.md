@@ -12,6 +12,8 @@ Run local GGUF models from the terminal with [llama.cpp](https://github.com/ggml
 
 This makes `llama.cpp` a practical way to chat with models locally, test different model sizes, and connect local models to tools like OpenCode.
 
+For a controlled comparison with MLX, oMLX, and MTPLX, see the [Local AI overview](../local-ai/README.md) and [fair comparison plan](../local-ai/benchmarking.md).
+
 ## Install
 
 Install `llama.cpp` with Homebrew.

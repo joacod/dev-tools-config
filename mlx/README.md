@@ -6,6 +6,8 @@ Run local MLX-compatible models on Apple Silicon with [mlx-lm](https://github.co
 
 New to local models on a Mac? Follow [Getting Started With MLX On A Mac](./docs/getting-started.md) for installation, the launcher alias, a small smoke test, model selection, machine qualification, and package upgrades.
 
+To compare MLX with `llama.cpp`, oMLX, and MTPLX on the same Mac, see the [Local AI overview](../local-ai/README.md) and [fair comparison plan](../local-ai/benchmarking.md).
+
 Quick start from this directory:
 
 ```sh
