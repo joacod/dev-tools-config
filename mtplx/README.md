@@ -56,6 +56,7 @@ Do not use the MTPLX-specific checkpoint in oMLX or `llama.cpp` without first ve
 For a reproducible foreground launch, specify the model, local host, and port:
 
 ```sh
+MODEL='Youssofal/Qwen3.8-27B-MTPLX-Optimized-Speed'
 mtplx serve \
   --model "$MODEL" \
   --host 127.0.0.1 \
