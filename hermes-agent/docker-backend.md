@@ -1,18 +1,18 @@
-# Docker Backend
+# Docker backend
 
 Configure Hermes to use a separate rootless Docker daemon instead of the host system Docker daemon.
 
 This is the recommended path when Hermes shares a machine with something like Dokploy.
 
-## Why Rootless Docker
+## Why rootless Docker
 
 - Dokploy uses the system Docker daemon
 - adding `hermes` to the system `docker` group would give `hermes` root-equivalent control of that daemon
 - a separate rootless Docker daemon keeps Hermes from controlling Dokploy containers through `/var/run/docker.sock`
 
-## 1. Install Rootless Docker Prerequisites
+## 1. Install rootless Docker prerequisites
 
-**Run as:** your admin user on the VPS
+> **Run as:** your admin user on the VPS
 
 If Docker is already installed for Dokploy, you do not need to reinstall the base engine. You only need the rootless extras package and the user namespace helpers.
 
@@ -21,9 +21,9 @@ sudo apt update
 sudo apt install docker-ce-rootless-extras uidmap -y
 ```
 
-## 2. Remove `hermes` From The System `docker` Group
+## 2. Remove `hermes` from the system `docker` group
 
-**Run as:** your admin user on the VPS
+> **Run as:** your admin user on the VPS
 
 ```sh
 sudo gpasswd -d hermes docker
@@ -34,9 +34,9 @@ Expected result:
 
 - `id hermes` no longer lists the `docker` group
 
-## 3. Set Up Rootless Docker As `hermes`
+## 3. Set up rootless Docker as `hermes`
 
-**Run as:** `hermes` on the VPS
+> **Run as:** `hermes` on the VPS
 
 ```sh
 dockerd-rootless-setuptool.sh install
@@ -66,9 +66,9 @@ This distinction is intentional. Mounting the rootless socket into a sandbox wou
 
 If `docker context ls` later warns that `DOCKER_HOST` overrides the active context, that is expected and safe to ignore in this setup.
 
-## 4. Verify Rootless Docker As `hermes`
+## 4. Verify rootless Docker as `hermes`
 
-**Run as:** `hermes` on the VPS
+> **Run as:** `hermes` on the VPS
 
 ```sh
 docker context ls
@@ -83,9 +83,9 @@ Expected result:
 - the Docker client is no longer using `/var/run/docker.sock`
 - `docker ps` does not show Dokploy containers from the system Docker daemon
 
-## 5. If Hermes Still Uses The Old System Docker Socket
+## 5. If Hermes still uses the old system Docker socket
 
-**Run as:** `hermes` on the VPS
+> **Run as:** `hermes` on the VPS
 
 ```sh
 echo "$DOCKER_HOST"
@@ -94,9 +94,9 @@ docker context ls
 
 If you still see the system socket, log out completely and reconnect as `hermes`, then rerun the verification commands.
 
-## 6. Make The Rootless Socket Available To Hermes Services Too
+## 6. Make the rootless socket available to Hermes services too
 
-**Run as:** `hermes` on the VPS
+> **Run as:** `hermes` on the VPS
 
 If you run Hermes as a long-lived user service, make the same Docker socket available outside interactive shells too.
 

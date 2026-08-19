@@ -35,7 +35,7 @@ Pi stores credentials from `/login` in `~/.pi/agent/auth.json`. Keep that file p
 
 See the [provider documentation](https://pi.dev/docs/latest/providers) for supported providers and environment variables.
 
-## Basic Usage
+## Basic usage
 
 Start an interactive session and type a request:
 
@@ -45,7 +45,7 @@ Summarize this repository and tell me how to run its checks.
 
 Pi can read and modify files and run shell commands in the current working directory.
 
-### Useful Commands
+### Useful commands
 
 | Command | Purpose |
 | --- | --- |
@@ -67,7 +67,7 @@ pi @README.md "Summarize this file"
 pi @src/app.ts @src/app.test.ts "Review these files together"
 ```
 
-## Reusable Commands
+## Reusable commands
 
 Pi's file-backed slash commands are called **prompt templates**. The templates in [`prompts/`](./prompts) provide reusable git workflows.
 
@@ -96,7 +96,7 @@ Run a shell command and send its output to the model with `!`:
 
 Use `!!command` to run a command without adding its output to the model context.
 
-## Recommended Working Loop
+## Recommended working loop
 
 1. Start Pi from the repository root so it sees the intended project files and local configuration.
 2. Let Pi inspect the relevant `README.md`, `AGENTS.md`, `CLAUDE.md`, and existing code before making changes.
@@ -105,7 +105,7 @@ Use `!!command` to run a command without adding its output to the model context.
 5. Run the repository's documented checks yourself; for this repository, start with `git diff --check`.
 6. Use `/reload` after changing instructions, skills, prompts, or extensions. Restart Pi after installing packages or changing integrations that initialize at startup.
 
-## Model Effort and Thinking Level
+## Model effort and thinking level
 
 Pi calls a model's reasoning effort its **thinking level**. This is separate from selecting the model itself:
 
@@ -123,7 +123,7 @@ The documented thinking levels are `off`, `minimal`, `low`, `medium`, `high`, `x
 
 Project settings override global settings. See the [Pi settings documentation](https://pi.dev/docs/latest/settings) for the complete configuration reference.
 
-## Project Instructions
+## Project instructions
 
 Pi loads context files when it starts:
 
@@ -139,11 +139,11 @@ Pi runs with the permissions of the user who starts it and does not include a bu
 
 Review project instructions, skills, extensions, packages, and MCP configuration before using them. `--approve` and `/trust` allow project-local resources to load; they are trust decisions, not a sandbox. Use a container, VM, or other sandbox for untrusted repositories or unattended work. See the [security documentation](https://pi.dev/docs/latest/security) for details.
 
-## MCP Integrations
+## MCP integrations
 
 Pi does not include MCP in its core. The [MCP catalog](./mcps.md) tracks the integrations currently used here, including Context7 and GitHub. The [Playwright MCP guide](./mcp-playwright.md) documents global and project-local setups using `pi-mcp-adapter`, the official `@playwright/mcp` server, and approval gates for destructive or credential-related tool names. MCP servers inherit Pi's user permissions, so review their commands and keep secrets out of MCP configuration files.
 
-## Further Reading
+## Further reading
 
 - [Pi documentation](https://pi.dev/docs/latest)
 - [Quickstart](https://pi.dev/docs/latest/quickstart)

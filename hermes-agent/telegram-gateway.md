@@ -1,10 +1,10 @@
-# Telegram Gateway
+# Telegram gateway
 
 Configure and run the optional Hermes Telegram gateway as the `hermes` user.
 
-## Set Up Telegram Gateway
+## Set up Telegram gateway
 
-**Run as:** `hermes` on the VPS for gateway setup, and your admin user on the VPS for the linger step
+> **Run as:** `hermes` on the VPS for gateway setup, and your admin user on the VPS for the linger step
 
 If you skipped Telegram during `hermes setup`, configure it now.
 
@@ -19,7 +19,7 @@ During Telegram setup, make sure you provide:
 - your Telegram bot token from BotFather
 - your own Telegram user ID in the allowed users list
 
-## Install And Start The Service
+## Install and start the service
 
 Install and start the gateway service while logged in as `hermes`.
 
@@ -44,7 +44,7 @@ Expected result:
 - `loginctl show-user hermes` includes `Linger=yes`
 - the gateway stays available after logout and starts again automatically after a VPS reboot
 
-## Later Maintenance
+## Later maintenance
 
 You do not need these commands for the first setup.
 

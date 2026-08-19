@@ -2,9 +2,9 @@
 
 Common Hermes setup failures and the fastest checks for this VPS layout.
 
-## `hermes`: Command Not Found
+## `hermes`: command not found
 
-**Run as:** `hermes` on the VPS
+> **Run as:** `hermes` on the VPS
 
 Add `~/.local/bin` to your `PATH` and reload your shell.
 
@@ -19,7 +19,7 @@ Then rerun:
 hermes version
 ```
 
-## Missing Hermes Symlink
+## Missing Hermes symlink
 
 If Hermes is still not found, the installer may have completed the core install but skipped creating the final command symlink.
 
@@ -37,7 +37,7 @@ ln -sf ~/.hermes/hermes-agent/venv/bin/hermes ~/.local/bin/hermes
 
 Then rerun `hermes version`.
 
-## Playwright Tries To Use Root Or Sudo
+## Playwright tries to use root or sudo
 
 During the Hermes installer, if Playwright tries to switch to root and asks for a `sudo` password, stop there with `CTRL + C`.
 
@@ -59,9 +59,9 @@ Then switch back to `hermes` and install the Playwright browser binaries under t
 npx playwright install
 ```
 
-## Docker Still Uses The Old System Socket
+## Docker still uses the old system socket
 
-**Run as:** `hermes` on the VPS
+> **Run as:** `hermes` on the VPS
 
 ```sh
 echo "$DOCKER_HOST"
@@ -79,9 +79,9 @@ If you still see the system socket, log out completely and reconnect as `hermes`
 
 If `docker context ls` warns that `DOCKER_HOST` overrides the active context, that is expected and safe to ignore in this setup.
 
-## Gateway Logs
+## Gateway logs
 
-**Run as:** `hermes` on the VPS
+> **Run as:** `hermes` on the VPS
 
 Use this when the Telegram gateway service is installed but not responding.
 
@@ -95,9 +95,9 @@ Check service status with:
 hermes gateway status
 ```
 
-## Gateway Stops After Logout Or Reboot
+## Gateway stops after logout or reboot
 
-**Run as:** your admin user on the VPS
+> **Run as:** your admin user on the VPS
 
 Enable systemd linger for the `hermes` user.
 
@@ -110,9 +110,9 @@ Expected result:
 
 - `loginctl show-user hermes` includes `Linger=yes`
 
-## Shared Workspace Is Mounted But Not Writable
+## Shared workspace is mounted but not writable
 
-**Run as:** your admin user on the VPS
+> **Run as:** your admin user on the VPS
 
 Make sure the host workspace tree is owned by `hermes`.
 
@@ -124,7 +124,7 @@ sudo find /home/hermes/hermes-workspace -type f -exec chmod 644 {} \;
 
 Then confirm `hermes` can write inside the mounted workspace.
 
-**Run as:** `hermes` on the VPS
+> **Run as:** `hermes` on the VPS
 
 ```sh
 touch ~/hermes-workspace/wikis/test-write.txt

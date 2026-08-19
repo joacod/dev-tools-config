@@ -1,4 +1,4 @@
-# VPS Security
+# VPS security
 
 Basic VPS configuration and security recommendations for Ubuntu servers.
 
@@ -9,7 +9,7 @@ Basic VPS configuration and security recommendations for Ubuntu servers.
 | Prerequisites | Root access to the VPS |
 | Outcome | Hardened VPS with SSH, firewall, updates, and Fail2ban configured |
 
-## What This Setup Does
+## What this setup does
 
 This guide walks you through a simple baseline hardening setup for a public Ubuntu VPS.
 
@@ -22,13 +22,13 @@ This guide walks you through a simple baseline hardening setup for a public Ubun
 
 **Result:** a safer default VPS setup with less unnecessary exposure and a simpler SSH workflow from your local machine.
 
-### Tailscale
+## Tailscale
 
-For this repo's normal VPS stack, the intended next step after this guide is [SSH Over Tailscale For VPS](../tailscale/ssh-over-tailscale-for-vps.md).
+For this repo's normal VPS stack, the intended next step after this guide is [SSH over Tailscale for VPS](../tailscale/ssh-over-tailscale-for-vps.md).
 
 That keeps SSH private inside your tailnet instead of leaving port `22` exposed on the public internet.
 
-## Before You Start
+## Before you start
 
 First connect to the VPS as `root` from your local machine terminal.
 
@@ -38,9 +38,9 @@ ssh root@YOUR_VPS_IP
 
 Use the first server-side step while connected to the VPS as `root`. After that, use `youruser` unless a section says otherwise.
 
-## Add User
+## Add user
 
-**Run as:** `root` on the VPS after logging in from your local machine
+> **Run as:** `root` on the VPS after logging in from your local machine
 
 Create a non-root user and give it sudo access.
 
@@ -50,9 +50,9 @@ usermod -aG sudo youruser
 id youruser
 ```
 
-## Generate SSH Key
+## Generate SSH key
 
-**Run as:** your user on your `local machine`
+> **Run as:** your user on your `local machine`
 
 Generate a dedicated SSH key on your local machine.
 
@@ -62,9 +62,9 @@ ssh-keygen -t ed25519 -C "vps-server"
 
 When prompted for the file path, use `/Users/[username]/.ssh/vps_server`.
 
-## Copy Key To VPS
+## Copy key to VPS
 
-**Run as:** your user on your `local machine`
+> **Run as:** your user on your `local machine`
 
 Copy the public key to your server.
 
@@ -72,13 +72,13 @@ Copy the public key to your server.
 ssh-copy-id -i /Users/[username]/.ssh/vps_server.pub youruser@YOUR_VPS_IP
 ```
 
-## Add Local SSH Config
+## Add local SSH config
 
-**Run as:** your user on your `local machine`
+> **Run as:** your user on your `local machine`
 
 Add a **host alias** so your local machine uses the dedicated key for this VPS.
 
-**Important**: If `~/.ssh/config` already exists and has other hosts in it, do not replace the file contents. Add this as a new block alongside your existing SSH config.
+> **Important:** If `~/.ssh/config` already exists and has other hosts in it, do not replace the file contents. Add this as a new block alongside your existing SSH config.
 
 ```sh
 nano ~/.ssh/config
@@ -98,7 +98,7 @@ Save and exit with `CTRL + O`, `ENTER`, then `CTRL + X`.
 
 ## Login
 
-**Run as:** your user on your `local machine`
+> **Run as:** your user on your `local machine`
 
 Connect using the new key through the host alias, then verify normal login works.
 
@@ -115,7 +115,7 @@ ssh myvps
 
 ## Harden SSH
 
-**Run as:** `youruser` on the VPS
+> **Run as:** `youruser` on the VPS
 
 Set a safe terminal value first, then create an SSH hardening config file.
 
@@ -126,7 +126,7 @@ sudo nano /etc/ssh/sshd_config.d/99-hardening.conf
 
 Paste the following config.
 
-```sh
+```text
 PermitRootLogin no
 PasswordAuthentication no
 KbdInteractiveAuthentication no
@@ -147,9 +147,9 @@ sudo sshd -t
 
 **Any error output:** stop and fix it before continuing.
 
-## Enable The Firewall
+## Enable the firewall
 
-**Run as:** `youruser` on the VPS
+> **Run as:** `youruser` on the VPS
 
 Install and configure `ufw`.
 
@@ -166,7 +166,7 @@ sudo ufw enable
 sudo ufw status verbose
 ```
 
-## Cloud Firewall
+## Cloud firewall
 
 If your VPS provider offers a network or cloud firewall, enable it there too.
 
@@ -187,7 +187,7 @@ Treat this as the first firewall layer and `ufw` as the second layer on the serv
 
 Example: on Hostinger, create a VPS Firewall in hPanel and only allow the ports above. This keeps accidentally published Docker ports from being reachable from the public internet.
 
-## Docker Boundary
+## Docker boundary
 
 If you later install both Dokploy and Hermes on the same machine, do not let Hermes share the system Docker daemon that Dokploy uses.
 
@@ -197,9 +197,9 @@ For this repo's intended same-machine setup:
 - Hermes uses a separate rootless Docker daemon owned by the `hermes` user
 - the `hermes` user should not be added to the system `docker` group
 
-## Update The System
+## Update the system
 
-**Run as:** `youruser` on the VPS
+> **Run as:** `youruser` on the VPS
 
 Upgrade installed packages.
 
@@ -207,9 +207,9 @@ Upgrade installed packages.
 sudo apt update && sudo apt upgrade -y
 ```
 
-## Automatic Security Updates
+## Automatic security updates
 
-**Run as:** `youruser` on the VPS
+> **Run as:** `youruser` on the VPS
 
 Enable unattended security updates.
 
@@ -220,7 +220,7 @@ sudo dpkg-reconfigure unattended-upgrades
 
 ## Fail2ban
 
-**Run as:** `youruser` on the VPS
+> **Run as:** `youruser` on the VPS
 
 Fail2ban is recommended basic protection for SSH.
 
@@ -246,7 +246,7 @@ sudo nano /etc/fail2ban/jail.local
 
 Paste the following config.
 
-```sh
+```ini
 [sshd]
 enabled = true
 port = ssh
@@ -278,8 +278,8 @@ Expected checks:
 - Current banned IPs
 - Your configured SSH jail active
 
-## Final Step
+## Final step
 
-Run the [sanity check](./sanity-check.md) to verify the VPS is configured correctly.
+Run the [sanity check](./sanity-check.md) to verify that the VPS is configured correctly.
 
 After the baseline setup is done, use the ongoing [server maintenance guide](./server-maintenance.md) for low-risk manual upkeep.

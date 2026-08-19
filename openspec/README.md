@@ -6,11 +6,11 @@ Use it when a task is large enough that a normal prompt would be too vague, risk
 
 **Agree on what to build before asking the agent to build it.**
 
-## Daily Workflow
+## Daily workflow
 
 Use one focused OpenSpec change at a time.
 
-### 1. Validate the Change
+### 1. Validate the change
 
 Run this in the terminal:
 
@@ -24,7 +24,7 @@ The name is the folder under:
 openspec/changes/foundation-001/
 ```
 
-### 2. Apply the Change
+### 2. Apply the change
 
 Run this inside the AI coding assistant chat:
 
@@ -39,7 +39,7 @@ Implement the incomplete tasks inside openspec/changes/foundation-001/tasks.md
 using that change's proposal, design, and specs as context.
 ```
 
-### 3. Review Against the Spec
+### 3. Review against the spec
 
 After implementation, ask the agent to review only that change:
 
@@ -51,7 +51,7 @@ Do not make unrelated improvements.
 
 Fix only issues that belong to the active OpenSpec change.
 
-### 4. Archive the Change
+### 4. Archive the change
 
 When the implementation is complete, tested, and reviewed, run this inside the AI coding assistant chat:
 
@@ -61,7 +61,7 @@ When the implementation is complete, tested, and reviewed, run this inside the A
 
 Archive merges the completed change specs into `openspec/specs/` and moves the change into the archive.
 
-## Change Naming
+## Change naming
 
 OpenSpec change names must start with a letter.
 
@@ -79,7 +79,7 @@ verification-007
 
 Do not put the number first. OpenSpec rejects change names that start with a number.
 
-## Terminal Commands vs AI Chat Commands
+## Terminal commands vs AI chat commands
 
 Run OpenSpec CLI commands in the terminal:
 
@@ -104,7 +104,7 @@ Run `/opsx:*` commands inside the AI coding assistant chat:
 
 Do not type `/opsx:*` commands in the terminal.
 
-## Keep Specs and Tasks Separate
+## Keep specs and tasks separate
 
 ```text
 specs define behavior
@@ -113,6 +113,6 @@ tasks define execution
 
 If something in `tasks.md` changes product behavior, it should also be represented in `specs/`.
 
-## More Detail
+## More detail
 
 See [`DETAILS.md`](DETAILS.md) for the longer reference guide, including the mental model, larger workflows, common checks, mistakes, and command reference.

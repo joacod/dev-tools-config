@@ -2,7 +2,7 @@
 
 Install [Socket Firewall](https://github.com/SocketDev/sfw-free) and use it to protect dependency installs.
 
-## What This Setup Does
+## What this setup does
 
 This guide installs `sfw`, clears local package manager caches, and runs dependency installs through Socket Firewall.
 
@@ -31,7 +31,7 @@ sfw --help
 
 If that command prints the help output, Socket Firewall is installed correctly.
 
-## Clear Package Manager Cache
+## Clear package manager cache
 
 Socket Firewall works by blocking package artifact network requests.
 
@@ -49,7 +49,7 @@ For pnpm:
 pnpm store prune
 ```
 
-## Use With npm
+## Use with npm
 
 Run installs through sfw.
 
@@ -63,7 +63,7 @@ For clean installs:
 sfw npm ci
 ```
 
-## Use With pnpm
+## Use with pnpm
 
 Run installs through sfw.
 
@@ -77,7 +77,7 @@ For CI or lockfile-based installs:
 sfw pnpm install --frozen-lockfile
 ```
 
-## Add npm Scripts
+## Add npm scripts
 
 For a JavaScript or TypeScript project, add scripts to package.json.
 
@@ -96,7 +96,7 @@ Run:
 npm run safe:install
 ```
 
-## Add Shell Aliases
+## Add shell aliases
 
 Add aliases so common package manager commands are always routed through `sfw` in your interactive shell.
 

@@ -60,7 +60,7 @@ Use project instructions for:
 
 Do not put project-specific stack choices in the global file. A decision that is correct for one repository may be wrong for another.
 
-### Available Instruction Templates
+### Available instruction templates
 
 | Scope | Path | Description |
 | --- | --- | --- |
@@ -71,7 +71,7 @@ Do not put project-specific stack choices in the global file. A decision that is
 
 Prefer `AGENTS.md` for OpenCode-specific setup. Use the `instructions` field in `opencode.json` only when you want to load extra non-standard files such as `CONTRIBUTING.md`, `docs/guidelines.md`, or globbed rule files.
 
-## Local llama.cpp Note
+## Local llama.cpp note
 
 If you want to use OpenCode with local models, start with the [llama.cpp guide in the local-ai repository](https://github.com/joacod/local-ai/tree/main/llama-cpp).
 

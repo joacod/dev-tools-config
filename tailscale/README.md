@@ -2,20 +2,20 @@
 
 [Tailscale](https://tailscale.com/) is a secure, identity-based networking tool built on WireGuard that makes it easy to connect devices, servers, and private services across networks.
 
-## What It Does
+## What it does
 
 - Connects your devices into a private network
 - Makes remote access to servers and services simpler
 - Helps avoid exposing internal services directly to the public internet
 
-## First Setup
+## First setup
 
 - Create a Tailscale account
 - Log in with your identity provider
 - Follow the setup flow to add the devices you want to connect
 - Repeat the process on each machine you want in the same tailnet
 
-## Personal Plan
+## Personal plan
 
 For personal use, the free Personal plan is usually more than enough.
 
@@ -24,13 +24,13 @@ For personal use, the free Personal plan is usually more than enough.
 - Unlimited user devices
 - Access to nearly all core features
 
-## Good For
+## Good for
 
 - Accessing a VPS or homelab remotely
 - Reaching private services from your laptop
 - Connecting machines across different networks with less VPN setup overhead
 
-## Linux VPS Commands
+## Linux VPS commands
 
 On the VPS, run:
 
@@ -56,7 +56,7 @@ If you want to use the regular system ping instead, use the machine name or Tail
 ping -c 4 your-other-machine
 ```
 
-## Serve a Local URL
+## Serve a local URL
 
 To expose a local service only inside your tailnet, run this on the machine hosting the service:
 
@@ -108,11 +108,11 @@ If you are using multiple Serve mappings or non-default flags, use the matching 
 - `tailscale serve` shares the service only inside your tailnet, not publicly on the internet
 - `tailscale serve reset` clears all Serve configuration on that machine, while matching `tailscale serve ... off` commands are better when you want to remove only one specific mapping
 
-## VPS Guides
+## VPS guides
 
-For a VPS that already uses the base hardening guide, see [SSH Over Tailscale For VPS](./ssh-over-tailscale-for-vps.md) to keep normal OpenSSH users and keys while removing public SSH exposure
+For a VPS that already uses the base hardening guide, see [SSH over Tailscale for VPS](./ssh-over-tailscale-for-vps.md) to keep normal OpenSSH users and keys while removing public SSH exposure.
 
-## Official References
+## Official references
 
 - [Tailscale Quickstart](https://tailscale.com/docs/how-to/quickstart)
 - [tailscale up](https://tailscale.com/docs/reference/tailscale-cli/up)

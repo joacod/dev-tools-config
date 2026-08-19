@@ -52,7 +52,7 @@ Check installed integration versions and status:
 herdr integration status
 ```
 
-## Agent Skill
+## Agent skill
 
 Install the Herdr skill globally for agents that support reusable skills:
 
@@ -62,7 +62,7 @@ npx skills add herdrdev/herdr --skill herdr -g
 
 The skill teaches coding agents how to inspect and control Herdr from inside a Herdr-managed pane. It uses `HERDR_ENV=1` as the safety check before running Herdr control commands.
 
-## Hermes On A VPS
+## Hermes on a VPS
 
 The existing [`hermes` SSH alias](../hermes-agent/ssh-user-setup.md) connects to the dedicated Hermes user on the VPS, including the current SSH-over-Tailscale setup. With Herdr installed locally, attach to that VPS with:
 
@@ -76,7 +76,7 @@ The session continues running on the VPS after the local terminal closes or disc
 
 See the [Hermes setup](../hermes-agent/README.md) and [SSH over Tailscale guide](../tailscale/ssh-over-tailscale-for-vps.md) for the VPS prerequisites.
 
-For a persistent remote Hermes dashboard with a local SSH tunnel, see [Hermes Dashboard Through Herdr](./hermes-dashboard.md).
+For a persistent remote Hermes dashboard with a local SSH tunnel, see [Hermes dashboard through Herdr](./hermes-dashboard.md).
 
 ## References
 

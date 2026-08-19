@@ -2,11 +2,11 @@
 
 Install the Hermes CLI under the dedicated `hermes` user, add extra system packages, run setup, and configure the persistent Docker workspace.
 
-Complete [SSH User Setup](./ssh-user-setup.md) before this guide.
+Complete [SSH user setup](./ssh-user-setup.md) before this guide.
 
 ## Install Hermes Agent
 
-**Run as:** `hermes` on the VPS
+> **Run as:** `hermes` on the VPS
 
 Download and run the official install script.
 
@@ -45,9 +45,9 @@ Official install docs:
 - [Installation](https://hermes-agent.nousresearch.com/docs/getting-started/installation)
 - [Quickstart](https://hermes-agent.nousresearch.com/docs/getting-started/quickstart)
 
-## Fix PATH If Hermes Is Not Found
+## Fix PATH if Hermes is not found
 
-**Run as:** `hermes` on the VPS
+> **Run as:** `hermes` on the VPS
 
 If `hermes version` returns `command not found`, add `~/.local/bin` to your `PATH` and reload your shell.
 
@@ -78,9 +78,9 @@ ln -sf ~/.hermes/hermes-agent/venv/bin/hermes ~/.local/bin/hermes
 
 Then rerun `hermes version`.
 
-## Install Extra System Packages
+## Install extra system packages
 
-**Run as:** your admin user on the VPS for `apt` and Playwright system dependencies, then `hermes` on the VPS for Playwright browsers
+> **Run as:** your admin user on the VPS for `apt` and Playwright system dependencies, then `hermes` on the VPS for Playwright browsers
 
 Install the extra system packages Hermes can use separately from your admin account.
 
@@ -122,9 +122,9 @@ npx playwright install
 
 When that is done, continue to Hermes setup.
 
-## Run Hermes Setup
+## Run Hermes setup
 
-**Run as:** `hermes` on the VPS
+> **Run as:** `hermes` on the VPS
 
 Once the CLI is working, run the setup wizard.
 
@@ -134,24 +134,24 @@ hermes setup
 
 For this guide's VPS setup:
 
-- choose `Docker` as the terminal backend if you configured [Docker Backend](./docker-backend.md)
+- choose `Docker` as the terminal backend if you configured [Docker backend](./docker-backend.md)
 - choose a persistent filesystem
 - if you want Telegram access, you can configure it during `hermes setup` or later with `hermes gateway setup`
 
-### Telegram Settings
+### Telegram settings
 
 During Telegram setup, make sure you provide:
 
 - your Telegram bot token from BotFather
 - your own Telegram user ID in the allowed users list
 
-## Configure Persistent Docker Workspace And SOUL
+## Configure persistent Docker workspace and SOUL
 
 After `hermes setup`, configure Hermes to keep its Docker sandbox filesystem between sessions, use a predictable host-mounted workspace at `/workspace`, and mount the authoritative personality file into the default sandbox.
 
 This keeps Docker as the isolation boundary while giving Hermes a simple persistent folder for inputs and outputs.
 
-**Run as:** `hermes` on the VPS
+> **Run as:** `hermes` on the VPS
 
 ```sh
 hermes config set terminal.container_persistent true
@@ -172,7 +172,7 @@ Do not pass the JSON-looking list to `hermes config set terminal.docker_volumes`
 
 Make sure the whole shared workspace tree is owned by `hermes`.
 
-**Run as:** your admin user on the VPS
+> **Run as:** your admin user on the VPS
 
 ```sh
 sudo chown -R hermes:hermes /home/hermes/hermes-workspace
@@ -182,7 +182,7 @@ sudo find /home/hermes/hermes-workspace -type f -exec chmod 644 {} \;
 
 Then confirm `hermes` can write inside the mounted workspace.
 
-**Run as:** `hermes` on the VPS
+> **Run as:** `hermes` on the VPS
 
 ```sh
 touch ~/hermes-workspace/wikis/test-write.txt
@@ -197,6 +197,6 @@ What this does:
 - edits to `/root/.hermes/SOUL.md` update `/home/hermes/.hermes/SOUL.md` directly, with no manual copy step
 - the ownership fix prevents a common failure mode where `/workspace` is mounted correctly but Hermes cannot write to the underlying host folders
 
-For the recommended folder layout inside this mount, see [Personal Workspace Setup](./personal-workspace-setup.md).
+For the recommended folder layout inside this mount, see [Personal workspace setup](./personal-workspace-setup.md).
 
-If you want Hermes to update its persistent personality through the authoritative file mount, see [SOUL Workflow](./soul-workflow.md).
+If you want Hermes to update its persistent personality through the authoritative file mount, see [SOUL workflow](./soul-workflow.md).

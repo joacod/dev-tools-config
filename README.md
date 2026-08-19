@@ -2,7 +2,7 @@
 
 My setup and notes for development tools, AI agents, and server utilities.
 
-## AI Agents & Workflows
+## AI agents & workflows
 
 | Name | Path | Description |
 | --- | --- | --- |
@@ -20,13 +20,13 @@ My setup and notes for development tools, AI agents, and server utilities.
 | --- | --- | --- |
 | Local AI Inference | [`local-ai`](https://github.com/joacod/local-ai) | Standalone guides for MLX, `llama.cpp`, oMLX, MTPLX, and fair Apple Silicon benchmarking. |
 
-## AI APIs & Services
+## AI APIs & services
 
 | Name | Path | Description |
 | --- | --- | --- |
 | OpenRouter | [`./openrouter`](./openrouter) | Unified API and model catalog for multiple LLM providers. |
 
-## Developer Environment
+## Developer environment
 
 | Name | Path | Description |
 | --- | --- | --- |
@@ -35,7 +35,7 @@ My setup and notes for development tools, AI agents, and server utilities.
 | NVM and Node.js | [`./nvm-node`](./nvm-node) | Node version manager and Node.js runtime setup. |
 | Socket Firewall | [`./socket-firewall`](./socket-firewall) | Dependency install protection using Socket Firewall. |
 
-## Server & Infrastructure
+## Server & infrastructure
 
 | Name | Path | Description |
 | --- | --- | --- |

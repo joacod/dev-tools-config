@@ -2,7 +2,7 @@
 
 [OpenRouter](https://openrouter.ai/) is a unified API and model catalog that makes it easy to switch between LLM providers and models without changing tools every time.
 
-## Why I Use It
+## Why I use it
 
 For my setup, OpenRouter is useful because it gives me one place to:
 
@@ -13,13 +13,13 @@ For my setup, OpenRouter is useful because it gives me one place to:
 
 This page is a living shortlist of models I am using or actively tracking.
 
-## Recommended Models
+## Recommended models
 
 This is a practical shortlist, not a fixed ranking.
 
 Model quality, pricing, tool use behavior, and provider availability can change quickly, so I'll keep this page updated as I try new models.
 
-### Coding Models
+### Coding models
 
 | Model | Link | Notes |
 | --- | --- | --- |
@@ -27,7 +27,7 @@ Model quality, pricing, tool use behavior, and provider availability can change 
 | `moonshotai/kimi-k2.6` | [Kimi K2.6](https://openrouter.ai/moonshotai/kimi-k2.6) | Promising coding-first model with a 262k context window. Looks especially worth testing for long-horizon implementation work, coding-driven UI generation, and more agentic multi-step tasks. |
 | `moonshotai/kimi-k2.5` | [Kimi K2.5](https://openrouter.ai/moonshotai/kimi-k2.5) | Earlier Kimi model still worth tracking as a lighter comparison point against K2.6 for everyday coding use. |
 
-### Models For Agents
+### Models for agents
 
 These are the models I would look at first for daily agent use, where tool use, reliability, and price matter more than pure benchmark appeal.
 

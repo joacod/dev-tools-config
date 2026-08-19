@@ -1,8 +1,8 @@
-# OpenSpec Details
+# OpenSpec details
 
 This file contains more details and OpenSpec reference material.
 
-## What This Setup Does
+## What this setup does
 
 This guide covers the practical OpenSpec loop for planning, implementing, verifying, and archiving agent-driven changes.
 
@@ -11,7 +11,7 @@ This guide covers the practical OpenSpec loop for planning, implementing, verify
 - **Uses tasks for execution:** `tasks.md` tells the agent what to implement and in what order
 - **Keeps changes reviewable:** one OpenSpec change should be small enough to validate, test, and archive as one unit
 
-## Mental Model
+## Mental model
 
 OpenSpec separates the current system from proposed changes.
 
@@ -50,7 +50,7 @@ tasks define execution
 
 If something in `tasks.md` changes how the product behaves, it should also be represented in `specs/`.
 
-## Creating a Change
+## Creating a change
 
 When the scope is clear, run this inside the AI coding assistant chat:
 
@@ -70,7 +70,7 @@ openspec/changes/add-feature-name/
 
 Review the generated files before implementation.
 
-## Exploring First
+## Exploring first
 
 Use this when the work is not clear yet:
 
@@ -87,7 +87,7 @@ Good for:
 
 No code should be written during exploration.
 
-## Working With Large Projects
+## Working with large projects
 
 For a full project, do not create one giant change.
 
@@ -117,7 +117,7 @@ Use numeric suffixes when order matters. OpenSpec change names must start with a
 
 The order is not automatically taken from every `tasks.md` file. The order should be made explicit through change names, dependencies, or your own project plan.
 
-## Good Change Size
+## Good change size
 
 A good OpenSpec change should be small enough to review and archive as one unit.
 
@@ -132,7 +132,7 @@ add-dashboard-filters
 
 If a change has many unrelated sections in `tasks.md`, split it into smaller changes before implementation.
 
-## Common Checks Before Apply
+## Common checks before apply
 
 Before running `/opsx:apply`, ask:
 
@@ -148,25 +148,25 @@ Do not implement code yet.
 
 Then apply only when the artifacts look correct.
 
-## Common Mistakes
+## Common mistakes
 
-### Archiving Too Early
+### Archiving too early
 
 Do not archive until the whole change is implemented.
 
 If only half of `tasks.md` is complete, keep the change active.
 
-### Letting Tasks Become Hidden Specs
+### Letting tasks become hidden specs
 
 Implementation details can live only in `tasks.md`.
 
 Product behavior should live in `specs/`.
 
-### Keeping Huge Changes
+### Keeping huge changes
 
 If one change contains a full project, split it into smaller ordered changes.
 
-## Useful Commands
+## Useful commands
 
 | Command | Where | Use |
 | --- | --- | --- |

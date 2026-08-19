@@ -1,4 +1,4 @@
-# Personal Workspace Setup
+# Personal workspace setup
 
 This note defines a simple convention for the shared Docker workspace mounted at `/workspace` in the Hermes sandbox.
 
@@ -6,7 +6,7 @@ This is a personal organization choice for this setup, not an official Hermes re
 
 Make sure the whole `~/hermes-workspace` tree is owned by the `hermes` user. If files or folders under it are owned by `root`, Hermes may see `/workspace` mounted correctly but still fail to write inside folders like `/workspace/wikis` or `/workspace/outputs`.
 
-## Recommended Layout
+## Recommended layout
 
 ```text
 ~/hermes-workspace/
@@ -24,14 +24,14 @@ If you use this mount convention, point wiki-backed skills at the shared wiki fo
 hermes config set skills.config.wiki.path /workspace/wikis
 ```
 
-## What Each Folder Is For
+## What each folder is for
 
 - `repos/`: cloned git repositories Hermes works on
 - `wikis/`: long-form project or ops documentation that is useful across sessions
 - `outputs/`: reports, plans, exports, and other generated deliverables
 - `inbox/`: raw material to process later, such as PDFs, transcripts, zip extracts, CSVs, prompts, and copied snippets
 
-## What Not To Put Here
+## What not to put here
 
 Do not use the shared workspace for things Hermes already stores better elsewhere.
 
@@ -39,7 +39,7 @@ Do not use the shared workspace for things Hermes already stores better elsewher
 - repeatable workflows belong in Hermes skills
 - project-specific rules belong in each repo's `AGENTS.md`
 
-## Suggested Usage
+## Suggested usage
 
 - clone repos into `~/hermes-workspace/repos/`
 - create or maintain wiki-style notes in `~/hermes-workspace/wikis/`

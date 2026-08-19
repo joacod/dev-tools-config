@@ -1,4 +1,4 @@
-# Local AI Inference
+# Local AI inference
 
 The local inference documentation moved to the standalone [`local-ai`](https://github.com/joacod/local-ai) repository.
 

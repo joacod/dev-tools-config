@@ -15,7 +15,7 @@ gh auth login
 gh auth status
 ```
 
-## Common Commands
+## Common commands
 
 | Task | Command |
 | --- | --- |
