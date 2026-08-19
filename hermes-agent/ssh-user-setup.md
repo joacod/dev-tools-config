@@ -1,12 +1,12 @@
-# SSH User Setup
+# SSH user setup
 
 Create an isolated `hermes` VPS user, give it a dedicated SSH key, and add a local `ssh hermes` alias.
 
-This phase should be done after completing [VPS Security](../vps-security/README.md).
+This phase should be done after completing [VPS security](../vps-security/README.md).
 
-## Add Hermes User
+## Add Hermes user
 
-**Run as:** your existing admin user on the VPS
+> **Run as:** your existing admin user on the VPS
 
 Create a dedicated Ubuntu user for Hermes without setting a local password or filling in profile fields.
 
@@ -22,9 +22,9 @@ Why this user exists:
 - your own admin account stays separate from the agent account
 - avoiding `sudo` for Hermes reduces what the agent can modify on the system
 
-## Generate SSH Key For Hermes
+## Generate SSH key for Hermes
 
-**Run as:** your user on your `local machine`
+> **Run as:** your user on your `local machine`
 
 Generate a dedicated SSH key for the `hermes` user on this VPS.
 
@@ -34,9 +34,9 @@ ssh-keygen -t ed25519 -C "hermes_vps"
 
 When prompted for the file path, use `/Users/[username]/.ssh/hermes_vps`.
 
-## Install The Public Key For Hermes
+## Install the public key for Hermes
 
-**Run as:** your existing admin user on the VPS
+> **Run as:** your existing admin user on the VPS
 
 Because password login is already disabled from the base VPS setup, `ssh-copy-id` will usually fail for a brand new `hermes` user.
 
@@ -73,13 +73,13 @@ What these commands do:
 
 This matters because SSH is strict about file ownership and permissions. If these are too open, SSH may ignore the key and refuse login.
 
-## Add Local SSH Config
+## Add local SSH config
 
-**Run as:** your user on your `local machine`
+> **Run as:** your user on your `local machine`
 
 Add a host alias so you can connect with `ssh hermes`.
 
-**Important**: If `~/.ssh/config` already exists and has other hosts in it, do not replace the file contents. Add this as a new block alongside your existing SSH config.
+> **Important:** If `~/.ssh/config` already exists and has other hosts in it, do not replace the file contents. Add this as a new block alongside your existing SSH config.
 
 ```sh
 nano ~/.ssh/config
@@ -97,11 +97,11 @@ Host hermes
 
 Save and exit with `CTRL + O`, `ENTER`, then `CTRL + X`.
 
-If the VPS later uses [SSH Over Tailscale For VPS](../tailscale/ssh-over-tailscale-for-vps.md), replace `HostName YOUR_VPS_IP` with the VPS Tailscale IP or MagicDNS hostname. The `User` and `IdentityFile` lines stay the same.
+If the VPS later uses [SSH over Tailscale for VPS](../tailscale/ssh-over-tailscale-for-vps.md), replace `HostName YOUR_VPS_IP` with the VPS Tailscale IP or MagicDNS hostname. The `User` and `IdentityFile` lines stay the same.
 
-## Login As Hermes
+## Login as Hermes
 
-**Run as:** your user on your `local machine`
+> **Run as:** your user on your `local machine`
 
 Verify the new key and host alias work.
 

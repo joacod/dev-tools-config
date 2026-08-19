@@ -1,10 +1,10 @@
-# VPS Sanity Check
+# VPS sanity check
 
 Final verification steps for the Ubuntu VPS setup.
 
-## Check SSH Config Is Active
+## Check SSH config is active
 
-**Run as:** `youruser` on the VPS
+> **Run as:** `youruser` on the VPS
 
 Verify the active SSH settings.
 
@@ -18,9 +18,9 @@ Expected output:
 - `passwordauthentication no`
 - `kbdinteractiveauthentication no`
 
-## Check SSH Is Running
+## Check SSH is running
 
-**Run as:** `youruser` on the VPS
+> **Run as:** `youruser` on the VPS
 
 Verify the SSH service is running.
 
@@ -32,9 +32,9 @@ Expected result:
 
 - `active (running)`
 
-## Check Firewall Status
+## Check firewall status
 
-**Run as:** `youruser` on the VPS
+> **Run as:** `youruser` on the VPS
 
 Verify `ufw` is active and using the expected defaults.
 
@@ -50,9 +50,9 @@ Expected output:
 - Rules include `OpenSSH`
 - Rules include `80/tcp` and `443/tcp` if you enabled HTTP and HTTPS
 
-## Check Open Ports
+## Check open ports
 
-**Run as:** `youruser` on the VPS
+> **Run as:** `youruser` on the VPS
 
 Review listening ports.
 
@@ -66,9 +66,9 @@ What to check:
 - Ports `80` and `443` only if you enabled them
 - No unexpected listening ports
 
-## Check Unattended Upgrades
+## Check unattended upgrades
 
-**Run as:** `youruser` on the VPS
+> **Run as:** `youruser` on the VPS
 
 Verify unattended upgrades are running.
 
@@ -80,9 +80,9 @@ Expected result:
 
 - `active (running)`
 
-## Check Your User Permissions
+## Check your user permissions
 
-**Run as:** `youruser` on the VPS
+> **Run as:** `youruser` on the VPS
 
 Verify the current user is in the `sudo` group.
 
@@ -94,9 +94,9 @@ Expected output:
 
 - Includes `sudo`
 
-## Check .ssh Permissions
+## Check `.ssh` permissions
 
-**Run as:** `youruser` on the VPS
+> **Run as:** `youruser` on the VPS
 
 Verify the `.ssh` directory and `authorized_keys` file permissions.
 
@@ -110,9 +110,9 @@ Expected output:
 - `.ssh` shows `drwx------` (`700`)
 - `authorized_keys` shows `-rw-------` (`600`)
 
-## Check Root Login Is Blocked
+## Check root login is blocked
 
-**Run as:** your user on your `local machine`
+> **Run as:** your user on your `local machine`
 
 Verify direct SSH login as `root` is blocked.
 
@@ -124,9 +124,9 @@ Expected result:
 
 - `Permission denied (publickey)`
 
-## Check Password Login Is Blocked
+## Check password login is blocked
 
-**Run as:** your user on your `local machine`
+> **Run as:** your user on your `local machine`
 
 Verify password authentication is blocked.
 
@@ -138,7 +138,7 @@ Expected result:
 
 - `Permission denied`
 
-## What This Verifies
+## What this verifies
 
 If all checks pass, you have verified:
 
@@ -150,6 +150,6 @@ If all checks pass, you have verified:
 - `youruser` has the expected permissions
 - Only expected ports are open
 
-## Final Verdict
+## Final verdict
 
 If all checks pass, you are already way more secure than most VPS setups.

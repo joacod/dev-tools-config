@@ -1,4 +1,4 @@
-# Server Maintenance
+# Server maintenance
 
 General Ubuntu VPS maintenance guidance focused on stability, hygiene, and avoiding breakage.
 
@@ -60,7 +60,7 @@ Safer practice:
 - reboot manually during a maintenance window
 - if the server hosts important apps, verify service health after reboot
 
-## Quick Checks
+## Quick checks
 
 Run these when you want a quick health check:
 

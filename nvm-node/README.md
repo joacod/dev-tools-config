@@ -2,7 +2,7 @@
 
 Install [nvm](https://github.com/nvm-sh/nvm) and use it to manage a Node.js LTS version.
 
-## What This Setup Does
+## What this setup does
 
 This guide installs `nvm`, loads it in your shell, and uses it to install the latest Node.js LTS release.
 
@@ -21,7 +21,7 @@ Download and run the official installer.
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash
 ```
 
-## Load NVM In Your Shell
+## Load NVM in your shell
 
 After the installer finishes, follow the recommended step shown in the terminal so your shell can load `nvm`.
 
@@ -81,7 +81,7 @@ nvm install --lts --reinstall-packages-from=v22.18.0
 
 This migrates and reinstalls all global packages from the previous version so they keep working as expected.
 
-## Activate The Default Node.js Version
+## Activate the default Node.js version
 
 Finally, activate the default Node.js version:
 
@@ -91,7 +91,7 @@ nvm use default
 
 This updates only the current terminal. Run it once in each already-open terminal or Herdr pane. New terminals and new Herdr panes automatically use the configured default Node.js version.
 
-## Verify Node.js And npm
+## Verify Node.js and npm
 
 Check that both commands work.
 

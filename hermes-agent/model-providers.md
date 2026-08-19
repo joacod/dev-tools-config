@@ -1,16 +1,16 @@
-# Model Providers
+# Model providers
 
 Configure a provider, authenticate xAI OAuth if needed, select a model, and optionally configure OpenRouter routing and fallback models.
 
-## Configure A Model Provider
+## Configure a model provider
 
-**Run as:** `hermes` on the VPS
+> **Run as:** `hermes` on the VPS
 
 Hermes needs a provider before it can chat normally.
 
 If you want to use your X subscription with Hermes, use the xAI OAuth flow from the `hermes` user on the VPS.
 
-## xAI OAuth With X Premium
+## xAI OAuth with X Premium
 
 Because Hermes is running on the VPS but the login happens in a browser on your laptop, use an SSH tunnel for the OAuth callback.
 
@@ -57,7 +57,7 @@ Why this matters:
 - your API keys stay private to the `hermes` account instead of being readable by other users on the VPS
 - this matters even more if you expose Hermes through Telegram
 
-## Select a Model
+## Select a model
 
 After you completed providers login or API key setup, you can run the model selector.
 
@@ -65,9 +65,9 @@ After you completed providers login or API key setup, you can run the model sele
 hermes model
 ```
 
-## Optional: OpenRouter Routing And Fallback Models
+## Optional: OpenRouter routing and fallback models
 
-**Run as:** `hermes` on the VPS
+> **Run as:** `hermes` on the VPS
 
 If you use OpenRouter, you can configure Hermes to use it as the main provider and optionally add provider routing rules and a fallback chain.
 
@@ -109,7 +109,7 @@ Relevant Hermes docs:
 - [Hermes Provider Routing](https://hermes-agent.nousresearch.com/docs/user-guide/features/provider-routing)
 - [Hermes Configuration](https://hermes-agent.nousresearch.com/docs/user-guide/configuration)
 
-### Quick Verification
+### Quick verification
 
 After setting the OpenRouter model, routing, and fallback values, run:
 

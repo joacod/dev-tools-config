@@ -1,4 +1,4 @@
-# Agent Skills
+# Agent skills
 
 Agent skills are reusable capabilities for AI coding agents. Use the [skills.sh](https://www.skills.sh/) directory and the `npx skills` CLI to discover, install, and update them consistently across supported agents such as OpenCode and Claude Code.
 
@@ -25,7 +25,7 @@ npx skills update -p  # update project skills
 
 Keep skills global when they describe a general workflow. Install technology-specific skills at project level so they only apply where that stack is used.
 
-## Global Skills
+## Global skills
 
 These skills are installed globally and available across projects.
 
@@ -35,7 +35,7 @@ These skills are installed globally and available across projects.
 | [`grill-me`](https://www.skills.sh/mattpocock/skills/grill-me) | Stress-testing plans and designs through systematic questioning. | `npx skills add https://github.com/mattpocock/skills --skill grill-me -g` |
 | [`skill-creator`](https://www.skills.sh/anthropics/skills/skill-creator) | Creating, testing, and iterating on agent skills. | `npx skills add https://github.com/anthropics/skills --skill skill-creator -g` |
 
-## Project-Level Skills
+## Project-level skills
 
 Install technology-specific skills only in projects where they are relevant. Run these commands from the project root.
 
@@ -43,7 +43,7 @@ Install technology-specific skills only in projects where they are relevant. Run
 | --- | --- | --- |
 | [`vercel-react-best-practices`](https://www.skills.sh/vercel-labs/agent-skills/vercel-react-best-practices) | React and Next.js performance guidance from Vercel. | `npx skills add https://github.com/vercel-labs/agent-skills --skill vercel-react-best-practices` |
 
-## Personal Skills
+## Personal skills
 
 My own skills, including experiments and reusable workflows, live in [`joacod/skills`](https://github.com/joacod/skills) and are indexed on [skills.sh](https://www.skills.sh/joacod/skills).
 

@@ -1,12 +1,12 @@
-# SOUL Workflow
+# SOUL workflow
 
 This guide shows how to use Hermes itself to update the active `SOUL.md` from the local template in this repo.
 
 The host personality file is mounted directly into the persistent default sandbox. Hermes stages the complete replacement in the workspace, then copies it through the bind in place after terminal-write approval.
 
-## What This Depends On
+## What this depends on
 
-Before using this workflow, configure the persistent Docker workspace from [Install Hermes Agent](./install.md) and verify the authoritative mount in [Sanity Check](./sanity-check.md).
+Before using this workflow, configure the persistent Docker workspace from [Install Hermes agent](./install.md) and verify the authoritative mount in the [sanity check](./sanity-check.md).
 
 The active paths are:
 
@@ -18,7 +18,7 @@ Relevant upstream doc:
 
 - [Hermes Personality & SOUL.md](https://hermes-agent.nousresearch.com/docs/user-guide/features/personality#soulmd)
 
-## Why This Works
+## Why this works
 
 Hermes loads its active personality only from `HERMES_HOME/SOUL.md`, which is usually:
 
@@ -38,15 +38,15 @@ So the safe pattern here is:
 4. Approve the terminal copy into `/root/.hermes/SOUL.md`.
 5. Review the result and start a new session.
 
-## Source Template
+## Source template
 
 Use the template in this repo:
 
-- [SOUL Template](./SOUL-template.md)
+- [SOUL template](./SOUL-template.md)
 
 Paste that template directly into the Hermes chat when asking it to create a new soul.
 
-## Recommended Prompt
+## Recommended prompt
 
 Start a Hermes session and send a prompt like this, with the full template pasted below it.
 
@@ -72,7 +72,7 @@ Do not save notes or explanation into the proposal. Only the complete final SOUL
 
 If you have an older soul you want Hermes to incorporate, paste that into the same chat too.
 
-## Apply And Verify
+## Apply and verify
 
 After Hermes stages the proposal, approve this command in the terminal tool:
 
@@ -96,7 +96,7 @@ Review the resulting file through an approved interface, then start a new Hermes
 
 Because this file controls durable agent behavior, retain a recoverable previous version and explicitly review changes to safety boundaries, permissions, or autonomy.
 
-## Keep The Boundary Clean
+## Keep the boundary clean
 
 Use `SOUL.md` for durable identity and communication defaults.
 

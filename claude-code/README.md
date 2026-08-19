@@ -25,7 +25,7 @@ mkdir -p .claude/agents
 cp agents/senior-code-reviewer.md .claude/agents/
 ```
 
-### Available Agents
+### Available agents
 
 | Name | Path | Description |
 | --- | --- | --- |
@@ -68,7 +68,7 @@ Use project instructions for:
 
 Do not put project-specific stack choices in the global file. A decision that is correct for one repository may be wrong for another.
 
-### Available Instruction Templates
+### Available instruction templates
 
 | Scope | Path | Description |
 | --- | --- | --- |

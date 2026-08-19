@@ -2,7 +2,7 @@
 
 Configuration and notes on [Ghostty](https://ghostty.org/) terminal.
 
-## General Configuration
+## General configuration
 
 Paste the content of `config` into Ghostty settings.
 
@@ -14,7 +14,7 @@ Install **JetBrains Mono Nerd Font**
 brew install --cask font-jetbrains-mono-nerd-font
 ```
 
-## Auto-Suggestions
+## Auto-suggestions
 
 **ZSH Auto-suggestions**. This plugin remembers your history and suggests commands as you type. [Documentation](https://github.com/zsh-users/zsh-autosuggestions)
 
@@ -31,7 +31,7 @@ source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 Restart your terminal or run `exec zsh`
 
-## Shell Prompt
+## Shell prompt
 
 **Starship**. A minimal, blazing-fast, and infinitely customizable prompt for any shell. [Documentation](https://starship.rs)
 
@@ -68,7 +68,7 @@ Default Ghostty keybindings on macOS.
 | Split horizontally, creating a new pane below | `Cmd + Shift + D` |
 | Close the current split or pane | `Cmd + W` |
 
-### Move Between Split Panes
+### Move between split panes
 
 | Action | Keybinding |
 | --- | --- |

@@ -6,10 +6,10 @@ Dokploy is a self-hosted deployment platform for running and managing apps, data
 | --- | --- |
 | OS | Ubuntu |
 | Run from | Local machine and VPS |
-| Prerequisites | Completed [`VPS Security`](../vps-security/README.md) setup |
+| Prerequisites | Completed [`VPS security`](../vps-security/README.md) setup |
 | Outcome | Dokploy installed and reachable from your local machine over Tailscale |
 
-## What This Setup Does
+## What this setup does
 
 This guide keeps the setup close to the official Dokploy docs and covers a minimal install flow with private access over Tailscale.
 
@@ -20,9 +20,9 @@ This guide keeps the setup close to the official Dokploy docs and covers a minim
 
 **Result:** Dokploy is installed on the VPS and reachable privately from your local machine through Tailscale.
 
-## Before You Start
+## Before you start
 
-This guide assumes all steps in [VPS Security](../vps-security/README.md) are already done.
+This guide assumes all steps in [VPS security](../vps-security/README.md) are already done.
 
 You should already have:
 
@@ -44,7 +44,7 @@ Use your existing admin user for the VPS commands below unless a section says ot
 
 ## Install Dokploy
 
-**Run as:** your existing admin user on the VPS
+> **Run as:** your existing admin user on the VPS
 
 Run the official installer.
 
@@ -59,13 +59,13 @@ What this does:
 - creates Dokploy services and supporting containers
 - exposes the panel on port `3000`
 
-## Serve Dokploy Over Tailscale
+## Serve Dokploy over Tailscale
 
-**Run as:** your existing admin user on the VPS
+> **Run as:** your existing admin user on the VPS
 
 Expose Dokploy only inside your tailnet so you can open it safely from your local machine.
 
-Important: Dokploy publishes host port `3000` itself. Do not configure Tailscale Serve to also listen on `:3000` for Dokploy. Use a different Tailscale-facing port such as `8443` and proxy it to `localhost:3000` to avoid startup conflicts after reboot.
+> **Important:** Dokploy publishes host port `3000` itself. Do not configure Tailscale Serve to also listen on `:3000` for Dokploy. Use a different Tailscale-facing port such as `8443` and proxy it to `localhost:3000` to avoid startup conflicts after reboot.
 
 ```sh
 sudo tailscale serve --bg --https=8443 localhost:3000
@@ -83,9 +83,9 @@ This keeps Dokploy reachable from your local machine without opening port `3000`
 
 If you have not set up Tailscale yet, use the steps in [Tailscale](../tailscale/README.md) first.
 
-## Open The Web UI
+## Open the web UI
 
-**Run as:** your user on your `local machine`
+> **Run as:** your user on your `local machine`
 
 Open the Tailscale Serve URL from the previous step in your browser.
 
@@ -102,9 +102,9 @@ If the page does not load, recheck:
 - `tailscale serve status` shows the mapping
 - your local machine is connected to the same tailnet
 
-## Create The Admin Account
+## Create the admin account
 
-**Run as:** your user in the Dokploy web UI
+> **Run as:** your user in the Dokploy web UI
 
 Complete the initial setup page and create the first Dokploy administrator account.
 
@@ -122,7 +122,7 @@ Updates are available directly from the Dokploy dashboard. Look for the update n
 - If you want version pinning, custom swarm network options, or manual installation details, use the official manual installation docs.
 - If you later update Dokploy, the basic update command is `sudo curl -sSL https://dokploy.com/install.sh | sudo sh -s update`.
 
-## Official References
+## Official references
 
 - [Dokploy Core Docs](https://docs.dokploy.com/docs/core)
 - [Dokploy Domains](https://docs.dokploy.com/docs/core/domains)
