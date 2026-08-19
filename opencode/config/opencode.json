@@ -55,6 +55,34 @@
           "name": "Qwen 3.5 9b"
         }
       }
+    },
+    "mtplx": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "MTPLX (local)",
+      "options": {
+        "baseURL": "http://127.0.0.1:8000/v1",
+        "timeout": false,
+        "chunkTimeout": 900000,
+        "headers": {
+          "x-mtplx-client": "opencode"
+        }
+      },
+      "models": {
+        "mtplx-qwen38-27b-optimized-speed": {
+          "name": "MTPLX Qwen-3.8-27B-optimized-speed",
+          "reasoning": false,
+          "tool_call": true,
+          "temperature": false,
+          "limit": {
+            "context": 262144,
+            "output": 262144
+          },
+          "modalities": {
+            "input": ["text"],
+            "output": ["text"]
+          }
+        }
+      }
     }
   }
 }

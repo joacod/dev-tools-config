@@ -15,8 +15,10 @@ Copy the config examples from [`./config`](./config) into `~/.config/opencode/`.
 
 The runtime config example includes:
 
-- Settings for using local models through [llama.cpp](https://github.com/ggml-org/llama.cpp) and [LM Studio](https://lmstudio.ai)
+- Settings for using local models through [llama.cpp](https://github.com/ggml-org/llama.cpp), [LM Studio](https://lmstudio.ai), and MTPLX
 - Playwright MCP configuration for local server using `@playwright/mcp@latest`
+
+The `mtplx` provider connects to a running MTPLX server at `http://127.0.0.1:8000/v1`. Select `mtplx/mtplx-qwen38-27b-optimized-speed` in OpenCode's model picker. The existing MLX, llama.cpp, and LM Studio providers remain available.
 
 Relevant documentation:
 

@@ -27,6 +27,14 @@ cd /path/to/project
 pi
 ```
 
+## Configuration
+
+Copy [`config/models.json`](./config/models.json) to `~/.pi/agent/models.json` when creating the file. If `models.json` already contains custom providers, merge the `mtplx` entry under `providers` instead of replacing the existing file.
+
+The example adds an OpenAI-compatible MTPLX provider at `http://127.0.0.1:8000/v1` and registers `mtplx-qwen38-27b-optimized-speed`. With the MTPLX server running, select the model with `/model` or `Ctrl+L`, then choose `mtplx/mtplx-qwen38-27b-optimized-speed`. The local `mtplx-local` key is only a compatibility value; no remote API key is required.
+
+Pi reloads `models.json` when you open `/model`, so you do not need to restart after editing the file.
+
 ## Authentication
 
 Use `/login` inside Pi to authenticate with a supported subscription provider or to store an API key.
@@ -149,6 +157,7 @@ Pi does not include MCP in its core. The [MCP catalog](./mcps.md) tracks the int
 - [Quickstart](https://pi.dev/docs/latest/quickstart)
 - [Using Pi](https://pi.dev/docs/latest/usage)
 - [Providers](https://pi.dev/docs/latest/providers)
+- [Custom models](https://pi.dev/docs/latest/models)
 - [Prompt templates](https://pi.dev/docs/latest/prompt-templates)
 - [Skills](https://pi.dev/docs/latest/skills)
 - [Pi packages](https://pi.dev/docs/latest/packages)
