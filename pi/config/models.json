@@ -1,0 +1,35 @@
+{
+  "providers": {
+    "mtplx": {
+      "baseUrl": "http://127.0.0.1:8000/v1",
+      "api": "openai-completions",
+      "apiKey": "mtplx-local",
+      "authHeader": true,
+      "headers": {
+        "x-mtplx-client": "pi"
+      },
+      "compat": {
+        "supportsDeveloperRole": false,
+        "supportsReasoningEffort": false,
+        "thinkingFormat": "qwen",
+        "maxTokensField": "max_tokens"
+      },
+      "models": [
+        {
+          "id": "mtplx-qwen38-27b-optimized-speed",
+          "name": "MTPLX Qwen-3.8-27B-optimized-speed",
+          "reasoning": true,
+          "input": ["text"],
+          "contextWindow": 262144,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "maxTokens": 262144
+        }
+      ]
+    }
+  }
+}
