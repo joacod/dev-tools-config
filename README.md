@@ -18,7 +18,7 @@ My setup and notes for development tools, AI agents, and server utilities.
 
 | Name | Repository | Description |
 | --- | --- | --- |
-| Local AI Inference | [`local-ai`](https://github.com/joacod/local-ai) | Standalone guides for MLX, `llama.cpp`, oMLX, MTPLX, and fair Apple Silicon benchmarking. |
+| Local AI | [`local-ai`](https://github.com/joacod/local-ai) | Practical notes and small helpers for running open-source language models locally on Apple Silicon. |
 
 ## AI APIs & services
 
