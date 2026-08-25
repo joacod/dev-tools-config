@@ -30,7 +30,6 @@ names are not merged: the first definition found wins.
 | Integration | Omp transport | Use it for |
 | --- | --- | --- |
 | [Context7](https://github.com/upstash/context7) | Streamable HTTP | Current, version-specific library documentation. |
-| [GitHub MCP Server](https://github.com/github/github-mcp-server) | Remote HTTP | Read-only repository, issue, and pull-request lookups. |
 | [Playwright MCP](https://github.com/microsoft/playwright-mcp) | Local stdio | Browser automation and inspection. |
 
 ## Combined user configuration
@@ -44,14 +43,6 @@ Add the following to `~/.omp/agent/mcp.json`:
     "context7": {
       "type": "http",
       "url": "https://mcp.context7.com/mcp"
-    },
-    "github": {
-      "type": "http",
-      "url": "https://api.githubcopilot.com/mcp/",
-      "headers": {
-        "X-MCP-Toolsets": "repos,issues,pull_requests",
-        "X-MCP-Readonly": "true"
-      }
     },
     "playwright": {
       "command": "npx",
@@ -84,14 +75,6 @@ Context7 also supports OAuth. Change the URL to
 `https://mcp.context7.com/mcp/oauth`, then run `/mcp reauth context7` inside
 omp. Never put a literal API key in an omp configuration file.
 
-### GitHub authentication and permissions
-
-The remote GitHub server uses OAuth. Run `/mcp reauth github` inside omp when
-it needs authorization. The configuration enables only the `repos`, `issues`,
-and `pull_requests` toolsets and sets the remote server's read-only mode. The
-read-only header limits the server's tools; it is not an authentication or
-sandbox boundary.
-
 ### Playwright
 
 The Playwright entry uses omp's default stdio transport. `npx` downloads the
@@ -113,7 +96,6 @@ Test each server explicitly:
 
 ```text
 /mcp test context7
-/mcp test github
 /mcp test playwright
 ```
 
@@ -137,5 +119,4 @@ For a remote server that uses OAuth, run `/mcp reauth <name>` before testing it.
 
 - [omp MCP documentation](https://github.com/can1357/oh-my-pi/blob/main/docs/mcp-config.md)
 - [Context7 MCP clients](https://context7.com/docs/resources/all-clients)
-- [GitHub remote MCP server](https://github.com/github/github-mcp-server/blob/main/docs/remote-server.md)
 - [Playwright MCP](https://github.com/microsoft/playwright-mcp)
