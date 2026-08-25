@@ -25,3 +25,4 @@ Use `/login` inside a session to authenticate with a supported provider.
 
 - [omp documentation](https://omp.sh/)
 - [Source repository](https://github.com/can1357/oh-my-pi)
+- [MCP catalog](./mcps.md)
