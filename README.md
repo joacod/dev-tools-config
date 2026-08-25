@@ -13,6 +13,7 @@ My setup and notes for development tools, AI agents, and server utilities.
 | Agent Skills | [`./skills`](./skills) | Reusable capabilities for OpenCode, Claude Code, and other compatible AI agents. |
 | OpenSpec | [`./openspec`](./openspec) | Spec-driven development workflow for AI coding agents. |
 | Pi | [`./pi`](./pi) | Minimal, extensible terminal coding harness. |
+| omp | [`./omp`](./omp) | Terminal coding agent with subagents, plan mode, LSP, DAP, and hashline edits. |
 
 ## Local AI
 
