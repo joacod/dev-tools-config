@@ -2,18 +2,23 @@
 
 My setup and notes for development tools, AI agents, and server utilities.
 
-## AI agents & workflows
+## AI coding harnesses
 
 | Name | Path | Description |
 | --- | --- | --- |
 | Claude Code | [`./claude-code`](./claude-code) | Anthropic's terminal-based AI coding agent. |
-| Hermes Agent | [`./hermes-agent`](./hermes-agent) | Open-source autonomous AI agent available through the CLI, Desktop, and messaging gateways. |
-| Herdr | [`./herdr`](./herdr) | Persistent terminal workspace and runtime for coding agents. |
 | OpenCode | [`./opencode`](./opencode) | Open source AI coding agent. |
-| Agent Skills | [`./skills`](./skills) | Reusable capabilities for OpenCode, Claude Code, and other compatible AI agents. |
-| OpenSpec | [`./openspec`](./openspec) | Spec-driven development workflow for AI coding agents. |
 | Pi | [`./pi`](./pi) | Minimal, extensible terminal coding harness. |
 | omp | [`./omp`](./omp) | Terminal coding agent with subagents, plan mode, LSP, DAP, and hashline edits. |
+
+## AI agents & workflows
+
+| Name | Path | Description |
+| --- | --- | --- |
+| Hermes Agent | [`./hermes-agent`](./hermes-agent) | Open-source autonomous AI agent available through the CLI, Desktop, and messaging gateways. |
+| Herdr | [`./herdr`](./herdr) | Persistent terminal workspace and runtime for coding agents. |
+| Agent Skills | [`./skills`](./skills) | Reusable capabilities for OpenCode, Claude Code, and other compatible AI agents. |
+| OpenSpec | [`./openspec`](./openspec) | Spec-driven development workflow for AI coding agents. |
 
 ## Local AI
 
