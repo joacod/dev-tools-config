@@ -6,7 +6,7 @@ The workflow below is for the hardened Docker setup, where the host personality 
 
 ## What this depends on
 
-Before using this workflow, configure the persistent Docker workspace from [Security install](../security/install.md) and verify the authoritative mount in the [security sanity check](../security/sanity-check.md).
+Before using this workflow, configure the persistent Docker workspace from [Security install](./install.md) and verify the authoritative mount in the [security sanity check](./sanity-check.md).
 
 The active paths are:
 

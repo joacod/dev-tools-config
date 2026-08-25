@@ -38,7 +38,7 @@ For platform details and the complete first-run flow, use the official [installa
 The normal Hermes path is this README plus the [official Hermes documentation](https://hermes-agent.nousresearch.com/docs). The notes below are optional repository-specific material:
 
 - [Model providers](./guides/model-providers.md) — reusable provider, OpenRouter, routing, and fallback notes
-- [SOUL workflow](./guides/soul-workflow.md) — an optional workflow for the mounted Docker setup
+- [SOUL workflow](./security/soul-workflow.md) — an optional workflow for the mounted Docker setup
 - [SOUL template](./templates/SOUL-template.md)
 - [Security-hardened Hermes VPS setup](./security/README.md)
 

@@ -29,7 +29,7 @@ The setup uses:
 5. Return to [Install Hermes Agent](./install.md) to run `hermes setup` and configure the persistent workspace.
 6. Configure a provider and model using the reusable [model provider guide](../guides/model-providers.md). The guide also notes the current device-code flow for remote xAI OAuth.
 7. Add optional [Telegram gateway](./telegram-gateway.md) or [dashboard](./dashboard.md) access.
-8. Use the [SOUL workflow](../guides/soul-workflow.md) if you want Hermes to update the mounted personality file.
+8. Use the [SOUL workflow](./soul-workflow.md) if you want Hermes to update the mounted personality file.
 9. Run the [sanity check](./sanity-check.md).
 
 Use the run-as notes in each guide. System packages and ownership changes run as the existing admin user; Hermes installation and user services run as `hermes`.

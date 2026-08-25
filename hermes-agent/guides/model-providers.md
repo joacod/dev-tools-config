@@ -26,12 +26,10 @@ This logs in, selects Nous as the provider, and enables the Tool Gateway. Use `h
 
 [OpenRouter notes and model shortlist](../../openrouter/README.md) live separately from this Hermes configuration guide.
 
-Configure OpenRouter interactively with `hermes model`, or set the active provider and model directly:
+Configure OpenRouter and its API key interactively with `hermes model`:
 
 ```sh
-hermes config set model.provider openrouter
-hermes config set model.default deepseek/deepseek-v4-pro
-hermes config set OPENROUTER_API_KEY sk-or-...
+hermes model
 ```
 
 The model IDs and availability change over time. Treat the [OpenRouter catalog](https://openrouter.ai/) and the repository shortlist as the source of truth for current model choices.

@@ -168,4 +168,4 @@ What this does:
 
 For the folder convention inside this mount, see [Personal workspace setup](./personal-workspace-setup.md).
 
-If you want Hermes to update its persistent personality through the authoritative file mount, see the [SOUL workflow](../guides/soul-workflow.md).
+If you want Hermes to update its persistent personality through the authoritative file mount, see the [SOUL workflow](./soul-workflow.md).
