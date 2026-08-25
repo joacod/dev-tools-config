@@ -135,7 +135,7 @@ For a remote server that uses OAuth, run `/mcp reauth <name>` before testing it.
 
 ## References
 
-- [omp MCP documentation](https://omp.sh/docs/mcp)
+- [omp MCP documentation](https://github.com/can1357/oh-my-pi/blob/main/docs/mcp-config.md)
 - [Context7 MCP clients](https://context7.com/docs/resources/all-clients)
 - [GitHub remote MCP server](https://github.com/github/github-mcp-server/blob/main/docs/remote-server.md)
 - [Playwright MCP](https://github.com/microsoft/playwright-mcp)
