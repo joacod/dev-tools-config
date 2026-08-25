@@ -7,7 +7,7 @@ My setup and notes for development tools, AI agents, and server utilities.
 | Name | Path | Description |
 | --- | --- | --- |
 | Claude Code | [`./claude-code`](./claude-code) | Anthropic's terminal-based AI coding agent. |
-| Hermes Agent | [`./hermes-agent`](./hermes-agent) | Self-hosted AI agent for running coding and automation tasks on your own server. |
+| Hermes Agent | [`./hermes-agent`](./hermes-agent) | Open-source autonomous AI agent available through the CLI, Desktop, and messaging gateways. |
 | Herdr | [`./herdr`](./herdr) | Persistent terminal workspace and runtime for coding agents. |
 | OpenCode | [`./opencode`](./opencode) | Open source AI coding agent. |
 | Agent Skills | [`./skills`](./skills) | Reusable capabilities for OpenCode, Claude Code, and other compatible AI agents. |

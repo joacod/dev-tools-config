@@ -1,138 +1,51 @@
 # Hermes Agent
 
-Hermes Agent is a self-hosted AI agent you can run on your own server. This setup installs it on an Ubuntu VPS with a dedicated `hermes` user, separate SSH access, optional rootless Docker isolation, optional Telegram access, and an optional dashboard tunnel.
+[Hermes Agent](https://hermes-agent.nousresearch.com/) is an open-source autonomous AI agent from Nous Research. Use it through the CLI, Hermes Desktop, or messaging integrations.
 
-## Setup assumptions
+## Install
 
-| Item | Value |
-| --- | --- |
-| OS | Ubuntu |
-| Run from | Local machine and VPS |
-| Prerequisites | Completed [`VPS security`](../vps-security/README.md) setup |
-| Main user | A non-root admin user with `sudo` |
-| Hermes user | Dedicated `hermes` user without `sudo` by default |
-| Recommended backend | Rootless Docker for Hermes command execution |
+### Hermes Desktop
 
-## What this setup does
+[Download Hermes Desktop](https://hermes-agent.nousresearch.com/desktop) for the easiest setup where supported. Desktop uses the same Hermes Agent core, configuration, sessions, skills, memory, and credentials as the CLI; it is not a separate product. See the [Desktop documentation](https://hermes-agent.nousresearch.com/docs/user-guide/desktop) for current details.
 
-This guide assumes you already completed the base server setup in [VPS security](../vps-security).
+### CLI
 
-- **Hermes runs as its own user:** keep the agent separate from your main admin account
-- **A dedicated SSH key is used:** local access for Hermes does not reuse your other VPS keys
-- **A local SSH alias keeps login simple:** `ssh hermes` connects with the right user and key
-- **Rootless Docker can isolate command execution:** Hermes does not need access to the system Docker daemon
-- **Optional gateways stay private by default:** Telegram is restricted by allowed users and the dashboard is reached through SSH tunneling
-
-**Result:** Hermes is installed on the VPS with a smaller scope, simpler SSH access, and a clean path to follow the official documentation.
-
-## Before you start
-
-You should already have:
-
-- a hardened Ubuntu VPS
-- a working non-root admin user with `sudo`
-- SSH access working from your local machine
-- the base firewall and SSH hardening from [VPS security](../vps-security/README.md)
-
-Use your existing admin user for server-side setup steps unless a linked guide says otherwise.
-
-## Recommended setup path
-
-1. Complete [VPS security](../vps-security/README.md).
-2. Create the dedicated Hermes user and SSH alias in [SSH user setup](./ssh-user-setup.md).
-3. Install the Hermes CLI and extra system packages in [Install Hermes Agent](./install.md).
-4. Configure the rootless [Docker backend](./docker-backend.md) if Hermes should execute commands in Docker.
-5. Run `hermes setup` from [Install Hermes Agent](./install.md).
-6. Configure a provider and model in [Model providers](./model-providers.md).
-7. Run the [sanity check](./sanity-check.md).
-
-## Recommended commands at a glance
-
-After the dedicated SSH user is ready, most Hermes work starts from your local machine with:
+For Linux, macOS, WSL2, or Android/Termux, use the official installer:
 
 ```sh
-ssh hermes
+curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash
 ```
 
-Then, from the VPS as `hermes`:
+On native Windows, run the installer in PowerShell:
+
+```powershell
+iex (irm https://hermes-agent.nousresearch.com/install.ps1)
+```
+
+On macOS, Linux, WSL2, or Termux, reload your shell and start Hermes:
 
 ```sh
-hermes setup
-hermes model
+source ~/.bashrc  # or: source ~/.zshrc
 hermes
 ```
 
-The detailed guides include the setup commands, run-as context, expected results, and common edge cases.
+On Windows, open a new PowerShell session and run `hermes`. Use `hermes model` to choose or change a provider and model. If you use Nous Portal, `hermes setup --portal` configures the provider and Tool Gateway in one step.
 
-## Optional features
+For platform details and the complete first-run flow, use the official [installation](https://hermes-agent.nousresearch.com/docs/getting-started/installation) and [quickstart](https://hermes-agent.nousresearch.com/docs/getting-started/quickstart) guides.
 
-Use these after the main install path is working.
+## Additional notes and configurations
 
-| Feature | Guide | Notes |
-| --- | --- | --- |
-| Rootless Docker backend | [Docker backend](./docker-backend.md) | Recommended when the VPS also runs Dokploy or system Docker workloads |
-| OpenRouter, xAI OAuth, fallback models | [Model providers](./model-providers.md) | Includes the xAI OAuth callback tunnel and OpenRouter routing settings |
-| Telegram bot access | [Telegram gateway](./telegram-gateway.md) | Includes service install, linger, status, and logs |
-| Web dashboard | [Hermes dashboard](./dashboard.md) | Uses a localhost SSH tunnel instead of a public port |
-| Shared persistent workspace | [Personal workspace setup](./personal-workspace-setup.md) | Defines the `/workspace` and `~/hermes-workspace` folder convention |
-| Personality workflow | [SOUL workflow](./soul-workflow.md) | Uses the shared workspace to generate and install `SOUL.md` |
+The normal Hermes path is this README plus the [official Hermes documentation](https://hermes-agent.nousresearch.com/docs). The notes below are optional repository-specific material:
 
-## Security summary
+- [Model providers](./guides/model-providers.md) — reusable provider, OpenRouter, routing, and fallback notes
+- [SOUL workflow](./guides/soul-workflow.md) — an optional workflow for the mounted Docker setup
+- [SOUL template](./templates/SOUL-template.md)
+- [Security-hardened Hermes VPS setup](./security/README.md)
 
-The important defaults for this VPS setup are:
+The security-hardened setup is an optional, opinionated higher-isolation profile. For a more restrictive VPS deployment using a dedicated Linux user, rootless Docker, restricted gateways, SSH access, and private dashboard tunneling, see the [security-hardened setup](./security/README.md). It trades convenience and some integration capability for stronger isolation; it is not required for a normal Hermes installation.
 
-- keep Hermes running as the dedicated `hermes` user with no `sudo` by default
-- avoid adding `hermes` to the system `docker` group
-- use rootless Docker if Hermes needs Docker-backed command execution
-- keep API keys in `~/.hermes/.env` and restrict that file to `600`
-- restrict Telegram access to approved user IDs
-- keep the dashboard on localhost and access it through an SSH tunnel
+## Official links
 
-For details, see [Security notes](./security-notes.md).
-
-## Troubleshooting
-
-Common setup failures are collected in [Troubleshooting](./troubleshooting.md), including:
-
-- `hermes` command not found
-- missing Hermes symlink after install
-- Playwright trying to use root or sudo
-- `nvm` not visible under `sudo`
-- Docker still using the old system socket
-- gateway logs and linger checks
-- shared workspace ownership issues
-
-## Final verification
-
-Run the [sanity check](./sanity-check.md) after setup to verify:
-
-- the local `ssh hermes` alias works
-- Hermes is isolated under its own Ubuntu user
-- the Hermes CLI is installed and available
-- Hermes uses its own rootless Docker daemon if selected
-- a model provider is configured
-- secrets have restrictive permissions
-- optional gateway service is running if enabled
-
-## References
-
-- [SSH user setup](./ssh-user-setup.md)
-- [Install Hermes Agent](./install.md)
-- [Docker backend](./docker-backend.md)
-- [Model providers](./model-providers.md)
-- [Telegram gateway](./telegram-gateway.md)
-- [Hermes dashboard](./dashboard.md)
-- [Troubleshooting](./troubleshooting.md)
-- [Security notes](./security-notes.md)
-- [Personal workspace setup](./personal-workspace-setup.md)
-- [SOUL workflow](./soul-workflow.md)
-- [SOUL template](./SOUL-template.md)
-- [sanity check](./sanity-check.md)
-
-## Final step
-
-Start an interactive session when setup is complete.
-
-```sh
-hermes
-```
+- [Hermes Agent](https://hermes-agent.nousresearch.com/)
+- [Hermes documentation](https://hermes-agent.nousresearch.com/docs)
+- [Hermes Desktop](https://hermes-agent.nousresearch.com/desktop)

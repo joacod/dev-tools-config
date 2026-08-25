@@ -2,7 +2,7 @@
 
 Use Herdr to keep the Hermes dashboard running on the VPS, then expose it locally through an SSH tunnel. This keeps the dashboard process inside a persistent Herdr session instead of tying it to an ordinary SSH terminal.
 
-The Hermes dashboard itself is documented in the [Hermes dashboard guide](../hermes-agent/dashboard.md). This guide covers the Herdr workflow around it.
+The Hermes dashboard itself is documented in the [Hermes dashboard guide](../hermes-agent/security/dashboard.md). This guide covers the Herdr workflow around it.
 
 ## Start the remote dashboard
 
@@ -51,4 +51,4 @@ http://127.0.0.1:9119
 - After a VPS reboot, reconnect with `herdr --remote hermes` and verify that `hermes dashboard` is still running. Start it again if necessary.
 - After updating Hermes or Herdr, verify the dashboard dependencies, port, remote process, and SSH tunnel again.
 
-For the VPS and SSH prerequisites, see the [Hermes setup](../hermes-agent/README.md) and [SSH over Tailscale guide](../tailscale/ssh-over-tailscale-for-vps.md).
+For the VPS and SSH prerequisites, see the [hardened Hermes VPS setup](../hermes-agent/security/README.md) and [SSH over Tailscale guide](../tailscale/ssh-over-tailscale-for-vps.md).

@@ -1,6 +1,6 @@
 # Hermes Agent sanity check
 
-Use this checklist after finishing the main [Hermes agent setup](./README.md).
+Use this checklist after finishing the [security-hardened Hermes VPS setup](./README.md).
 
 Final verification steps for the Hermes Agent VPS setup.
 

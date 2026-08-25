@@ -64,7 +64,7 @@ The skill teaches coding agents how to inspect and control Herdr from inside a H
 
 ## Hermes on a VPS
 
-The existing [`hermes` SSH alias](../hermes-agent/ssh-user-setup.md) connects to the dedicated Hermes user on the VPS, including the current SSH-over-Tailscale setup. With Herdr installed locally, attach to that VPS with:
+The existing [`hermes` SSH alias](../hermes-agent/security/ssh-user-setup.md) connects to the dedicated Hermes user on the VPS, including the current SSH-over-Tailscale setup. With Herdr installed locally, attach to that VPS with:
 
 ```sh
 herdr --remote hermes
@@ -74,7 +74,7 @@ This starts or attaches to the Herdr server on the VPS while using the local ter
 
 The session continues running on the VPS after the local terminal closes or disconnects. Run the same command later to reconnect to the existing workspace and processes without manually opening an SSH session first.
 
-See the [Hermes setup](../hermes-agent/README.md) and [SSH over Tailscale guide](../tailscale/ssh-over-tailscale-for-vps.md) for the VPS prerequisites.
+See the [hardened Hermes VPS setup](../hermes-agent/security/README.md) and [SSH over Tailscale guide](../tailscale/ssh-over-tailscale-for-vps.md) for the VPS prerequisites.
 
 For a persistent remote Hermes dashboard with a local SSH tunnel, see [Hermes dashboard through Herdr](./hermes-dashboard.md).
 

@@ -1,12 +1,12 @@
 # Troubleshooting
 
-Common Hermes setup failures and the fastest checks for this VPS layout.
+Common Hermes setup failures and the fastest checks for this hardened VPS layout.
 
 ## `hermes`: command not found
 
 > **Run as:** `hermes` on the VPS
 
-Add `~/.local/bin` to your `PATH` and reload your shell.
+Add `~/.local/bin` to your `PATH` and reload your shell:
 
 ```sh
 echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
@@ -16,48 +16,43 @@ source ~/.bashrc
 Then rerun:
 
 ```sh
-hermes version
+hermes doctor
 ```
 
 ## Missing Hermes symlink
 
-If Hermes is still not found, the installer may have completed the core install but skipped creating the final command symlink.
+If Hermes is still not found, the installer may have completed the core install but the per-user launcher symlink is missing.
 
-First verify the Hermes binary exists inside the installation directory.
+Verify that the virtual-environment binary exists and restore the per-user symlink:
 
 ```sh
 ls -l ~/.hermes/hermes-agent/venv/bin/hermes
-```
-
-If that file exists, create the missing symlink manually.
-
-```sh
 ln -sf ~/.hermes/hermes-agent/venv/bin/hermes ~/.local/bin/hermes
+hermes version
 ```
 
-Then rerun `hermes version`.
+If `hermes doctor` reports `ModuleNotFoundError: No module named 'dotenv'`, you may be invoking the repository source launcher with system Python instead of the virtual-environment launcher. Check `command -v hermes` and make sure it resolves to `~/.local/bin/hermes`.
 
-## Playwright tries to use root or sudo
+## Playwright browser dependencies
 
-During the Hermes installer, if Playwright tries to switch to root and asks for a `sudo` password, stop there with `CTRL + C`.
+The current installer detects that `hermes` has no `sudo`, installs user-owned browser binaries, and reports the administrator command for missing system libraries. It should not require a `sudo` password from the Hermes session.
 
-Install the system dependencies from your admin user instead.
-
-If your admin user installed Node.js with `nvm`, `sudo` will usually not see `node` or `npx` automatically. Run these commands from the admin user:
+> **Run as:** your admin user on the VPS
 
 ```sh
-NODE_BIN_DIR="$(dirname "$(command -v node)")"
+sudo npx playwright install-deps chromium
 ```
+
+> **Run as:** `hermes` on the VPS
+
+If the browser binary itself is missing, install it in the Hermes user's cache:
 
 ```sh
-sudo env "PATH=$NODE_BIN_DIR:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin" bash -lc 'cd /home/hermes/.hermes/hermes-agent && npx playwright install-deps'
+cd ~/.hermes/hermes-agent
+npx playwright install chromium
 ```
 
-Then switch back to `hermes` and install the Playwright browser binaries under the `hermes` user.
-
-```sh
-npx playwright install
-```
+For a headless setup that does not use browser automation, reinstall with the official `--skip-browser` option instead of adding privileges to the `hermes` user.
 
 ## Docker still uses the old system socket
 
@@ -83,7 +78,7 @@ If `docker context ls` warns that `DOCKER_HOST` overrides the active context, th
 
 > **Run as:** `hermes` on the VPS
 
-Use this when the Telegram gateway service is installed but not responding.
+Use this when the Telegram gateway service is installed but not responding:
 
 ```sh
 journalctl --user -u hermes-gateway -f
@@ -99,7 +94,7 @@ hermes gateway status
 
 > **Run as:** your admin user on the VPS
 
-Enable systemd linger for the `hermes` user.
+Enable systemd linger for the `hermes` user:
 
 ```sh
 sudo loginctl enable-linger hermes
@@ -114,7 +109,7 @@ Expected result:
 
 > **Run as:** your admin user on the VPS
 
-Make sure the host workspace tree is owned by `hermes`.
+Make sure the host workspace tree is owned by `hermes`:
 
 ```sh
 sudo chown -R hermes:hermes /home/hermes/hermes-workspace
@@ -122,7 +117,7 @@ sudo find /home/hermes/hermes-workspace -type d -exec chmod 755 {} \;
 sudo find /home/hermes/hermes-workspace -type f -exec chmod 644 {} \;
 ```
 
-Then confirm `hermes` can write inside the mounted workspace.
+Then confirm `hermes` can write inside the mounted workspace:
 
 > **Run as:** `hermes` on the VPS
 

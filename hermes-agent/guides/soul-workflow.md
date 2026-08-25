@@ -1,26 +1,22 @@
 # SOUL workflow
 
-This guide shows how to use Hermes itself to update the active `SOUL.md` from the local template in this repo.
+This guide shows how to use Hermes itself to update the active `SOUL.md` from the template in this repository.
 
-The host personality file is mounted directly into the persistent default sandbox. Hermes stages the complete replacement in the workspace, then copies it through the bind in place after terminal-write approval.
+The workflow below is for the hardened Docker setup, where the host personality file is mounted directly into the persistent default sandbox. A normal local Hermes install does not need this mount; edit `~/.hermes/SOUL.md` directly and follow the upstream [Personality & SOUL.md](https://hermes-agent.nousresearch.com/docs/user-guide/features/personality#soulmd) documentation.
 
 ## What this depends on
 
-Before using this workflow, configure the persistent Docker workspace from [Install Hermes agent](./install.md) and verify the authoritative mount in the [sanity check](./sanity-check.md).
+Before using this workflow, configure the persistent Docker workspace from [Security install](../security/install.md) and verify the authoritative mount in the [security sanity check](../security/sanity-check.md).
 
 The active paths are:
 
 - inside the default Hermes sandbox: `/root/.hermes/SOUL.md`
 - on the VPS host: `/home/hermes/.hermes/SOUL.md`
-- gateway identity source: `HERMES_HOME/SOUL.md`
-
-Relevant upstream doc:
-
-- [Hermes Personality & SOUL.md](https://hermes-agent.nousresearch.com/docs/user-guide/features/personality#soulmd)
+- Hermes identity source: `HERMES_HOME/SOUL.md`
 
 ## Why this works
 
-Hermes loads its active personality only from `HERMES_HOME/SOUL.md`, which is usually:
+Hermes loads its active personality from `HERMES_HOME/SOUL.md`, usually:
 
 ```text
 ~/.hermes/SOUL.md
@@ -30,7 +26,7 @@ It does not load `SOUL.md` from the current working directory or from `/workspac
 
 Hermes must not use `write_file` directly on the mounted destination. `write_file` performs an atomic temporary-file rename, and Linux cannot rename over a bind-mount point, so that operation fails with `Device or resource busy`. A normal `cp` opens and overwrites the mounted file in place without replacing the mountpoint.
 
-So the safe pattern here is:
+The safe pattern is:
 
 1. Verify the authoritative file bind is active.
 2. Ask Hermes to generate a new soul using the template.
@@ -40,9 +36,7 @@ So the safe pattern here is:
 
 ## Source template
 
-Use the template in this repo:
-
-- [SOUL template](./SOUL-template.md)
+Use the [SOUL template](../templates/SOUL-template.md) in this repository.
 
 Paste that template directly into the Hermes chat when asking it to create a new soul.
 
@@ -67,7 +61,7 @@ cp -- /workspace/outputs/SOUL.proposed.md /root/.hermes/SOUL.md
 Do not use write_file directly on /root/.hermes/SOUL.md because its atomic rename cannot replace the bind-mount point.
 Do not save notes or explanation into the proposal. Only the complete final SOUL.md content should be written.
 
-[Paste the full contents of ./SOUL-template.md here]
+[Paste the full contents of ../templates/SOUL-template.md here]
 ```
 
 If you have an older soul you want Hermes to incorporate, paste that into the same chat too.
