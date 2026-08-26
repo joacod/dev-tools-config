@@ -9,7 +9,7 @@ My setup and notes for development tools, AI agents, and server utilities.
 | Claude Code | [`./claude-code`](./claude-code) | Anthropic's terminal-based AI coding agent. |
 | OpenCode | [`./opencode`](./opencode) | Open source AI coding agent. |
 | Pi | [`./pi`](./pi) | Minimal, extensible terminal coding harness. |
-| omp | [`./omp`](./omp) | Terminal coding agent with subagents, plan mode, LSP, DAP, and hashline edits. |
+| OMP | [`./omp`](./omp) | Terminal coding agent with subagents, plan mode, LSP, DAP, and hashline edits. |
 
 ## AI agents & workflows
 

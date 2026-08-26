@@ -1,11 +1,11 @@
-# MCPs for omp
+# MCPs for OMP
 
-[omp](https://omp.sh/) supports external Model Context Protocol (MCP) servers
-using omp's native MCP configuration and discovery rules.
+[OMP](https://omp.sh/) supports external Model Context Protocol (MCP) servers
+using OMP's native MCP configuration and discovery rules.
 
 ## Configuration scopes
 
-Use an omp-managed file for configuration owned by omp:
+Use an OMP-managed file for configuration owned by OMP:
 
 | Scope | File | Use it for |
 | --- | --- | --- |
@@ -21,13 +21,13 @@ For a personal setup, use the user file:
 
 Project discovery is enabled by default. `mcp.json` and `.mcp.json` at the
 project root are portable, lower-priority fallbacks for sharing a definition
-with other MCP clients. Omp also imports supported definitions from other
+with other MCP clients. OMP also imports supported definitions from other
 clients; use `/mcp list` to see each server's source file. Duplicate server
 names are not merged: the first definition found wins.
 
 ## Current integrations
 
-| Integration | Omp transport | Use it for |
+| Integration | OMP transport | Use it for |
 | --- | --- | --- |
 | [Context7](https://github.com/upstash/context7) | Streamable HTTP | Current, version-specific library documentation. |
 | [Playwright MCP](https://github.com/microsoft/playwright-mcp) | Local stdio | Browser automation and inspection. |
@@ -59,7 +59,7 @@ existing `mcpServers` object. Keep unrelated settings and server definitions.
 
 The hosted Context7 server works without a key at its anonymous rate limit. For
 higher limits, add the `headers` object below to the `context7` entry and set
-`CONTEXT7_API_KEY` before starting omp:
+`CONTEXT7_API_KEY` before starting OMP:
 
 ```json
 {
@@ -73,18 +73,18 @@ higher limits, add the `headers` object below to the `context7` entry and set
 
 Context7 also supports OAuth. Change the URL to
 `https://mcp.context7.com/mcp/oauth`, then run `/mcp reauth context7` inside
-omp. Never put a literal API key in an omp configuration file.
+OMP. Never put a literal API key in an OMP configuration file.
 
 ### Playwright
 
-The Playwright entry uses omp's default stdio transport. `npx` downloads the
+The Playwright entry uses OMP's default stdio transport. `npx` downloads the
 official `@playwright/mcp` package when the server is first connected. Review
 the package and remember that it runs with the permissions of the user who
-starts omp.
+starts OMP.
 
 ## Apply and verify
 
-After creating or editing an omp-managed MCP file, reload discovery and inspect
+After creating or editing an OMP-managed MCP file, reload discovery and inspect
 the result:
 
 ```text
@@ -100,7 +100,7 @@ Test each server explicitly:
 ```
 
 For a remote server that uses OAuth, run `/mcp reauth <name>` before testing it.
-`/tools` shows the MCP tools currently visible to omp; their names use the
+`/tools` shows the MCP tools currently visible to OMP; their names use the
 `mcp__<server>_<tool>` form after normalization.
 
 ## Safety
@@ -117,6 +117,6 @@ For a remote server that uses OAuth, run `/mcp reauth <name>` before testing it.
 
 ## References
 
-- [omp MCP documentation](https://github.com/can1357/oh-my-pi/blob/main/docs/mcp-config.md)
+- [OMP MCP documentation](https://github.com/can1357/oh-my-pi/blob/main/docs/mcp-config.md)
 - [Context7 MCP clients](https://context7.com/docs/resources/all-clients)
 - [Playwright MCP](https://github.com/microsoft/playwright-mcp)
