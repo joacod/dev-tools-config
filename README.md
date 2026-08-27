@@ -19,6 +19,7 @@ My setup and notes for development tools, AI agents, and server utilities.
 | Herdr | [`./herdr`](./herdr) | Persistent terminal workspace and runtime for coding agents. |
 | Agent Skills | [`./skills`](./skills) | Reusable capabilities for OpenCode, Claude Code, and other compatible AI agents. |
 | OpenSpec | [`./openspec`](./openspec) | Spec-driven development workflow for AI coding agents. |
+| Orca | [`./orca`](./orca) | Desktop IDE for running multiple AI coding agents in isolated Git worktrees. |
 
 ## Local AI
 
