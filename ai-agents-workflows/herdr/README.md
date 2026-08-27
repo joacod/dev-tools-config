@@ -34,7 +34,7 @@ Install the OpenCode plugin:
 herdr integration install opencode
 ```
 
-Herdr writes the plugin to `~/.config/opencode/plugins/herdr-agent-state.js`. The OpenCode config directory must already exist. See the [OpenCode setup](../opencode/README.md) for the local configuration files.
+Herdr writes the plugin to `~/.config/opencode/plugins/herdr-agent-state.js`. The OpenCode config directory must already exist. See the [OpenCode setup](../../ai-coding-harnesses/opencode/README.md) for the local configuration files.
 
 ### Pi
 
@@ -74,7 +74,7 @@ This starts or attaches to the Herdr server on the VPS while using the local ter
 
 The session continues running on the VPS after the local terminal closes or disconnects. Run the same command later to reconnect to the existing workspace and processes without manually opening an SSH session first.
 
-See the [hardened Hermes VPS setup](../hermes-agent/security/README.md) and [SSH over Tailscale guide](../tailscale/ssh-over-tailscale-for-vps.md) for the VPS prerequisites.
+See the [hardened Hermes VPS setup](../hermes-agent/security/README.md) and [SSH over Tailscale guide](../../server-infrastructure/tailscale/ssh-over-tailscale-for-vps.md) for the VPS prerequisites.
 
 For a persistent remote Hermes dashboard with a local SSH tunnel, see [Hermes dashboard through Herdr](./hermes-dashboard.md).
 

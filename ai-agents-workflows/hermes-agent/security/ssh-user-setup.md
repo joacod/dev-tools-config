@@ -2,7 +2,7 @@
 
 Create an isolated `hermes` VPS user, give it a dedicated SSH key, and add a local `ssh hermes` alias.
 
-This phase should be done after completing [VPS security](../../vps-security/README.md).
+This phase should be done after completing [VPS security](../../../server-infrastructure/vps-security/README.md).
 
 ## Add Hermes user
 
@@ -97,7 +97,7 @@ Host hermes
 
 Save and exit with `CTRL + O`, `ENTER`, then `CTRL + X`.
 
-If the VPS later uses [SSH over Tailscale for VPS](../../tailscale/ssh-over-tailscale-for-vps.md), replace `HostName YOUR_VPS_IP` with the VPS Tailscale IP or MagicDNS hostname. The `User` and `IdentityFile` lines stay the same.
+If the VPS later uses [SSH over Tailscale for VPS](../../../server-infrastructure/tailscale/ssh-over-tailscale-for-vps.md), replace `HostName YOUR_VPS_IP` with the VPS Tailscale IP or MagicDNS hostname. The `User` and `IdentityFile` lines stay the same.
 
 ## Login as Hermes
 

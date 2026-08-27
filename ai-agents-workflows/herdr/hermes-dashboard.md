@@ -51,4 +51,4 @@ http://127.0.0.1:9119
 - After a VPS reboot, reconnect with `herdr --remote hermes` and verify that `hermes dashboard` is still running. Start it again if necessary.
 - After updating Hermes or Herdr, verify the dashboard dependencies, port, remote process, and SSH tunnel again.
 
-For the VPS and SSH prerequisites, see the [hardened Hermes VPS setup](../hermes-agent/security/README.md) and [SSH over Tailscale guide](../tailscale/ssh-over-tailscale-for-vps.md).
+For the VPS and SSH prerequisites, see the [hardened Hermes VPS setup](../hermes-agent/security/README.md) and [SSH over Tailscale guide](../../server-infrastructure/tailscale/ssh-over-tailscale-for-vps.md).

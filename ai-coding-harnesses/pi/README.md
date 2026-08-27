@@ -6,7 +6,7 @@ For a new setup, follow this guide in order: install Pi, authenticate, start it 
 
 ## Installation
 
-Pi requires Node.js and npm. Use an LTS release; the repository's [NVM and Node.js guide](../nvm-node) covers that setup.
+Pi requires Node.js and npm. Use an LTS release; the repository's [NVM and Node.js guide](../../developer-environment/nvm-node) covers that setup.
 
 Install Pi globally with npm:
 
@@ -84,7 +84,7 @@ Install them globally:
 ```bash
 # Run from this repository's root.
 mkdir -p ~/.pi/agent/prompts
-cp pi/prompts/*.md ~/.pi/agent/prompts/
+cp ai-coding-harnesses/pi/prompts/*.md ~/.pi/agent/prompts/
 ```
 
 Restart Pi or run `/reload` afterward. To keep them project-local, copy them into that repository's `.pi/prompts/` directory instead.
