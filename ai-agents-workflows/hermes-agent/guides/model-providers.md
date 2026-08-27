@@ -24,7 +24,7 @@ This logs in, selects Nous as the provider, and enables the Tool Gateway. Use `h
 
 ## OpenRouter
 
-[OpenRouter notes and model shortlist](../../openrouter/README.md) live separately from this Hermes configuration guide.
+[OpenRouter notes and model shortlist](../../../ai-apis-services/openrouter/README.md) live separately from this Hermes configuration guide.
 
 Configure OpenRouter and its API key interactively with `hermes model`:
 

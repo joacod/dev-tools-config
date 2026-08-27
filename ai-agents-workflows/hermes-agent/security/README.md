@@ -10,7 +10,7 @@ The normal/default path is the [main Hermes README](../README.md) plus the [offi
 
 The setup uses:
 
-- a hardened Ubuntu VPS as the starting point ([VPS security](../../vps-security/README.md))
+- a hardened Ubuntu VPS as the starting point ([VPS security](../../../server-infrastructure/vps-security/README.md))
 - a dedicated `hermes` Linux user with no `sudo` by default
 - dedicated SSH access and a local `ssh hermes` alias
 - rootless Docker for Hermes instead of access to the system Docker daemon
@@ -22,7 +22,7 @@ The setup uses:
 
 ## Recommended setup path
 
-1. Complete the base [VPS security](../../vps-security/README.md) setup.
+1. Complete the base [VPS security](../../../server-infrastructure/vps-security/README.md) setup.
 2. Create the dedicated user and SSH alias in [SSH user setup](./ssh-user-setup.md).
 3. Install the Hermes CLI in [Install Hermes Agent](./install.md).
 4. Configure [rootless Docker](./docker-backend.md) if Hermes should execute commands in a separate Docker daemon.

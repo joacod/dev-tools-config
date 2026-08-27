@@ -6,7 +6,7 @@ This guide covers both global and project-local setups. The current setup in thi
 
 ## Prerequisites
 
-- Node.js and npm are available. The repository's [Node.js guide](../nvm-node) uses an LTS release.
+- Node.js and npm are available. The repository's [Node.js guide](../../developer-environment/nvm-node) uses an LTS release.
 - Pi is installed and starts with `pi`.
 - You run Pi from the project directory that should use Playwright.
 
