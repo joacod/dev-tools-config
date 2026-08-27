@@ -2,7 +2,7 @@
 
 My setup and notes for development tools, AI agents, and server utilities.
 
-## [AI coding harnesses](./ai-coding-harnesses)
+## AI coding harnesses
 
 | Name | Path | Description |
 | --- | --- | --- |
@@ -11,7 +11,7 @@ My setup and notes for development tools, AI agents, and server utilities.
 | Pi | [`./ai-coding-harnesses/pi`](./ai-coding-harnesses/pi) | Minimal, extensible terminal coding harness. |
 | OMP | [`./ai-coding-harnesses/omp`](./ai-coding-harnesses/omp) | Terminal coding agent with subagents, plan mode, LSP, DAP, and hashline edits. |
 
-## [AI agents & workflows](./ai-agents-workflows)
+## AI agents & workflows
 
 | Name | Path | Description |
 | --- | --- | --- |
@@ -27,13 +27,13 @@ My setup and notes for development tools, AI agents, and server utilities.
 | --- | --- | --- |
 | Local AI | [`local-ai`](https://github.com/joacod/local-ai) | Practical notes and small helpers for running open-source language models locally on Apple Silicon. |
 
-## [AI APIs & services](./ai-apis-services)
+## AI APIs & services
 
 | Name | Path | Description |
 | --- | --- | --- |
 | OpenRouter | [`./ai-apis-services/openrouter`](./ai-apis-services/openrouter) | Unified API and model catalog for multiple LLM providers. |
 
-## [Developer environment](./developer-environment)
+## Developer environment
 
 | Name | Path | Description |
 | --- | --- | --- |
@@ -42,7 +42,7 @@ My setup and notes for development tools, AI agents, and server utilities.
 | NVM and Node.js | [`./developer-environment/nvm-node`](./developer-environment/nvm-node) | Node version manager and Node.js runtime setup. |
 | Socket Firewall | [`./developer-environment/socket-firewall`](./developer-environment/socket-firewall) | Dependency install protection using Socket Firewall. |
 
-## [Server & infrastructure](./server-infrastructure)
+## Server & infrastructure
 
 | Name | Path | Description |
 | --- | --- | --- |
