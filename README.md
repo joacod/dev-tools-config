@@ -7,6 +7,7 @@ My setup and notes for development tools, AI agents, and server utilities.
 | Name | Path | Description |
 | --- | --- | --- |
 | Claude Code | [`./ai-coding-harnesses/claude-code`](./ai-coding-harnesses/claude-code) | Anthropic's terminal-based AI coding agent. |
+| Codex | [`./ai-coding-harnesses/codex`](./ai-coding-harnesses/codex) | OpenAI's terminal coding agent. |
 | OpenCode | [`./ai-coding-harnesses/opencode`](./ai-coding-harnesses/opencode) | Open source AI coding agent. |
 | Pi | [`./ai-coding-harnesses/pi`](./ai-coding-harnesses/pi) | Minimal, extensible terminal coding harness. |
 | OMP | [`./ai-coding-harnesses/omp`](./ai-coding-harnesses/omp) | Terminal coding agent with subagents, plan mode, LSP, DAP, and hashline edits. |
